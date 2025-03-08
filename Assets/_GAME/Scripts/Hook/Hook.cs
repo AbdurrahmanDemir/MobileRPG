@@ -41,8 +41,8 @@ public class Hook : MonoBehaviour
 
     public void StartThrow()
     {
-        length = -50;
-        strength = 3;
+        length = HookManager.instance.length-20;
+        strength = HookManager.instance.strength;
         heroCount = 0;
         float time = (-length) * 0.1f;
 
@@ -77,7 +77,7 @@ public class Hook : MonoBehaviour
             if (mainCamera.transform.position.y >= -11)
             {
                 transform.SetParent(null);
-                transform.position = new Vector2(transform.position.x, -6);
+                //transform.position = new Vector2(transform.position.x, -6);
             }
         }).OnComplete(delegate
         {
@@ -93,7 +93,7 @@ public class Hook : MonoBehaviour
 
             //IdleManager.insance.totalGain = num;
             //SceenEnd
-            Debug.Log("BITTI");
+            Debug.Log(num);
         });
     }
 
@@ -108,7 +108,6 @@ public class Hook : MonoBehaviour
             collision.transform.SetParent(transform);
             collision.transform.position = hookedTransform.position;
             collision.transform.rotation = hookedTransform.rotation;
-            collision.transform.localScale = Vector3.one;
 
             collision.transform.DOShakeRotation(5, Vector3.forward * 45, 10, 90, false).SetLoops(1, LoopType.Yoyo).OnComplete(delegate
             {
