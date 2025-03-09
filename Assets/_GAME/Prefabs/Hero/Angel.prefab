@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 363710152913310936}
   - component: {fileID: 520983788007291743}
   - component: {fileID: 6143651613705929715}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Angel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,6 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 3.5
   animator: {fileID: 0}
   healthSlider: {fileID: 0}
 --- !u!61 &6143651613705929715
@@ -190,7 +189,7 @@ GameObject:
   - component: {fileID: 5950196939653444892}
   - component: {fileID: 3710107112077512124}
   - component: {fileID: 2781086067691648721}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +317,7 @@ GameObject:
   - component: {fileID: 583288540359162834}
   - component: {fileID: 8802287543385999629}
   - component: {fileID: 1153666290967362520}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +419,7 @@ GameObject:
   - component: {fileID: 8585122890750650832}
   - component: {fileID: 4496790216833632700}
   - component: {fileID: 6628412127161168371}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: FillArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +508,7 @@ GameObject:
   - component: {fileID: 6505948522385423781}
   - component: {fileID: 6689595053500066971}
   - component: {fileID: 244601454605977062}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,8 +10,8 @@ public abstract class Enemy : MonoBehaviour
     int health;
 
     [Header("Elements")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private Slider healthSlider;
+    private Animator animator;
+    private Slider healthSlider;
 
     private void Start()
     {
@@ -47,7 +47,7 @@ public abstract class Enemy : MonoBehaviour
         {
             lastAttackTime = Time.time;
 
-            if (enemySO.isActiveAndEnabled)
+            if (enemySO.isAreaOfEffect)
             {
                 PerformAreaAttack();
             }

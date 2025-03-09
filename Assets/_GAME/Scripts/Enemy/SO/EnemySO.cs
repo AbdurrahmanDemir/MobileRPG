@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class EnemySO : MonoBehaviour
+[CreateAssetMenu(fileName = "Enemy", menuName = "Creat Enemy")]
+
+public class EnemySO : ScriptableObject
 {
     [Header("Enemy")]
     public string enemyName;

@@ -10,8 +10,8 @@ public abstract class Hero : MonoBehaviour
     int health;
 
     [Header("Elements")]
-    [SerializeField] private Animator animator;
-    [SerializeField] private Slider healthSlider;
+     private Animator animator;
+     private Slider healthSlider;
 
     private void Start()
     {

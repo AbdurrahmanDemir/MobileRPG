@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3a106fb2035134db35c0ee40356709, type: 3}
-  m_Name: AngelHero
+  m_Script: {fileID: 11500000, guid: cafd4d174a19eaa429c84ac86a200ff9, type: 3}
+  m_Name: Skeleton_1
   m_EditorClassIdentifier: 
-  heroName: Angel
-  heroImage: {fileID: 6860103759488702132, guid: b856d9f34fcb9fa4bbe2b33a3c2f6674, type: 3}
+  enemyName: Skeleton
+  enemyImage: {fileID: 5025148291701961715, guid: 7c2eaf2d016fdcd4ca977b7e9f460adf, type: 3}
   attackType: Melee
   isAreaOfEffect: 0
-  maxHealth: 500
+  maxHealth: 100
   damage: 10
-  range: 0.2
-  moveSpeed: 1
-  cooldown: 1.31
+  range: 0.3
+  moveSpeed: 3
+  cooldown: 1
