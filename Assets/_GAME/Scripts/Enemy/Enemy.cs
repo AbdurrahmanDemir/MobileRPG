@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Hero : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [Header("Settings")]
-    public HeroSO heroSO;
+    public EnemySO enemySO;
     protected float lastAttackTime = 0f;
     public LayerMask targetLayerMask;
     int health;
@@ -16,20 +16,20 @@ public abstract class Hero : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        healthSlider= GetComponentInChildren<Slider>();
-        healthSlider.maxValue = heroSO.maxHealth;
-        health = heroSO.maxHealth;
+        healthSlider = GetComponentInChildren<Slider>();
+        healthSlider.maxValue = enemySO.maxHealth;
+        health = enemySO.maxHealth;
         healthSlider.value = health;
     }
-
     void Update()
     {
         GameObject target = FindClosestTarget();
+
         if (target != null)
         {
             float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
 
-            if (distanceToTarget <= heroSO.range)
+            if (distanceToTarget <= enemySO.range)
             {
                 Attack(target);
             }
@@ -37,18 +37,17 @@ public abstract class Hero : MonoBehaviour
             {
                 MoveTowardsTarget(target.transform.position);
                 animator.Play("run");
-
             }
         }
     }
+
     protected virtual void Attack(GameObject target)
     {
-        if(Time.time- lastAttackTime>= heroSO.cooldown)
+        if(Time.time- lastAttackTime>= enemySO.cooldown)
         {
             lastAttackTime = Time.time;
 
-
-            if (heroSO.isAreaOfEffect)
+            if (enemySO.isActiveAndEnabled)
             {
                 PerformAreaAttack();
             }
@@ -59,9 +58,9 @@ public abstract class Hero : MonoBehaviour
             }
         }
     }
+
     protected abstract void PerformSingleTargetAttack(GameObject target);
     protected abstract void PerformAreaAttack();
-
     protected GameObject FindClosestTarget()
     {
         GameObject closestTarget = null;
@@ -71,28 +70,27 @@ public abstract class Hero : MonoBehaviour
         foreach (var target in potentialTargets)
         {
             float distance = Vector2.Distance(transform.position, target.transform.position);
-            if (distance < closestDistance)
+            if(distance < closestDistance)
             {
                 closestDistance = distance;
                 closestTarget = target.gameObject;
             }
         }
-
         return closestTarget;
     }
     private void MoveTowardsTarget(Vector2 targetPosition)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, heroSO.moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySO.moveSpeed * Time.deltaTime);
     }
 
     public virtual void HeroTakeDamage(int damage)
     {
-        health-=damage;
+        health -= damage;
         healthSlider.value = health;
 
         if (health <= 0)
         {
-            Debug.Log("hero öldü");
+            Debug.Log("enemy öldü");
         }
     }
 }

@@ -1,12 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Hero", menuName = "Creat Hero")]
-public class HeroSO : ScriptableObject
+public class EnemySO : MonoBehaviour
 {
-    [Header("Hero")]
-    public string heroName;
-    public Sprite heroImage;
-    [Header("Hero Settings")]
+    [Header("Enemy")]
+    public string enemyName;
+    public Sprite enemyImage;
+    [Header("Enemy Settings")]
     public string attackType;
     public bool isAreaOfEffect;
     public int maxHealth;
@@ -15,4 +14,3 @@ public class HeroSO : ScriptableObject
     public float moveSpeed;
     public float cooldown;
 }
-

@@ -41,8 +41,8 @@ public class Hook : MonoBehaviour
 
     public void StartThrow()
     {
-        length = HookManager.instance.length-20;
-        strength = HookManager.instance.strength;
+        length = HookManager.instance.hookLength-20;
+        strength = HookManager.instance.hookStrength;
         heroCount = 0;
         float time = (-length) * 0.1f;
 

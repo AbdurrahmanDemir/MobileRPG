@@ -1,32 +1,37 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class HookManager : MonoBehaviour
 {
     public static HookManager instance;
 
-    [HideInInspector]
-    public int length;
+    [Header("Settings")]
+    public int hookLength;
+    public int hookStrength;
+    [SerializeField] private int offlineEarnings;
+    [SerializeField] private int lengthCost;
+    [SerializeField] private int strengthCost;
+    [SerializeField] private int offlineEarningsCost;
+    [SerializeField] private int wallet;
+    [SerializeField] private int totalGain;
 
-    [HideInInspector]
-    public int strength;
 
-    [HideInInspector]
-    public int offlineEarnings;
+    [Header("UI Settings")]
+    public Button lengthButton;
+    public Button strengthButton;
+    public Button offlineButton;
 
-    [HideInInspector]
-    public int lengthCost;
-
-    [HideInInspector]
-    public int strengthCost;
-
-    [HideInInspector]
-    public int offlineEarningsCost;
-
-    [HideInInspector]
-    public int wallet;
-
-    [HideInInspector]
-    public int totalGain;
+    public TextMeshProUGUI gameScreenMoney;
+    public TextMeshProUGUI lengthCostText;
+    public TextMeshProUGUI lengthValueText;
+    public TextMeshProUGUI strengthCostText;
+    public TextMeshProUGUI strengthValueText;
+    public TextMeshProUGUI offlineCostText;
+    public TextMeshProUGUI offlineValueText;
+    public TextMeshProUGUI endScreenMoney;
+    public TextMeshProUGUI returnScreenMoney;
 
     private int[] costs = new int[]
   {
@@ -60,33 +65,38 @@ public class HookManager : MonoBehaviour
 
         LoadData();
     }
+    void Start()
+    {
+        CheckIdles();
+        UpdateTexts();
+    }
     void LoadData()
     {
-        length = -PlayerPrefs.GetInt("Length", 30);
-        strength = PlayerPrefs.GetInt("Strength", 3);
+        hookLength = -PlayerPrefs.GetInt("Length", 30);
+        hookStrength = PlayerPrefs.GetInt("Strength", 3);
         offlineEarnings = PlayerPrefs.GetInt("Offline", 3);
-        lengthCost = costs[-length / 10 - 3];
-        strengthCost = costs[strength - 3];
+        lengthCost = costs[-hookLength / 10 - 3];
+        strengthCost = costs[hookStrength - 3];
         offlineEarningsCost = costs[offlineEarnings - 3];
-        wallet = PlayerPrefs.GetInt("Wallet", 0);
+        wallet = PlayerPrefs.GetInt("Wallet", 50000);
     }
 
     public void BuyLength()
     {
-        length -= 10;
+        hookLength -= 10;
         wallet -= lengthCost;
-        lengthCost = costs[-length / 10 - 3];
-        PlayerPrefs.SetInt("Length", -length);
+        lengthCost = costs[-hookLength / 10 - 3];
+        PlayerPrefs.SetInt("Length", -hookLength);
         PlayerPrefs.SetInt("Wallet", wallet);
         //ScreensManager.instance.ChangeScreen(Screens.MAIN);
     }
 
     public void BuyStrength()
     {
-        strength++;
+        hookStrength++;
         wallet -= strengthCost;
-        strengthCost = costs[strength - 3];
-        PlayerPrefs.SetInt("Strength", strength);
+        strengthCost = costs[hookStrength - 3];
+        PlayerPrefs.SetInt("Strength", hookStrength);
         PlayerPrefs.SetInt("Wallet", wallet);
         //ScreensManager.instance.ChangeScreen(Screens.MAIN);
     }
@@ -113,5 +123,32 @@ public class HookManager : MonoBehaviour
         wallet += totalGain * 2;
         PlayerPrefs.SetInt("Wallet", wallet);
         //ScreensManager.instance.ChangeScreen(Screens.MAIN);
+    }
+    public void UpdateTexts()
+    {
+        lengthCostText.text = "$" + lengthCost;
+        lengthValueText.text = -hookLength + "m";
+        strengthCostText.text = "$" + strengthCost;
+        strengthValueText.text = hookStrength + " fishes.";
+        offlineCostText.text = "$" + offlineEarningsCost;
+        offlineValueText.text = "$" + offlineEarnings + "/min";
+    }
+
+    public void CheckIdles()
+    {        
+        if (wallet < lengthCost)
+            lengthButton.interactable = false;
+        else
+            lengthButton.interactable = true;
+
+        if (wallet < strengthCost)
+            strengthButton.interactable = false;
+        else
+            strengthButton.interactable = true;
+
+        if (wallet < offlineEarningsCost)
+            offlineButton.interactable = false;
+        else
+            offlineButton.interactable = true;
     }
 }
