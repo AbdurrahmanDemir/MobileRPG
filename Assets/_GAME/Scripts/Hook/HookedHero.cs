@@ -63,6 +63,11 @@ public class HookedHero : MonoBehaviour
 
     }
 
+    public string GetHeroName()
+    {
+        return type.name;
+    }
+
     public void Hooked()
     {
         coll.enabled = false;
@@ -72,6 +77,8 @@ public class HookedHero : MonoBehaviour
     [Serializable]
     public class HeroType
     {
+        public string name;
+
         public int price;
 
         public float heroCount;

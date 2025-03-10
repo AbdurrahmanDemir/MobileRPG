@@ -1,6 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using static UnityEngine.GraphicsBuffer;
 
@@ -17,9 +17,12 @@ public class Hook : MonoBehaviour
 
     private bool canMove=true;
 
-    private List<HookedHero> hookedHero;
+    public List<HookedHero> hookedHero;
 
     private Tweener cameraTween;
+
+    public static Action onThrowStarting;
+    public static Action onThrowEnding;
 
     private void Awake()
     {
@@ -66,6 +69,8 @@ public class Hook : MonoBehaviour
         coll.enabled = false;
         canMove = true;
         hookedHero.Clear();
+
+        onThrowStarting?.Invoke();
     }
 
     public void StopThrow()
@@ -94,6 +99,7 @@ public class Hook : MonoBehaviour
             //IdleManager.insance.totalGain = num;
             //SceenEnd
             Debug.Log(num);
+            onThrowEnding?.Invoke();
         });
     }
 
