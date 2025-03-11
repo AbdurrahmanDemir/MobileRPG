@@ -93,6 +93,8 @@ public abstract class Hero : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("hero öldü");
+            Destroy(gameObject);
+
         }
     }
 }

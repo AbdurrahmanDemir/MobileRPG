@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     public void StartWave()
     {
         upgradeHookPanel.SetActive(false);
+        throwStartingButton.SetActive(true);
         Time.timeScale = 1f;
     }
 }

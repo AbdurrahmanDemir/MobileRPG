@@ -91,6 +91,7 @@ public abstract class Enemy : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("enemy öldü");
+            Destroy(gameObject);
         }
     }
 }
