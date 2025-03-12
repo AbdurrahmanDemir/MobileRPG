@@ -86,7 +86,7 @@ public class Hook : MonoBehaviour
             }
         }).OnComplete(delegate
         {
-            transform.position = Vector2.down * 6;
+            transform.position = Vector2.down *10;
             coll.enabled = true;
             int num = 0;
             for (int i = 0; i < hookedHero.Count; i++)

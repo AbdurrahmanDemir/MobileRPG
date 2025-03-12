@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
             switch (hook.hookedHero[i].GetHeroName())
             {
                 case "Angel":
-                    Instantiate(allHeroes[0], creatHeroPosition[0]);
+                    int RandomPos = Random.Range(0, creatHeroPosition.Length);
+                    Instantiate(allHeroes[0], creatHeroPosition[RandomPos]);
                     break;
             }
         }

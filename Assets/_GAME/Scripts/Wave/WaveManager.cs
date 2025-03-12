@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using Random = UnityEngine.Random;
 
-
 public class WaveManager : MonoBehaviour
 {
     [Header("Elements")]
@@ -14,13 +13,16 @@ public class WaveManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float timer;
     private bool isTimerOn;
+    private int currentWaveIndex;
     private int currentSegmentIndex;
+    private int currentEnemyIndex;
+    private int currentEnemyCount;
+    private float segmentDelay = 5f; // Delay between segments
 
     private void Start()
     {
         StartWaves(0);
         isTimerOn = true;
-
     }
 
     private void Update()
@@ -29,54 +31,94 @@ public class WaveManager : MonoBehaviour
             return;
 
         ManageCurrentWave();
-
-
     }
 
     void StartWaves(int index)
     {
-        currentWave= waves[index];
+        currentWaveIndex = index;
+        currentSegmentIndex = 0;
+        currentEnemyIndex = 0;
+        currentWave = waves[currentWaveIndex];
+        isTimerOn = true;
+        SetupNextSegment();
     }
 
     private void ManageCurrentWave()
     {
-        currentSegmentIndex= 0;
-
-        currentWave = waves[currentSegmentIndex];
-
-        for (int i = 0; i < currentWave.segments.Count; i++)
+        if (currentSegmentIndex >= currentWave.segments.Count)
         {
-            WaveSegmet segmet = currentWave.segments[i];
-            int segmentEnemyIndex = 0;
-            int enemyCount = segmet.segmentEnemys[segmentEnemyIndex].enemyCount;
+            isTimerOn = false;
+            Debug.Log("Wave Completed");
+            return;
+        }
 
-            if (segmentEnemyIndex >= segmet.segmentEnemys.Length)
+        WaveSegmet currentSegment = currentWave.segments[currentSegmentIndex];
+
+        timer += Time.deltaTime;
+
+        if (timer >= currentSegment.segmetDuration)
+        {
+            if (SpawnEnemy(currentSegment))
             {
+                timer = 0;
+            }
+            else
+            {
+                // Move to the next segment after a delay
                 currentSegmentIndex++;
-                isTimerOn= false;
-            }
-
-            for (int t = 0; t < enemyCount; t++)
-            {
-                timer += Time.deltaTime;
-
-                int randomCreatPos = Random.Range(0, creatEnemyPosition.Length);
-
-                if (timer >= segmet.segmetDuration)
+                if (currentSegmentIndex < currentWave.segments.Count)
                 {
-                    Instantiate(segmet.segmentEnemys[t].enemy, creatEnemyPosition[randomCreatPos]);
-                    timer = 0;
+                    Invoke("StartNextSegment", segmentDelay);
                 }
-
+                else
+                {
+                    if (currentWaveIndex + 1 < waves.Length)
+                    {
+                        StartWaves(currentWaveIndex + 1);
+                    }
+                }
             }
-            segmentEnemyIndex++;
-
-
-
         }
     }
 
-    
+    private void StartNextSegment()
+    {
+        isTimerOn = true;
+        SetupNextSegment();
+    }
+
+    private void SetupNextSegment()
+    {
+        currentEnemyIndex = 0;
+        if (currentSegmentIndex < currentWave.segments.Count)
+        {
+            currentEnemyCount = currentWave.segments[currentSegmentIndex].segmentEnemys[currentEnemyIndex].enemyCount;
+        }
+    }
+
+    private bool SpawnEnemy(WaveSegmet segment)
+    {
+        if (currentEnemyCount <= 0)
+        {
+            currentEnemyIndex++;
+            if (currentEnemyIndex < segment.segmentEnemys.Length)
+            {
+                currentEnemyCount = segment.segmentEnemys[currentEnemyIndex].enemyCount;
+            }
+            else
+            {
+                return false; 
+            }
+        }
+
+        int randomCreatPos = Random.Range(0, creatEnemyPosition.Length);
+        Instantiate(
+            segment.segmentEnemys[currentEnemyIndex].enemy[Random.Range(0, segment.segmentEnemys[currentEnemyIndex].enemy.Length)],
+            creatEnemyPosition[randomCreatPos].position,
+            Quaternion.identity);
+        currentEnemyCount--;
+        return true;
+    }
 }
 
 [Serializable]
@@ -85,6 +127,7 @@ public struct Wave
     public string waveName;
     public List<WaveSegmet> segments;
 }
+
 [Serializable]
 public struct WaveSegmet
 {
@@ -95,6 +138,6 @@ public struct WaveSegmet
 [Serializable]
 public struct WaveSegmentEnemyManage
 {
-    public GameObject enemy;
+    public GameObject[] enemy;
     public int enemyCount;
 }
