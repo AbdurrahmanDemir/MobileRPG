@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using DG.Tweening;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -9,13 +11,38 @@ public abstract class Enemy : MonoBehaviour
     public LayerMask targetLayerMask;
     int health;
 
+
     [Header("Elements")]
     private Animator animator;
     private Slider healthSlider;
+    public SpriteRenderer characterSpriteRenderer;
+    private Color originalColor;
+    private Vector2 originalScale;
+    public Vector2 scaleReduction = new Vector3(0.9f, 0.9f, 1f);
+
+    [Header("Action")]
+    private bool onThrow=false;
+    public static Action<Vector2> onDead;
+
+    private void Awake()
+    {
+        Hook.onThrowStarting += OnThrowStartingCallBack;
+        Hook.onThrowEnding += OnThrowEndingCallBack;
+    }
+    private void OnDestroy()
+    {
+        Hook.onThrowStarting -= OnThrowStartingCallBack;
+        Hook.onThrowEnding -= OnThrowEndingCallBack;
+    }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+
+        characterSpriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = characterSpriteRenderer.color;
+        originalScale = transform.localScale;
+
         healthSlider = GetComponentInChildren<Slider>();
         healthSlider.maxValue = enemySO.maxHealth;
         health = enemySO.maxHealth;
@@ -28,6 +55,9 @@ public abstract class Enemy : MonoBehaviour
         if (target != null)
         {
             float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
+
+            if (onThrow)
+                return;
 
             if (distanceToTarget <= enemySO.range)
             {
@@ -88,10 +118,34 @@ public abstract class Enemy : MonoBehaviour
         health -= damage;
         healthSlider.value = health;
 
+        characterSpriteRenderer.DOColor(Color.gray, 0.1f).OnComplete(() =>
+        {
+            characterSpriteRenderer.DOColor(originalColor, 0.1f).SetDelay(0.1f);
+        });
+        transform.DOScale(originalScale * scaleReduction, 0.1f).OnComplete(() =>
+        {
+            transform.DOScale(originalScale, 0.1f);
+        });
+
+
         if (health <= 0)
         {
             Debug.Log("enemy öldü");
+            onDead?.Invoke(transform.position);
             Destroy(gameObject);
         }
     }
+
+    public void OnThrowStartingCallBack()
+    {
+        onThrow = true;
+        Debug.Log("Avtipn çalýþtý" + onThrow);
+    }
+    public void OnThrowEndingCallBack()
+    {
+        onThrow = false;
+        Debug.Log("Avtipn çalýþtý" + onThrow);
+
+    }
+
 }

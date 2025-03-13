@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Wave[] waves;
     private Wave currentWave;
     [SerializeField] private Transform[] creatEnemyPosition;
+    [SerializeField] private WaveUIManager waveUI;
 
     [Header("Settings")]
     [SerializeField] private float timer;
@@ -18,6 +19,20 @@ public class WaveManager : MonoBehaviour
     private int currentEnemyIndex;
     private int currentEnemyCount;
     private float segmentDelay = 5f; // Delay between segments
+
+    [Header("Action")]
+    private bool onThrow = false;
+
+    private void Awake()
+    {
+        Hook.onThrowStarting += OnThrowStartingCallBack;
+        Hook.onThrowEnding += OnThrowEndingCallBack;
+    }
+    private void OnDestroy()
+    {
+        Hook.onThrowStarting -= OnThrowStartingCallBack;
+        Hook.onThrowEnding -= OnThrowEndingCallBack;
+    }
 
     private void Start()
     {
@@ -41,6 +56,7 @@ public class WaveManager : MonoBehaviour
         currentWave = waves[currentWaveIndex];
         isTimerOn = true;
         SetupNextSegment();
+        waveUI.waveSegmentText.text = "Wave " + currentSegmentIndex + " / " + currentWave.segments.Count;
     }
 
     private void ManageCurrentWave()
@@ -51,6 +67,10 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Wave Completed");
             return;
         }
+
+        if (onThrow)
+            return;
+
 
         WaveSegmet currentSegment = currentWave.segments[currentSegmentIndex];
 
@@ -66,6 +86,7 @@ public class WaveManager : MonoBehaviour
             {
                 // Move to the next segment after a delay
                 currentSegmentIndex++;
+                waveUI.waveSegmentText.text = "Wave " + currentSegmentIndex + " / " + currentWave.segments.Count;
                 if (currentSegmentIndex < currentWave.segments.Count)
                 {
                     Invoke("StartNextSegment", segmentDelay);
@@ -115,9 +136,22 @@ public class WaveManager : MonoBehaviour
         Instantiate(
             segment.segmentEnemys[currentEnemyIndex].enemy[Random.Range(0, segment.segmentEnemys[currentEnemyIndex].enemy.Length)],
             creatEnemyPosition[randomCreatPos].position,
-            Quaternion.identity);
+            Quaternion.Euler(0f, 180f, 0f));
+        ;
         currentEnemyCount--;
         return true;
+    }
+
+    public void OnThrowStartingCallBack()
+    {
+        onThrow = true;
+        Debug.Log("Avtipn çalýþtý" + onThrow);
+    }
+    public void OnThrowEndingCallBack()
+    {
+        onThrow = false;
+        Debug.Log("Avtipn çalýþtý" + onThrow);
+
     }
 }
 

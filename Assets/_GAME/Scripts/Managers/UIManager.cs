@@ -27,13 +27,11 @@ public class UIManager : MonoBehaviour
     void EndingThrow()
     {
         upgradeHookPanel.SetActive(true);
-        Time.timeScale = 0f;
     }
 
     public void StartWave()
     {
         upgradeHookPanel.SetActive(false);
         throwStartingButton.SetActive(true);
-        Time.timeScale = 1f;
     }
 }

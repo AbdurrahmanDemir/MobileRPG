@@ -13,6 +13,20 @@ public abstract class Hero : MonoBehaviour
      private Animator animator;
      private Slider healthSlider;
 
+    [Header("Action")]
+    private bool onThrow = false;
+
+    private void Awake()
+    {
+        Hook.onThrowStarting += OnThrowStartingCallBack;
+        Hook.onThrowEnding += OnThrowEndingCallBack;
+    }
+    private void OnDestroy()
+    {
+        Hook.onThrowStarting -= OnThrowStartingCallBack;
+        Hook.onThrowEnding -= OnThrowEndingCallBack;
+    }
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -28,6 +42,10 @@ public abstract class Hero : MonoBehaviour
         if (target != null)
         {
             float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
+
+            if (onThrow)
+                return;
+
 
             if (distanceToTarget <= heroSO.range)
             {
@@ -96,5 +114,18 @@ public abstract class Hero : MonoBehaviour
             Destroy(gameObject);
 
         }
+    }
+
+    public void OnThrowStartingCallBack()
+    {
+        onThrow = true;
+        Debug.Log("Avtipn çalýþtý" + onThrow);
+    }
+    public void OnThrowEndingCallBack()
+    {
+        onThrow = false;
+
+        Debug.Log("Avtipn çalýþtý" + onThrow);
+
     }
 }
