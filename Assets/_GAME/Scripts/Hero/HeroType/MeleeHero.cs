@@ -8,7 +8,7 @@ public class MeleeHero : Hero
         target.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
     }
 
-    protected override void PerformAreaAttack()
+    protected override void PerformAreaAttack(GameObject target)
     {
         // Alan hasarý uygulanmaz
     }

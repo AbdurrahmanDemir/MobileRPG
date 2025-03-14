@@ -15,7 +15,7 @@ public abstract class Enemy : MonoBehaviour
     [Header("Elements")]
     private Animator animator;
     private Slider healthSlider;
-    public SpriteRenderer characterSpriteRenderer;
+    SpriteRenderer characterSpriteRenderer;
     private Color originalColor;
     private Vector2 originalScale;
     public Vector2 scaleReduction = new Vector3(0.9f, 0.9f, 1f);
@@ -79,7 +79,7 @@ public abstract class Enemy : MonoBehaviour
 
             if (enemySO.isAreaOfEffect)
             {
-                PerformAreaAttack();
+                PerformAreaAttack(target);
             }
             else
             {
@@ -90,7 +90,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected abstract void PerformSingleTargetAttack(GameObject target);
-    protected abstract void PerformAreaAttack();
+    protected abstract void PerformAreaAttack(GameObject target);
     protected GameObject FindClosestTarget()
     {
         GameObject closestTarget = null;

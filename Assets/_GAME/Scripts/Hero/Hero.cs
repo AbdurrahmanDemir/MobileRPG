@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,10 @@ public abstract class Hero : MonoBehaviour
     [Header("Elements")]
      private Animator animator;
      private Slider healthSlider;
+    SpriteRenderer characterSpriteRenderer;
+    private Color originalColor;
+    private Vector2 originalScale;
+    public Vector2 scaleReduction = new Vector3(0.9f, 0.9f, 1f);
 
     [Header("Action")]
     private bool onThrow = false;
@@ -30,7 +35,12 @@ public abstract class Hero : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
-        healthSlider= GetComponentInChildren<Slider>();
+
+        characterSpriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = characterSpriteRenderer.color;
+        originalScale = transform.localScale;
+
+        healthSlider = GetComponentInChildren<Slider>();
         healthSlider.maxValue = heroSO.maxHealth;
         health = heroSO.maxHealth;
         healthSlider.value = health;
@@ -50,6 +60,7 @@ public abstract class Hero : MonoBehaviour
             if (distanceToTarget <= heroSO.range)
             {
                 Attack(target);
+
             }
             else
             {
@@ -61,6 +72,7 @@ public abstract class Hero : MonoBehaviour
     }
     protected virtual void Attack(GameObject target)
     {
+
         if(Time.time- lastAttackTime>= heroSO.cooldown)
         {
             lastAttackTime = Time.time;
@@ -68,7 +80,8 @@ public abstract class Hero : MonoBehaviour
 
             if (heroSO.isAreaOfEffect)
             {
-                PerformAreaAttack();
+                PerformAreaAttack(target);
+                animator.Play("attack");
             }
             else
             {
@@ -78,7 +91,7 @@ public abstract class Hero : MonoBehaviour
         }
     }
     protected abstract void PerformSingleTargetAttack(GameObject target);
-    protected abstract void PerformAreaAttack();
+    protected abstract void PerformAreaAttack(GameObject target);
 
     protected GameObject FindClosestTarget()
     {
@@ -107,6 +120,16 @@ public abstract class Hero : MonoBehaviour
     {
         health-=damage;
         healthSlider.value = health;
+
+        characterSpriteRenderer.DOColor(Color.red, 0.1f).OnComplete(() =>
+        {
+            characterSpriteRenderer.DOColor(originalColor, 0.1f).SetDelay(0.1f);
+        });
+        transform.DOScale(originalScale * scaleReduction, 0.1f).OnComplete(() =>
+        {
+            transform.DOScale(originalScale, 0.1f);
+        });
+
 
         if (health <= 0)
         {
