@@ -26,7 +26,8 @@ public class UIManager : MonoBehaviour
 
     void EndingThrow()
     {
-        upgradeHookPanel.SetActive(true);
+        upgradeHookPanel.SetActive(false);
+        throwStartingButton.SetActive(true);
     }
 
     public void StartWave()

@@ -52,7 +52,7 @@ public class DeadParticleManager : MonoBehaviour
         bloodPaticleInstance.transform.position = createPosition;
 
         DOTween.Sequence()
-            .AppendInterval(1)
+            .AppendInterval(3)
             .AppendCallback(() => deadParticlePool.Release(bloodPaticleInstance));
     }
 }

@@ -89,6 +89,8 @@ public class HookManager : MonoBehaviour
         PlayerPrefs.SetInt("Length", -hookLength);
         PlayerPrefs.SetInt("Wallet", wallet);
         //ScreensManager.instance.ChangeScreen(Screens.MAIN);
+        UpdateTexts();
+
     }
 
     public void BuyStrength()
@@ -99,6 +101,8 @@ public class HookManager : MonoBehaviour
         PlayerPrefs.SetInt("Strength", hookStrength);
         PlayerPrefs.SetInt("Wallet", wallet);
         //ScreensManager.instance.ChangeScreen(Screens.MAIN);
+        UpdateTexts();
+
     }
 
     public void BuyOfflineEarnings()
@@ -109,6 +113,8 @@ public class HookManager : MonoBehaviour
         PlayerPrefs.SetInt("Offline", offlineEarnings);
         PlayerPrefs.SetInt("Wallet", wallet);
         //ScreensManager.instance.ChangeScreen(Screens.MAIN);
+        UpdateTexts();
+
     }
 
     public void CollectMoney()
@@ -126,11 +132,11 @@ public class HookManager : MonoBehaviour
     }
     public void UpdateTexts()
     {
-        lengthCostText.text = "$" + lengthCost;
+        lengthCostText.text = lengthCost.ToString();
         lengthValueText.text = -hookLength + "m";
-        strengthCostText.text = "$" + strengthCost;
+        strengthCostText.text = strengthCost.ToString();
         strengthValueText.text = hookStrength + " fishes.";
-        offlineCostText.text = "$" + offlineEarningsCost;
+        offlineCostText.text = offlineEarningsCost.ToString();
         offlineValueText.text = "$" + offlineEarnings + "/min";
     }
 
