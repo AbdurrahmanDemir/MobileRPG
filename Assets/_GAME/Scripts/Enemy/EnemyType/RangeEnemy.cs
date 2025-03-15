@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System;
 
 public class RangeEnemy : Enemy
 {
@@ -7,18 +8,20 @@ public class RangeEnemy : Enemy
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletTransform;
 
-    private void Start()
-    {
-        bulletTransform = GetComponentInChildren<Transform>();
-    }
+    [Header("Action")]
+    public static Action<Vector2,GameObject,EnemySO,Transform> onEnemyBulletInstante;
+
     protected override void PerformAreaAttack(GameObject target)
     {
-        GameObject bulletInstance = Instantiate(bullet, bulletTransform);
-        bulletInstance.transform.position = Vector2.MoveTowards(transform.position, target.transform.position, 2 * Time.deltaTime);
-        //bulletInstance.GetComponent<AngelBulletController>().heroSO =
+
     }
 
     protected override void PerformSingleTargetAttack(GameObject target)
     {
+        onEnemyBulletInstante?.Invoke(bulletTransform.position,target,enemySO,bulletTransform);
+        //GameObject bulletInstance = Instantiate(bullet, bulletTransform);
+        //bulletInstance.transform.position = bulletTransform.position;
+        //bulletInstance.GetComponent<SkeletonBulletController>().targetPosition = target.transform.position;
+        //bulletInstance.GetComponent<SkeletonBulletController>().enemySO = enemySO;
     }
 }

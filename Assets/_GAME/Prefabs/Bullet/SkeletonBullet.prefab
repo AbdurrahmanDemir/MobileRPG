@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5419293632543914481}
   - component: {fileID: 5296910119126835801}
-  - component: {fileID: 863422586535444923}
   - component: {fileID: 3240739257531802642}
   - component: {fileID: 6000109325273914063}
   - component: {fileID: 7682235473888994389}
+  - component: {fileID: 6396284677728951805}
   m_Layer: 0
-  m_Name: AngelBullet
+  m_Name: SkeletonBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2078705761352428573}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.68, y: 1.71, z: 0}
+  m_LocalPosition: {x: 1.78, y: 1.68, z: 0}
   m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.10142388, g: 0.9234548, b: 0.97735846, a: 1}
+  m_Color: {r: 0.45882356, g: 0.32941177, b: 0.31764707, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -91,20 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &863422586535444923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078705761352428573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb323807fcd96634db81d145e344a8ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heroSO: {fileID: 0}
-  targetPosition: {x: 0, y: 0}
 --- !u!50 &3240739257531802642
 Rigidbody2D:
   serializedVersion: 5
@@ -223,7 +209,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.078142166
+        value: 0.07284737
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -253,8 +239,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.121568635, g: 0.9176471, b: 0.9686275, a: 1}
-      key1: {r: 0.10196079, g: 0.9215687, b: 0.97647065, a: 1}
+      key0: {r: 0.45882356, g: 0.32941177, b: 0.31764707, a: 1}
+      key1: {r: 0.45882356, g: 0.32941177, b: 0.31764707, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -293,3 +279,17 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6396284677728951805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078705761352428573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8575fea3da30f943ad8c9ada1d4e1b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySO: {fileID: 0}
+  targetPosition: {x: 0, y: 0}

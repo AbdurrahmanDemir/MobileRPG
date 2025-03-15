@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class HeroSpawner : MonoBehaviour
 {
+    [SerializeField] private Transform hookHeroTransform;
+
     void Awake()
     {
         for (int i = 0; i < heroTypes.Length; i++)
@@ -9,7 +11,7 @@ public class HeroSpawner : MonoBehaviour
             int num = 0;
             while (num < heroTypes[i].heroCount)
             {
-                HookedHero hero = UnityEngine.Object.Instantiate<HookedHero>(heroPrefabs);
+                HookedHero hero = UnityEngine.Object.Instantiate<HookedHero>(heroPrefabs,hookHeroTransform);
                 hero.Type = heroTypes[i];
                 hero.ResetHero();
                 num++;

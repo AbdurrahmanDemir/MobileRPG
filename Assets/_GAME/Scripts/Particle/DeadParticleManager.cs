@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class ParticleManager : MonoBehaviour
+public class DeadParticleManager : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] private GameObject deadParticlePrefabs;

@@ -7,6 +7,7 @@ TagManager:
   - HookedHero
   - Hero
   - Tower
+  - Enemy
   layers:
   - Default
   - TransparentFX

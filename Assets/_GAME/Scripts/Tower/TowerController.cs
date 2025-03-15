@@ -2,6 +2,7 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TowerController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class TowerController : MonoBehaviour
 
     [Header("Elements")]
     private Slider healthSlider;
+    [SerializeField] private TextMeshProUGUI healthText;
     SpriteRenderer towerSpriteRenderer;
     private Color originalColor;
     private Vector2 originalScale;
@@ -28,12 +30,15 @@ public class TowerController : MonoBehaviour
         healthSlider.maxValue = towerSO.maxHealth;
         health = towerSO.maxHealth;
         healthSlider.value = health;
+        healthText.text=health.ToString();
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
         healthSlider.value = health;
+        healthText.text = health.ToString();
+
 
         towerSpriteRenderer.DOColor(Color.gray, 0.1f).OnComplete(() =>
         {
