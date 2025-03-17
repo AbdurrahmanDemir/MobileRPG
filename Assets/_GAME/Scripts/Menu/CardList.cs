@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,10 +35,13 @@ public class CardList : MonoBehaviour
     }
     public void CardDetailsPanel(int index)
     {
-        heroCardDetailsPrefabs.SetActive(true);
+        //heroCardDetailsPrefabs.SetActive(true);
 
-        //GameObject cardDetails = Instantiate(heroCardDetailsPrefabs, heroDetailsTransform);
-        //MenuHeroDetails cardScript= cardDetails.gameObject.GetComponent<MenuHeroDetails>();
+        GameObject cardDetails = Instantiate(heroCardDetailsPrefabs, heroDetailsTransform);
+        MenuHeroDetails cardScript = cardDetails.gameObject.GetComponent<MenuHeroDetails>();
+
+        cardDetails.transform.localScale = Vector3.zero;
+        cardDetails.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
 
         heroCardDetailsPrefabs.GetComponent<MenuHeroDetails>().Config(
             heroes[index].name,

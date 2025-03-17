@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2629138569536655042, guid: ab75fb358edd99b4cad2827abbd00fda, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -130,6 +130,7 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  scaleReduction: {x: 0.9, y: 0.9}
 --- !u!61 &6143651613705929715
 BoxCollider2D:
   m_ObjectHideFlags: 0

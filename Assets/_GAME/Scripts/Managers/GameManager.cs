@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
                     int RandomPos = Random.Range(0, creatHeroPosition.Length);
                     Instantiate(allHeroes[0], creatHeroPosition[RandomPos]);
                     break;
+                case "Range Angel":
+                    int RandomPos1 = Random.Range(0, creatHeroPosition.Length);
+                    Instantiate(allHeroes[1], creatHeroPosition[RandomPos1]);
+                    break;
             }
         }
     }

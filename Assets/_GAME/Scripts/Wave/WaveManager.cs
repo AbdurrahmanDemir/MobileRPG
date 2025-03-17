@@ -5,6 +5,8 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager instance;
+
     [Header("Elements")]
     [SerializeField] private Wave[] waves;
     private Wave currentWave;
@@ -25,6 +27,11 @@ public class WaveManager : MonoBehaviour
 
     private void Awake()
     {
+        if(instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+
         Hook.onThrowStarting += OnThrowStartingCallBack;
         Hook.onThrowEnding += OnThrowEndingCallBack;
     }
@@ -34,11 +41,11 @@ public class WaveManager : MonoBehaviour
         Hook.onThrowEnding -= OnThrowEndingCallBack;
     }
 
-    private void Start()
-    {
-        StartWaves(0);
-        isTimerOn = true;
-    }
+    //private void Start()
+    //{
+    //    //StartWaves(0);
+    //    //isTimerOn = true;
+    //}
 
     private void Update()
     {
@@ -48,7 +55,7 @@ public class WaveManager : MonoBehaviour
         ManageCurrentWave();
     }
 
-    void StartWaves(int index)
+    public void StartWaves(int index)
     {
         currentWaveIndex = index;
         currentSegmentIndex = 0;

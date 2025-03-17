@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,6 +49,20 @@ public class MenuHeroDetails : MonoBehaviour
                 break;
         }
 
+    }
+    public void TogglePanel()
+    {
+        if (gameObject.activeSelf)
+        {
+            gameObject.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
+            Destroy(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            gameObject.transform.localScale = Vector3.zero;
+            gameObject.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+        }
     }
 
 
