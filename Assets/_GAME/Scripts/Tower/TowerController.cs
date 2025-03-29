@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class TowerController : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class TowerController : MonoBehaviour
     private Vector2 originalScale;
     public Vector2 scaleReduction = new Vector3(0.9f, 0.9f, 1f);
 
+    public static Action onGameLose;
+
     private void Start()
     {
         towerSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -31,6 +34,18 @@ public class TowerController : MonoBehaviour
         health = towerSO.maxHealth;
         healthSlider.value = health;
         healthText.text=health.ToString();
+    }
+    public void ResetTower()
+    {
+        towerSpriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = towerSpriteRenderer.color;
+        originalScale = transform.localScale;
+
+        healthSlider = GetComponentInChildren<Slider>();
+        healthSlider.maxValue = towerSO.maxHealth;
+        health = towerSO.maxHealth;
+        healthSlider.value = health;
+        healthText.text = health.ToString();
     }
 
     public void TakeDamage(int damage)
@@ -52,7 +67,7 @@ public class TowerController : MonoBehaviour
 
         if (health <= 0)
         {
-            Debug.Log("OYUNU KAYBETTÝN");
+            onGameLose?.Invoke();
         }
     }
 }

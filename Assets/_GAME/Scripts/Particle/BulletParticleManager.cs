@@ -69,9 +69,9 @@ public class BulletParticleManager : MonoBehaviour
         bulletInstance.GetComponent<SkeletonBulletController>().targetPosition = target.transform.position;
         bulletInstance.GetComponent<SkeletonBulletController>().enemySO = enemySO;
 
-        DOTween.Sequence()
-            .AppendInterval(4)
-            .AppendCallback(() => skeletonBulletPool.Release(bulletInstance));
+        //DOTween.Sequence()
+        //    .AppendInterval(4)
+        //    .AppendCallback(() => skeletonBulletPool.Release(bulletInstance));
     }
     private void AngelBulletParticleCallBack(Vector2 createPosition, GameObject target, HeroSO heroSO, Transform bulletTransform)
     {
@@ -84,8 +84,5 @@ public class BulletParticleManager : MonoBehaviour
         bulletInstance.GetComponent<AngelBulletController>().targetPosition = target.transform.position;
         bulletInstance.GetComponent<AngelBulletController>().heroSO = heroSO;
 
-        DOTween.Sequence()
-            .AppendInterval(4)
-            .AppendCallback(() => angelBulletPool.Release(bulletInstance));
     }
 }

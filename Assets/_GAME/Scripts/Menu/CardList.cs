@@ -29,8 +29,10 @@ public class CardList : MonoBehaviour
                 heroes[i].heroIcon,
                 heroes[i].cardType.ToString());
 
+            heroScript.cardIndex = i;
+
             Button cardButton = heroScript.detailsButton;
-            cardButton.onClick.AddListener(() => CardDetailsPanel(i-1));
+            cardButton.onClick.AddListener(() => CardDetailsPanel(heroScript.cardIndex));
         }
     }
     public void CardDetailsPanel(int index)

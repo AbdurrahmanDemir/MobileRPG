@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
+
 public class UIManager : MonoBehaviour
 {
     [Header("Elements")]
@@ -13,17 +14,25 @@ public class UIManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private GameObject throwStartingButton;
     [SerializeField] private GameObject upgradeHookPanel;
+    [Header("Level")]
+    [SerializeField] private Transform enemyParent;
+    [SerializeField] private TowerController towerController;
 
 
     private void Awake()
     {
         Hook.onThrowStarting += StartingThrow;
         Hook.onThrowEnding += EndingThrow;
+
+        TowerController.onGameLose += GameLosePanel;
     }
     private void OnDestroy()
     {
         Hook.onThrowStarting -= StartingThrow;
         Hook.onThrowEnding -= EndingThrow;
+
+        TowerController.onGameLose -= GameLosePanel;
+
     }
 
     private void Start()
@@ -51,6 +60,21 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.Game);
         WaveManager.instance.StartWaves(0);
+    }
+    public void GameLosePanel()
+    {
+        GameUIStageChanged(UIGameStage.GameLose);
+    }
+    public void GameLoseButton()
+    {
+        GameUIStageChanged(UIGameStage.Menu);
+
+        for (int i = 0; i < enemyParent.childCount; i++)
+        {
+            Destroy(enemyParent.GetChild(i).gameObject);
+        }
+
+        towerController.ResetTower();
     }
     public void GameUIStageChanged(UIGameStage stage)
     {

@@ -25,11 +25,17 @@ public abstract class Hero : MonoBehaviour
     {
         Hook.onThrowStarting += OnThrowStartingCallBack;
         Hook.onThrowEnding += OnThrowEndingCallBack;
+
+
+        TowerController.onGameLose -= OnThrowStartingCallBack;
     }
     private void OnDestroy()
     {
         Hook.onThrowStarting -= OnThrowStartingCallBack;
         Hook.onThrowEnding -= OnThrowEndingCallBack;
+
+
+        TowerController.onGameLose -= OnThrowStartingCallBack;
     }
 
     private void Start()

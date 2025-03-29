@@ -28,12 +28,17 @@ public abstract class Enemy : MonoBehaviour
     {
         Hook.onThrowStarting += OnThrowStartingCallBack;
         Hook.onThrowEnding += OnThrowEndingCallBack;
+
+        TowerController.onGameLose += OnThrowStartingCallBack;
     }
     private void OnDestroy()
     {
         Hook.onThrowStarting -= OnThrowStartingCallBack;
         Hook.onThrowEnding -= OnThrowEndingCallBack;
+
+        TowerController.onGameLose -= OnThrowStartingCallBack;
     }
+
 
     private void Start()
     {

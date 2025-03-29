@@ -12,6 +12,7 @@ TagManager:
   - XpText
   - EnergyText
   - GemText
+  - ParticleManager
   layers:
   - Default
   - TransparentFX
