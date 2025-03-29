@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
 
     void EndingThrow()
     {
-        upgradeHookPanel.SetActive(false);
+        upgradeHookPanel.SetActive(true);
         throwStartingButton.SetActive(true);
     }
 

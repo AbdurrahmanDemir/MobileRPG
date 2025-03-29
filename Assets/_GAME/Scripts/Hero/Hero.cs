@@ -80,7 +80,7 @@ public abstract class Hero : MonoBehaviour
 
             if (heroSO.isAreaOfEffect)
             {
-                PerformAreaAttack(target);
+                PerformAreaAttack();
                 animator.Play("attack");
             }
             else
@@ -91,7 +91,7 @@ public abstract class Hero : MonoBehaviour
         }
     }
     protected abstract void PerformSingleTargetAttack(GameObject target);
-    protected abstract void PerformAreaAttack(GameObject target);
+    protected abstract void PerformAreaAttack();
 
     protected GameObject FindClosestTarget()
     {

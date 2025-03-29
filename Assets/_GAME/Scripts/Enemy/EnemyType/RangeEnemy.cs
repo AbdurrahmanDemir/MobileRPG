@@ -11,7 +11,7 @@ public class RangeEnemy : Enemy
     [Header("Action")]
     public static Action<Vector2,GameObject,EnemySO,Transform> onEnemyBulletInstante;
 
-    protected override void PerformAreaAttack(GameObject target)
+    protected override void PerformAreaAttack()
     {
 
     }

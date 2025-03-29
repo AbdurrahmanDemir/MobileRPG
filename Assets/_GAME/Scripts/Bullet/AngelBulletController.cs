@@ -19,6 +19,14 @@ public class AngelBulletController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
+            Destroy(gameObject);
+        }
+    }
     private void MoveTowardsTarget(Vector2 targetPosition)
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, 1 * Time.deltaTime);

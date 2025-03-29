@@ -5,9 +5,19 @@ using UnityEngine;
 
 public class PopUpController : MonoBehaviour
 {
+    public static PopUpController instance;
+
     [Header("PopUp")]
     [SerializeField] private GameObject popUpPrefabs;
     [SerializeField] private TextMeshProUGUI popUpPrefabsText;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
     public void OpenPopUp(string text)
     {
         if (popUpPrefabs.activeSelf)

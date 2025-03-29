@@ -14,7 +14,6 @@ public class HookManager : MonoBehaviour
     [SerializeField] private int lengthCost;
     [SerializeField] private int strengthCost;
     [SerializeField] private int offlineEarningsCost;
-    [SerializeField] private int wallet;
     [SerializeField] private int totalGain;
 
 
@@ -32,6 +31,11 @@ public class HookManager : MonoBehaviour
     public TextMeshProUGUI offlineValueText;
     public TextMeshProUGUI endScreenMoney;
     public TextMeshProUGUI returnScreenMoney;
+
+    [Header(" Data ")]
+    [SerializeField] private int token;
+    [SerializeField] private TextMeshProUGUI tokenText;
+
 
     private int[] costs = new int[]
   {
@@ -67,8 +71,9 @@ public class HookManager : MonoBehaviour
     }
     void Start()
     {
-        CheckIdles();
+        //CheckIdles();
         UpdateTexts();
+        AddToken(20);
     }
     void LoadData()
     {
@@ -78,57 +83,78 @@ public class HookManager : MonoBehaviour
         lengthCost = costs[-hookLength / 10 - 3];
         strengthCost = costs[hookStrength - 3];
         offlineEarningsCost = costs[offlineEarnings - 3];
-        wallet = PlayerPrefs.GetInt("Wallet", 50000);
     }
+    public bool TryPurchaseToken(int price)
+    {
+        if (price <= token)
+        {
+            token -= price;
+            UpdateTokenText();
+            return true;
+        }
+        else
+        {
+            PopUpController.instance.OpenPopUp("NOT ENOUGH TOKEN");
+        }
+        return false;
+    }
+
+    public void AddToken(int value)
+    {
+        token += value;
+        UpdateTokenText();
+    }
+    private void UpdateTokenText()
+    {
+        tokenText.text = token.ToString();
+    }
+
 
     public void BuyLength()
     {
-        hookLength -= 10;
-        wallet -= lengthCost;
-        lengthCost = costs[-hookLength / 10 - 3];
-        PlayerPrefs.SetInt("Length", -hookLength);
-        PlayerPrefs.SetInt("Wallet", wallet);
-        //ScreensManager.instance.ChangeScreen(Screens.MAIN);
-        UpdateTexts();
+        if(TryPurchaseToken(costs[-hookLength / 10 - 3]))
+        {
+            hookLength -= 10;
+            lengthCost = costs[-hookLength / 10 - 3];
+            PlayerPrefs.SetInt("Length", -hookLength);
+            UpdateTexts();
+        }
 
     }
 
     public void BuyStrength()
     {
-        hookStrength++;
-        wallet -= strengthCost;
-        strengthCost = costs[hookStrength - 3];
-        PlayerPrefs.SetInt("Strength", hookStrength);
-        PlayerPrefs.SetInt("Wallet", wallet);
-        //ScreensManager.instance.ChangeScreen(Screens.MAIN);
-        UpdateTexts();
+        if (TryPurchaseToken(costs[hookStrength - 3]))
+        {
+            hookStrength++;
+            strengthCost = costs[hookStrength - 3];
+            PlayerPrefs.SetInt("Strength", hookStrength);
+            UpdateTexts();
+        }
 
     }
 
     public void BuyOfflineEarnings()
     {
-        offlineEarnings++;
-        wallet -= offlineEarningsCost;
-        strengthCost = costs[offlineEarnings - 3];
-        PlayerPrefs.SetInt("Offline", offlineEarnings);
-        PlayerPrefs.SetInt("Wallet", wallet);
-        //ScreensManager.instance.ChangeScreen(Screens.MAIN);
-        UpdateTexts();
+        if (TryPurchaseToken(costs[offlineEarnings - 3]))
+        {
+            offlineEarnings++;
+            strengthCost = costs[offlineEarnings - 3];
+            PlayerPrefs.SetInt("Offline", offlineEarnings);
+            UpdateTexts();
+        }
 
     }
 
     public void CollectMoney()
     {
-        wallet += totalGain;
-        PlayerPrefs.SetInt("Wallet", wallet);
-        //ScreensManager.instance.ChangeScreen(Screens.MAIN);
+        AddToken(totalGain);
     }
 
     public void CollectDoubleMoney()
     {
-        wallet += totalGain * 2;
-        PlayerPrefs.SetInt("Wallet", wallet);
-        //ScreensManager.instance.ChangeScreen(Screens.MAIN);
+        AddToken(totalGain * 2);
+
     }
     public void UpdateTexts()
     {
@@ -140,21 +166,21 @@ public class HookManager : MonoBehaviour
         offlineValueText.text = "$" + offlineEarnings + "/min";
     }
 
-    public void CheckIdles()
-    {        
-        if (wallet < lengthCost)
-            lengthButton.interactable = false;
-        else
-            lengthButton.interactable = true;
+    //public void CheckIdles()
+    //{        
+    //    if (token < lengthCost)
+    //        lengthButton.interactable = false;
+    //    else
+    //        lengthButton.interactable = true;
 
-        if (wallet < strengthCost)
-            strengthButton.interactable = false;
-        else
-            strengthButton.interactable = true;
+    //    if (token < strengthCost)
+    //        strengthButton.interactable = false;
+    //    else
+    //        strengthButton.interactable = true;
 
-        if (wallet < offlineEarningsCost)
-            offlineButton.interactable = false;
-        else
-            offlineButton.interactable = true;
-    }
+    //    if (token < offlineEarningsCost)
+    //        offlineButton.interactable = false;
+    //    else
+    //        offlineButton.interactable = true;
+    //}
 }

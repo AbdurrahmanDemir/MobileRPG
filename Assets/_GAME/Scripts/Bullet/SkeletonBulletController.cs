@@ -16,10 +16,28 @@ public class SkeletonBulletController : MonoBehaviour
         if (collision.CompareTag("Hero"))
         {
             collision.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
+            Destroy(gameObject);
+
         }
         else if (collision.CompareTag("Tower"))
         {
             collision.GetComponent<TowerController>().TakeDamage(enemySO.damage);
+            Destroy(gameObject);
+
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Hero"))
+        {
+            collision.gameObject.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Tower"))
+        {
+            collision.gameObject.GetComponent<TowerController>().TakeDamage(enemySO.damage);
+            Destroy(gameObject);
+
         }
     }
     private void MoveTowardsTarget(Vector2 targetPosition)

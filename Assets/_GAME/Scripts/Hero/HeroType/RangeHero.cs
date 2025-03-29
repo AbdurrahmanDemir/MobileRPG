@@ -11,7 +11,7 @@ public class RangeHero : Hero
     public static Action<Vector2, GameObject, HeroSO, Transform> onAngelBulletInstante;
 
 
-    protected override void PerformAreaAttack(GameObject target)
+    protected override void PerformAreaAttack()
     {
        
     }

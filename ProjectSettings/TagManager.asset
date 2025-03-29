@@ -8,6 +8,10 @@ TagManager:
   - Hero
   - Tower
   - Enemy
+  - CoinText
+  - XpText
+  - EnergyText
+  - GemText
   layers:
   - Default
   - TransparentFX

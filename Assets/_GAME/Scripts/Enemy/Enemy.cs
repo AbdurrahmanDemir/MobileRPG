@@ -79,7 +79,8 @@ public abstract class Enemy : MonoBehaviour
 
             if (enemySO.isAreaOfEffect)
             {
-                PerformAreaAttack(target);
+                PerformAreaAttack();
+                animator.Play("attack");
             }
             else
             {
@@ -90,7 +91,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected abstract void PerformSingleTargetAttack(GameObject target);
-    protected abstract void PerformAreaAttack(GameObject target);
+    protected abstract void PerformAreaAttack();
     protected GameObject FindClosestTarget()
     {
         GameObject closestTarget = null;

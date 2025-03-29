@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DataManager : MonoBehaviour
 {
@@ -21,21 +22,8 @@ public class DataManager : MonoBehaviour
 
         LoadData();
 
-        DontDestroyOnLoad(gameObject);
-
-        // Subscribe to the sceneLoaded event
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Find the popUp GameObject whenever a scene is loaded
-        popUp = GameObject.FindGameObjectWithTag("PopUp");
-        if (popUp != null)
-        {
-            popUp.SetActive(false);
-        }
-    }
 
     public bool TryPurchaseGold(int price)
     {
@@ -48,7 +36,8 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            OpenPopUp(popUp, "NOT ENOUGH GOLD");
+            PopUpController.instance.OpenPopUp("NOT ENOUGH GOLD");
+
         }
         return false;
     }
@@ -69,17 +58,15 @@ public class DataManager : MonoBehaviour
 
     private void UpdateGoldText()
     {
-        Text coinText = GameObject.FindGameObjectWithTag("CoinText").GetComponent<Text>();
+        TextMeshProUGUI coinText = GameObject.FindGameObjectWithTag("CoinText").GetComponent<TextMeshProUGUI>();
         coinText.text = gold.ToString();
     }
 
     private void UpdateXPText()
     {
-        if (SceneManager.GetActiveScene().name == "Menu")
-        {
-            Text xpText = GameObject.FindGameObjectWithTag("XpText").GetComponent<Text>();
+            TextMeshProUGUI xpText = GameObject.FindGameObjectWithTag("XpText").GetComponent<TextMeshProUGUI>();
             xpText.text = xp.ToString();
-        }
+
     }
 
     private void SaveData()
@@ -124,14 +111,14 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            OpenPopUp(popUp, "NOT ENOUGH ENERGY");
+            PopUpController.instance.OpenPopUp("NOT ENOUGH ENERGY");
         }
         return false;
     }
 
     private void UpdateEnergyText()
     {
-        Text energyText = GameObject.FindGameObjectWithTag("EnergyText").GetComponent<Text>();
+        TextMeshProUGUI energyText = GameObject.FindGameObjectWithTag("EnergyText").GetComponent<TextMeshProUGUI>();
         energyText.text = energy.ToString();
     }
 

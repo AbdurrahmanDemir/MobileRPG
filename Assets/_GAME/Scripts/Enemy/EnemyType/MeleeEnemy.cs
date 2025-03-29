@@ -12,7 +12,7 @@ public class MeleeEnemy : Enemy
             target.GetComponent<TowerController>().TakeDamage(enemySO.damage);
     }
 
-    protected override void PerformAreaAttack(GameObject target)
+    protected override void PerformAreaAttack()
     {
         // Alan hasarý uygulanmaz
     }

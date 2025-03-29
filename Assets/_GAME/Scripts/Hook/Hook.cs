@@ -2,11 +2,12 @@ using UnityEngine;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
-using static UnityEngine.GraphicsBuffer;
+using TMPro;
 
 public class Hook : MonoBehaviour
 {
     public Transform hookedTransform;
+    [SerializeField] private HookManager hookManager;
 
     private Camera mainCamera;
     private Collider2D coll;
@@ -24,11 +25,16 @@ public class Hook : MonoBehaviour
     public static Action onThrowStarting;
     public static Action onThrowEnding;
 
+    int throwCount=0;
+    [SerializeField] private TextMeshProUGUI throwPriceText;
+
+
     private void Awake()
     {
         mainCamera = Camera.main;
         coll= GetComponent<Collider2D>();
         hookedHero = new List<HookedHero>();
+        throwPriceText.text = (throwCount + 10).ToString();
     }
 
     private void Update()
@@ -44,33 +50,40 @@ public class Hook : MonoBehaviour
 
     public void StartThrow()
     {
-        length = HookManager.instance.hookLength-20;
-        strength = HookManager.instance.hookStrength;
-        heroCount = 0;
-        float time = (-length) * 0.1f;
+        if (hookManager.TryPurchaseToken(throwCount + 10))
+        {
+            throwCount++;
+            throwPriceText.text= (throwCount+10).ToString();
+            length = HookManager.instance.hookLength - 20;
+            strength = HookManager.instance.hookStrength;
+            heroCount = 0;
+            float time = (-length) * 0.1f;
 
-        cameraTween = mainCamera.transform.DOMoveY(length, 1 * time * 0.25f, false).OnUpdate(delegate
-        {
-            if (mainCamera.transform.position.y <= -11)
+            cameraTween = mainCamera.transform.DOMoveY(length, 1 * time * 0.25f, false).OnUpdate(delegate
             {
-                transform.SetParent(mainCamera.transform);
-            }
-        }).OnComplete(delegate
-        {
-            coll.enabled = true;
-            cameraTween = mainCamera.transform.DOMoveY(0, time * 5, false).OnUpdate(delegate
+                if (mainCamera.transform.position.y <= -11)
+                {
+                    transform.SetParent(mainCamera.transform);
+                }
+            }).OnComplete(delegate
             {
-                if (mainCamera.transform.position.y >= -25f)
-                    StopThrow();
+                coll.enabled = true;
+                cameraTween = mainCamera.transform.DOMoveY(0, time * 5, false).OnUpdate(delegate
+                {
+                    if (mainCamera.transform.position.y >= -25f)
+                        StopThrow();
+                });
             });
-        });
-        //Screen(GAME)
+            //Screen(GAME)
 
-        coll.enabled = false;
-        canMove = true;
-        hookedHero.Clear();
+            coll.enabled = false;
+            canMove = true;
+            hookedHero.Clear();
 
-        onThrowStarting?.Invoke();
+            onThrowStarting?.Invoke();
+        }
+
+
     }
 
     public void StopThrow()
@@ -96,7 +109,7 @@ public class Hook : MonoBehaviour
                 num += hookedHero[i].Type.price;
             }
 
-            //IdleManager.insance.totalGain = num;
+            hookManager.AddToken(num);
             //SceenEnd
             Debug.Log(num);
             onThrowEnding?.Invoke();
