@@ -67,7 +67,8 @@ public class MenuHeroDetails : MonoBehaviour
         if (gameObject.activeSelf)
         {
             gameObject.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => gameObject.SetActive(false));
-            Destroy(gameObject);
+            DOTween.Kill(gameObject);
+            Destroy(gameObject,5f);
         }
         else
         {

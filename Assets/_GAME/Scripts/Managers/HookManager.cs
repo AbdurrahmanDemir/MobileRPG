@@ -116,7 +116,7 @@ public class HookManager : MonoBehaviour
         {
             hookLength -= 10;
             lengthCost = costs[-hookLength / 10 - 3];
-            PlayerPrefs.SetInt("Length", -hookLength);
+            //PlayerPrefs.SetInt("Length", -hookLength);
             UpdateTexts();
         }
 
@@ -128,7 +128,7 @@ public class HookManager : MonoBehaviour
         {
             hookStrength++;
             strengthCost = costs[hookStrength - 3];
-            PlayerPrefs.SetInt("Strength", hookStrength);
+            //PlayerPrefs.SetInt("Strength", hookStrength);
             UpdateTexts();
         }
 
@@ -140,7 +140,7 @@ public class HookManager : MonoBehaviour
         {
             offlineEarnings++;
             strengthCost = costs[offlineEarnings - 3];
-            PlayerPrefs.SetInt("Offline", offlineEarnings);
+            //PlayerPrefs.SetInt("Offline", offlineEarnings);
             UpdateTexts();
         }
 
@@ -161,7 +161,7 @@ public class HookManager : MonoBehaviour
         lengthCostText.text = lengthCost.ToString();
         lengthValueText.text = -hookLength + "m";
         strengthCostText.text = strengthCost.ToString();
-        strengthValueText.text = hookStrength + " fishes.";
+        strengthValueText.text = hookStrength + " heroes.";
         offlineCostText.text = offlineEarningsCost.ToString();
         offlineValueText.text = "$" + offlineEarnings + "/min";
     }

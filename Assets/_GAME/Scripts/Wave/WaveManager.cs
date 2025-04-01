@@ -21,15 +21,15 @@ public class WaveManager : MonoBehaviour
     private int currentSegmentIndex;
     private int currentEnemySubIndex;
     private int currentEnemyIndex;
-    private int currentEnemyCount;
-    private float segmentDelay = 5f; // Delay between segments
+    public int currentEnemyCount;
+    private float segmentDelay = 10f;
 
     [Header("Action")]
     private bool onThrow = false;
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
         else
             Destroy(gameObject);
@@ -63,6 +63,7 @@ public class WaveManager : MonoBehaviour
         currentSegmentIndex = 0;
         currentEnemyIndex = 0;
         currentWave = waves[currentWaveIndex];
+        //waveUI.waveIndexText.text= currentWaveIndex.ToString();
         isTimerOn = true;
         SetupNextSegment();
         waveUI.waveSegmentText.text = "Wave " + currentSegmentIndex + " / " + currentWave.segments.Count;
@@ -73,7 +74,6 @@ public class WaveManager : MonoBehaviour
         if (currentSegmentIndex >= currentWave.segments.Count)
         {
             isTimerOn = false;
-            Debug.Log("Wave Completed");
             return;
         }
 
@@ -92,21 +92,31 @@ public class WaveManager : MonoBehaviour
             }
             else
             {
-                // Bir gecikme sonrasýnda bir sonraki segmente geç
+                // Geçerli segment tamamlandý
                 currentSegmentIndex++;
                 Debug.Log("Moving to next segment. Current Index: " + currentSegmentIndex);
-                waveUI.waveSegmentText.text = "Wave " + currentSegmentIndex + " / " + currentWave.segments.Count;
-                if (currentSegmentIndex < currentWave.segments.Count)
+
+                // Segment kontrolü yap ve dalgayý tamamla
+                if (currentSegmentIndex >= currentWave.segments.Count)
                 {
-                    Invoke("StartNextSegment", segmentDelay);
+                    Debug.Log("All segments in the wave completed.");
+
+
+                    int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
+                    waveIndex++;
+                    PlayerPrefs.SetInt("WaveIndex", waveIndex);
+
+                    Debug.Log("All waves completed.");
+                    isTimerOn = false;
+                    return;
                 }
-                else
-                {
-                    if (currentWaveIndex + 1 < waves.Length)
-                    {
-                        StartWaves(currentWaveIndex + 1);
-                    }
-                }
+
+                // Segment bilgilerini güncelle
+                waveUI.waveSegmentText.text = "Wave " + (currentSegmentIndex + 1) + " / " + currentWave.segments.Count;
+
+                // Gecikmeli segment baþlatma
+                isTimerOn = false;
+                Invoke("StartNextSegment", segmentDelay);
             }
         }
     }
@@ -114,9 +124,12 @@ public class WaveManager : MonoBehaviour
     private void StartNextSegment()
     {
         isTimerOn = true;
+        timer = 0; // Zamanlayýcýyý sýfýrla
         Debug.Log("Starting next segment. Current Index: " + currentSegmentIndex);
         SetupNextSegment();
     }
+
+
 
     private void SetupNextSegment()
     {
@@ -136,59 +149,39 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+
     private bool SpawnEnemy(WaveSegmet segment)
     {
-        // Check if we've processed all enemy types in this segment
-        if (currentEnemyIndex >= segment.segmentEnemys.Length)
-        {
-            return false;
-        }
-
-        // Check if we've processed all enemy variations for the current enemy type
-        if (currentEnemySubIndex >= segment.segmentEnemys[currentEnemyIndex].enemy.Length)
-        {
-            currentEnemyIndex++;
-            currentEnemySubIndex = 0;
-
-            // Check if we've processed all enemy types after incrementing
-            if (currentEnemyIndex >= segment.segmentEnemys.Length)
-            {
-                return false;
-            }
-
-            currentEnemyCount = segment.segmentEnemys[currentEnemyIndex].enemyCount;
-            return true; // Return true to try again with the new enemy type
-        }
-
-        // If we've spawned all enemies of the current variation
         if (currentEnemyCount <= 0)
         {
             currentEnemySubIndex++;
-
-            // If there are more variations of this enemy type
             if (currentEnemySubIndex < segment.segmentEnemys[currentEnemyIndex].enemy.Length)
             {
                 currentEnemyCount = segment.segmentEnemys[currentEnemyIndex].enemyCount;
             }
             else
             {
-                // Move to next enemy type
-                currentEnemyIndex++;
                 currentEnemySubIndex = 0;
-
-                // If there are more enemy types
+                currentEnemyIndex++;
                 if (currentEnemyIndex < segment.segmentEnemys.Length)
                 {
                     currentEnemyCount = segment.segmentEnemys[currentEnemyIndex].enemyCount;
                 }
                 else
                 {
-                    return false;
+                    return false; // Bu segmentte baþka düþman yok
                 }
             }
         }
 
-        // Spawn the enemy
+        // Dizi sýnýr kontrolü
+        if (currentEnemyIndex >= segment.segmentEnemys.Length ||
+            currentEnemySubIndex >= segment.segmentEnemys[currentEnemyIndex].enemy.Length)
+        {
+            Debug.LogError("Index out of range error.");
+            return false;
+        }
+
         int randomCreatPos = Random.Range(0, creatEnemyPosition.Length);
         Instantiate(
             segment.segmentEnemys[currentEnemyIndex].enemy[currentEnemySubIndex],
@@ -198,6 +191,7 @@ public class WaveManager : MonoBehaviour
         currentEnemyCount--;
         return true;
     }
+
 
 
 

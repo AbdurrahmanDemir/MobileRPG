@@ -66,7 +66,10 @@ public abstract class Enemy : MonoBehaviour
 
             if (distanceToTarget <= enemySO.range)
             {
-                Attack(target);
+                if (target == null)
+                    Debug.Log("Hero olmustu");
+                else
+                    Attack(target);
             }
             else
             {
@@ -145,12 +148,10 @@ public abstract class Enemy : MonoBehaviour
     public void OnThrowStartingCallBack()
     {
         onThrow = true;
-        Debug.Log("Avtipn çalýþtý" + onThrow);
     }
     public void OnThrowEndingCallBack()
     {
         onThrow = false;
-        Debug.Log("Avtipn çalýþtý" + onThrow);
 
     }
 

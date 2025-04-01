@@ -9,8 +9,8 @@ public class BulletParticleManager : MonoBehaviour
     [SerializeField] private GameObject angelBulletPrefabs;
 
     [Header("Pooling")]
-    private ObjectPool<GameObject> skeletonBulletPool;
-    private ObjectPool<GameObject> angelBulletPool;
+    public ObjectPool<GameObject> skeletonBulletPool;
+    public ObjectPool<GameObject> angelBulletPool;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class BulletParticleManager : MonoBehaviour
 
         angelBulletPool= new ObjectPool<GameObject>(CreateAngelBulletFunction,
                                                     ActionOnGet,
-                                                    ActionOnRelease,
+                                                    ActionOnAngelRelease,
                                                     ActionOnDestroy);
     }
 
@@ -47,42 +47,91 @@ public class BulletParticleManager : MonoBehaviour
     }
     private void ActionOnGet(GameObject particle)
     {
+        Debug.Log("Bullet retrieved from pool: " + particle.name);
         particle.SetActive(true);
     }
+
     private void ActionOnRelease(GameObject particle)
     {
+        particle.transform.SetParent(null);  // Ebeveyni sýfýrla
+        particle.transform.position = Vector3.zero;  // Konumu sýfýrla
+        particle.GetComponent<SkeletonBulletController>().ResetBullet();  // Bullet kontrolcüsünü sýfýrla
         particle.SetActive(false);
     }
+    private void ActionOnAngelRelease(GameObject particle)
+    {
+        particle.transform.SetParent(null);  // Ebeveyni sýfýrla
+        particle.transform.position = Vector3.zero;  // Konumu sýfýrla
+        particle.GetComponent<AngelBulletController>().ResetBullet();  // Bullet kontrolcüsünü sýfýrla
+        particle.SetActive(false);
+    }
+
+
     private void ActionOnDestroy(GameObject particle)
     {
         Destroy(particle);
     }
 
-    private void EnemyBulletParticleCallBack(Vector2 createPosition, GameObject target, EnemySO enemySO,Transform bulletTransform)
+    private void EnemyBulletParticleCallBack(Vector2 createPosition, GameObject target, EnemySO enemySO, Transform bulletTransform)
     {
         GameObject bulletInstance = skeletonBulletPool.Get();
 
-        bulletInstance.transform.SetParent(bulletTransform);
+        if (bulletInstance == null)
+        {
+            Debug.Log("Bullet instance is null.");
+            return;
+        }
 
+        if (bulletInstance.activeInHierarchy)
+        {
+            Debug.LogWarning("Bullet already active! Releasing and re-getting...");
+            skeletonBulletPool.Release(bulletInstance);
+            bulletInstance = skeletonBulletPool.Get();
+        }
+
+        bulletInstance.transform.SetParent(bulletTransform);
         bulletInstance.transform.position = createPosition;
 
-        bulletInstance.GetComponent<SkeletonBulletController>().targetPosition = target.transform.position;
-        bulletInstance.GetComponent<SkeletonBulletController>().enemySO = enemySO;
-
-        //DOTween.Sequence()
-        //    .AppendInterval(4)
-        //    .AppendCallback(() => skeletonBulletPool.Release(bulletInstance));
+        var bulletController = bulletInstance.GetComponent<SkeletonBulletController>();
+        if (bulletController == null)
+        {
+            Debug.Log("SkeletonBulletController bulunamadý! Prefab'de eksik olabilir.");
+            return;
+        }
+        bulletController.target = target;
+        bulletController.targetPosition = target.transform.position;
+        bulletController.enemySO = enemySO;
     }
+
+
     private void AngelBulletParticleCallBack(Vector2 createPosition, GameObject target, HeroSO heroSO, Transform bulletTransform)
     {
         GameObject bulletInstance = angelBulletPool.Get();
 
-        bulletInstance.transform.SetParent(bulletTransform);
+        if (bulletInstance == null)
+        {
+            Debug.Log("Bullet instance is null.");
+            return;
+        }
+        if (bulletInstance.activeInHierarchy)
+        {
+            Debug.LogWarning("Bullet already active! Releasing and re-getting...");
+            angelBulletPool.Release(bulletInstance);
+            bulletInstance = angelBulletPool.Get();
+        }
 
+        bulletInstance.transform.SetParent(bulletTransform);
         bulletInstance.transform.position = createPosition;
 
-        bulletInstance.GetComponent<AngelBulletController>().targetPosition = target.transform.position;
-        bulletInstance.GetComponent<AngelBulletController>().heroSO = heroSO;
+        var bulletController = bulletInstance.GetComponent<AngelBulletController>();
+        if (bulletController == null)
+        {
+            Debug.Log("AngelBulletController bulunamadý! Prefab'de eksik olabilir.");
+            return;
+        }
+        bulletController.target = target;
+        bulletController.targetPosition = target.transform.position;
+        bulletController.heroSO = heroSO;
 
     }
 }

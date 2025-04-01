@@ -22,9 +22,9 @@ public class CardList : MonoBehaviour
         {
             GameObject cardPrefabs = Instantiate(heroCardPrefab, heroTransform);
 
-            MenuHeroListCard heroScript = cardPrefabs.gameObject.GetComponent<MenuHeroListCard>();
+            MenuHeroListCard heroScript = cardPrefabs.GetComponent<MenuHeroListCard>();
 
-            cardPrefabs.GetComponent<MenuHeroListCard>().Config(
+            heroScript.Config(
                 heroes[i].name,
                 heroes[i].heroIcon,
                 heroes[i].cardType.ToString());
@@ -32,20 +32,26 @@ public class CardList : MonoBehaviour
             heroScript.cardIndex = i;
 
             Button cardButton = heroScript.detailsButton;
-            cardButton.onClick.AddListener(() => CardDetailsPanel(heroScript.cardIndex));
+
+            int capturedIndex = i; // Index'i yakala
+            cardButton.onClick.AddListener(() => CardDetailsPanel(capturedIndex));
         }
     }
+
     public void CardDetailsPanel(int index)
     {
-        //heroCardDetailsPrefabs.SetActive(true);
-
         GameObject cardDetails = Instantiate(heroCardDetailsPrefabs, heroDetailsTransform);
-        MenuHeroDetails cardScript = cardDetails.gameObject.GetComponent<MenuHeroDetails>();
-
+        MenuHeroDetails cardScript = cardDetails.GetComponent<MenuHeroDetails>();
+        DOTween.Kill(cardDetails.transform);
         cardDetails.transform.localScale = Vector3.zero;
-        cardDetails.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+        if (cardDetails != null)
+        {
+            cardDetails.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+        }
 
-        heroCardDetailsPrefabs.GetComponent<MenuHeroDetails>().Config(
+
+        // Instantiate edilen objeyi kullanarak konfigürasyon yap
+        cardScript.Config(
             heroes[index].name,
             heroes[index].heroIcon,
             heroes[index].cardType.ToString(),
@@ -56,6 +62,7 @@ public class CardList : MonoBehaviour
             heroes[index].hitSpeed,
             heroes[index].moveSpeed,
             heroes[index].GetUpgradeCost()
-            );
+        );
     }
+
 }

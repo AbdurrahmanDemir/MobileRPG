@@ -1,31 +1,46 @@
 using DG.Tweening;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class AngelBulletController : MonoBehaviour
 {
     public HeroSO heroSO;
     public Vector2 targetPosition;
+    public GameObject target;
 
+
+    BulletParticleManager bulletParticle;
+    private bool isReleased = false;
+
+    private void Awake()
+    {
+        bulletParticle = GameObject.FindGameObjectWithTag("ParticleManager").GetComponent<BulletParticleManager>();
+    }
     private void Start()
     {
         DOTween.Sequence()
-            .AppendInterval(4)
-            .AppendCallback(() => gameObject.SetActive(false));
+            .AppendInterval(1)
+            .AppendCallback(() => bulletParticle.angelBulletPool.Release(gameObject));
     }
     private void Update()
     {
-        if(targetPosition!=null)
+        if (target == null || isReleased) // Eðer serbest býrakýlmýþsa hareket ettirme
+        {
+            ReleaseBullet();
+            return;
+        }
+
+        if (targetPosition != null)
             MoveTowardsTarget(targetPosition);
-        else
-            gameObject.SetActive(false);
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
             collision.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
-            gameObject.SetActive(false);
+            ReleaseBullet();
 
         }
     }
@@ -34,12 +49,28 @@ public class AngelBulletController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
-            gameObject.SetActive(false);
+            ReleaseBullet();
 
         }
     }
+
+    private void ReleaseBullet()
+    {
+        if (isReleased) return;
+        isReleased = true;
+        Debug.Log("Bullet released: " + gameObject.name);
+        bulletParticle.angelBulletPool.Release(gameObject);
+    }
+    public void ResetBullet()
+    {
+        isReleased = false;
+        target = null;
+        targetPosition = Vector2.zero;
+    }
+
+
     private void MoveTowardsTarget(Vector2 targetPosition)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, 1 * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, 4 * Time.deltaTime);
     }
 }

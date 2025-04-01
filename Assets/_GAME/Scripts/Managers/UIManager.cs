@@ -59,7 +59,8 @@ public class UIManager : MonoBehaviour
     public void PlayButton()
     {
         GameUIStageChanged(UIGameStage.Game);
-        WaveManager.instance.StartWaves(0);
+        int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
+        WaveManager.instance.StartWaves(waveIndex);
     }
     public void GameLosePanel()
     {

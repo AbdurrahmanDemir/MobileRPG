@@ -20,4 +20,4 @@ MonoBehaviour:
   damage: 100
   range: 0.5
   moveSpeed: 0.2
-  cooldown: 1.31
+  cooldown: 0.3

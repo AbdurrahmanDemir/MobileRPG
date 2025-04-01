@@ -37,4 +37,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void GameSpeedController()
+    {
+        if (Time.timeScale == 1)
+            Time.timeScale = 3;
+        else
+            Time.timeScale = 1;
+    }
 }

@@ -65,7 +65,10 @@ public abstract class Hero : MonoBehaviour
 
             if (distanceToTarget <= heroSO.range)
             {
-                Attack(target);
+                if (target == null)
+                    Debug.Log("Dusman olmustu");
+                else
+                    Attack(target);
 
             }
             else
