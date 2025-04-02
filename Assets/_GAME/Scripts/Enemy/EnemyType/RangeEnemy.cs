@@ -18,6 +18,8 @@ public class RangeEnemy : Enemy
 
     protected override void PerformSingleTargetAttack(GameObject target)
     {
+
+        animator.Play("attack");
         onEnemyBulletInstante?.Invoke(bulletTransform.position,target,enemySO,bulletTransform);
         //GameObject bulletInstance = Instantiate(bullet, bulletTransform);
         //bulletInstance.transform.position = bulletTransform.position;

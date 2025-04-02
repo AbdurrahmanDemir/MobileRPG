@@ -11,7 +11,7 @@ public abstract class Hero : MonoBehaviour
     int health;
 
     [Header("Elements")]
-     private Animator animator;
+     public Animator animator;
      private Slider healthSlider;
     SpriteRenderer characterSpriteRenderer;
     private Color originalColor;

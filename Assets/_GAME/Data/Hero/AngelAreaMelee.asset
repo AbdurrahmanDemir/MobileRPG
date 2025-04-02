@@ -17,7 +17,7 @@ MonoBehaviour:
   attackType: Melee Area
   isAreaOfEffect: 1
   maxHealth: 500
-  damage: 100
+  damage: 50
   range: 0.5
   moveSpeed: 0.2
   cooldown: 0.3

@@ -10,10 +10,10 @@ public abstract class Enemy : MonoBehaviour
     protected float lastAttackTime = 0f;
     public LayerMask targetLayerMask;
     int health;
-
+    public float attackSpeed;
 
     [Header("Elements")]
-    private Animator animator;
+    public Animator animator;
     private Slider healthSlider;
     SpriteRenderer characterSpriteRenderer;
     private Color originalColor;
@@ -52,6 +52,8 @@ public abstract class Enemy : MonoBehaviour
         healthSlider.maxValue = enemySO.maxHealth;
         health = enemySO.maxHealth;
         healthSlider.value = health;
+
+        attackSpeed = enemySO.cooldown;
     }
     void Update()
     {
@@ -81,19 +83,17 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Attack(GameObject target)
     {
-        if(Time.time- lastAttackTime>= enemySO.cooldown)
+        if(Time.time- lastAttackTime>= attackSpeed)
         {
             lastAttackTime = Time.time;
 
             if (enemySO.isAreaOfEffect)
             {
                 PerformAreaAttack();
-                animator.Play("attack");
             }
             else
             {
                 PerformSingleTargetAttack(target);
-                animator.Play("attack");
             }
         }
     }

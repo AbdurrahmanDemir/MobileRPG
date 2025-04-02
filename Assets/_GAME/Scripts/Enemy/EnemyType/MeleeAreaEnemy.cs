@@ -15,6 +15,7 @@ public class MeleeAreaEnemy : Enemy
             Debug.Log($"{gameObject.name} is attacking {targetx.gameObject.name} with area of effect attack for {enemySO.damage} damage!");
 
 
+            animator.Play("attack");
             if (targetx.CompareTag("Hero"))
                 targetx.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
             else if (targetx.CompareTag("Tower"))

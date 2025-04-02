@@ -6,6 +6,7 @@ public class MeleeEnemy : Enemy
     {
         Debug.Log($"{gameObject.name} is attacking {target.name} with single target attack for {enemySO.damage} damage!");
 
+        animator.Play("attack");
         if (target.CompareTag("Hero"))
             target.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
         else if (target.CompareTag("Tower"))

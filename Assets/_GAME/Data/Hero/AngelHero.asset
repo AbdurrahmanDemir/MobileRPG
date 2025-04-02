@@ -16,8 +16,8 @@ MonoBehaviour:
   heroImage: {fileID: 6860103759488702132, guid: b856d9f34fcb9fa4bbe2b33a3c2f6674, type: 3}
   attackType: Melee
   isAreaOfEffect: 0
-  maxHealth: 500
-  damage: 100
+  maxHealth: 1000
+  damage: 10
   range: 0.5
   moveSpeed: 0.2
   cooldown: 0.3

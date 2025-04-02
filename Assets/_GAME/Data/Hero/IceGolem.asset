@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cafd4d174a19eaa429c84ac86a200ff9, type: 3}
-  m_Name: 1_Skeleton_1
+  m_Script: {fileID: 11500000, guid: fb3a106fb2035134db35c0ee40356709, type: 3}
+  m_Name: IceGolem
   m_EditorClassIdentifier: 
-  enemyName: Skeleton
-  enemyImage: {fileID: 5025148291701961715, guid: 7c2eaf2d016fdcd4ca977b7e9f460adf, type: 3}
-  attackType: Melee
+  heroName: Ice Golem
+  heroImage: {fileID: 21300000, guid: baa6e13f607c42946969fb6e2f07ed0e, type: 3}
+  attackType: Range
   isAreaOfEffect: 0
-  maxHealth: 400
-  damage: 75
-  range: 0.5
+  maxHealth: 500
+  damage: 50
+  range: 5
   moveSpeed: 0.2
-  cooldown: 0.5
+  cooldown: 3
