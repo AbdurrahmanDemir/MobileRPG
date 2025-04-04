@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3a106fb2035134db35c0ee40356709, type: 3}
+  m_Script: {fileID: 11500000, guid: ebfee2904aae65142a709f2e7e220397, type: 3}
   m_Name: IceGolem
   m_EditorClassIdentifier: 
   heroName: Ice Golem
@@ -21,3 +21,4 @@ MonoBehaviour:
   range: 5
   moveSpeed: 0.2
   cooldown: 3
+  freezeDuration: 3

@@ -50,8 +50,7 @@ public class CardList : MonoBehaviour
         }
 
 
-        // Instantiate edilen objeyi kullanarak konfigürasyon yap
-        cardScript.Config(
+    cardScript.Config(
             heroes[index].name,
             heroes[index].heroIcon,
             heroes[index].cardType.ToString(),
@@ -61,8 +60,10 @@ public class CardList : MonoBehaviour
             heroes[index].range,
             heroes[index].hitSpeed,
             heroes[index].moveSpeed,
-            heroes[index].GetUpgradeCost()
-        );
+            heroes[index].GetUpgradeCost(),
+            heroes[index].specialStatName,
+            heroes[index].specialStat
+        ) ;
     }
 
 }

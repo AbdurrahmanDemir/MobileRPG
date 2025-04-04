@@ -15,7 +15,11 @@ public class MenuHeroCardSO : ScriptableObject
     public float hitSpeed;
     public float moveSpeed;
     public float undergroundRange;
+    [Header("Other Stat")]
+    public string specialStatName;
+    public float specialStat;
     [TextArea] public string cardDescription;
+
 
     public float GetCurrentHealth()
     {

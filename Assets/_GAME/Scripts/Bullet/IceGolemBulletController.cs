@@ -25,7 +25,7 @@ public class IceGolemBulletController : MonoBehaviour
     }
     private void Update()
     {
-        if (target == null || isReleased) // Eðer serbest býrakýlmýþsa hareket ettirme
+        if (target == null || isReleased)
         {
             ReleaseBullet();
             return;
@@ -40,12 +40,8 @@ public class IceGolemBulletController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<Enemy>().HeroTakeDamage(0);
-            EnemyAttackSpeed(collision.gameObject);
-
-            ReleaseBullet();
-
-
+            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(5);
+            StartCoroutine(EnemyAttackSpeed(collision.gameObject));
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -53,27 +49,47 @@ public class IceGolemBulletController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
 
-            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(0);
-            EnemyAttackSpeed(collision.gameObject);
-            ReleaseBullet();
+            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(5);
+            StartCoroutine(EnemyAttackSpeed(collision.gameObject));
 
         }
     }
-    public void EnemyAttackSpeed(GameObject enemy)
+    IEnumerator EnemyAttackSpeed(GameObject enemy)
     {
         if (!onDamage)
-            StartCoroutine(DamageOn(enemy));
-    }
-    IEnumerator DamageOn(GameObject enemy)
-    {
-        onDamage = true;
-        float cooldown = enemy.GetComponent<Enemy>().enemySO.cooldown;
-        enemy.GetComponent<Enemy>().attackSpeed = cooldown + 2;
-        yield return new WaitForSeconds(5f);
-        onDamage = false;
-        enemy.GetComponent<Enemy>().attackSpeed = cooldown;
+        {
+            onDamage = true;
 
+            float cooldown = enemy.GetComponent<Enemy>().enemySO.cooldown;
+            float moveSpeed = enemy.GetComponent<Enemy>().enemySO.moveSpeed;
+            enemy.GetComponent<Enemy>().cooldown = cooldown + 2;
+            enemy.GetComponent<Enemy>().moveSpeed = moveSpeed - (moveSpeed * (100 / 100));
+
+            yield return new WaitForSeconds(0.1f);
+
+            ReleaseBullet();
+            onDamage = false;
+        }
     }
+    //IEnumerator DamageOn(GameObject enemy)
+    //{
+    //    onDamage = true;
+    //    float cooldown = enemy.GetComponent<Enemy>().enemySO.cooldown;
+    //    float moveSpeed = enemy.GetComponent<Enemy>().enemySO.moveSpeed;
+    //    enemy.GetComponent<Enemy>().cooldown = cooldown + 2;
+    //    enemy.GetComponent<Enemy>().moveSpeed = moveSpeed - (moveSpeed*(100/100));
+
+    //    Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
+
+    //    yield return new WaitForSeconds(3f);
+    //    onDamage = false;
+    //    enemy.GetComponent<Enemy>().cooldown = cooldown;
+    //    enemy.GetComponent<Enemy>().moveSpeed = moveSpeed;
+
+    //    Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
+
+
+    //}
     private void ReleaseBullet()
     {
         if (isReleased) return;
@@ -91,6 +107,6 @@ public class IceGolemBulletController : MonoBehaviour
 
     private void MoveTowardsTarget(Vector2 targetPosition)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, 4 * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, 5 * Time.deltaTime);
     }
 }

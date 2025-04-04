@@ -10,10 +10,10 @@ public class HookManager : MonoBehaviour
     [Header("Settings")]
     public int hookLength;
     public int hookStrength;
-    [SerializeField] private int offlineEarnings;
+    public int offlineEarnings;
     [SerializeField] private int lengthCost;
     [SerializeField] private int strengthCost;
-    [SerializeField] private int offlineEarningsCost;
+    [SerializeField] private int towerUpgradeCost;
     [SerializeField] private int totalGain;
 
 
@@ -37,7 +37,7 @@ public class HookManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tokenText;
 
 
-    private int[] costs = new int[]
+    public int[] costs = new int[]
   {
         120,
         151,
@@ -82,7 +82,7 @@ public class HookManager : MonoBehaviour
         offlineEarnings = PlayerPrefs.GetInt("Offline", 3);
         lengthCost = costs[-hookLength / 10 - 3];
         strengthCost = costs[hookStrength - 3];
-        offlineEarningsCost = costs[offlineEarnings - 3];
+        towerUpgradeCost = costs[offlineEarnings - 3];
     }
     public bool TryPurchaseToken(int price)
     {
@@ -136,13 +136,11 @@ public class HookManager : MonoBehaviour
 
     public void BuyOfflineEarnings()
     {
-        if (TryPurchaseToken(costs[offlineEarnings - 3]))
-        {
             offlineEarnings++;
             strengthCost = costs[offlineEarnings - 3];
             //PlayerPrefs.SetInt("Offline", offlineEarnings);
             UpdateTexts();
-        }
+    
 
     }
 
@@ -162,8 +160,8 @@ public class HookManager : MonoBehaviour
         lengthValueText.text = -hookLength + "m";
         strengthCostText.text = strengthCost.ToString();
         strengthValueText.text = hookStrength + " heroes.";
-        offlineCostText.text = offlineEarningsCost.ToString();
-        offlineValueText.text = "$" + offlineEarnings + "/min";
+        offlineCostText.text = towerUpgradeCost.ToString();
+        //offlineValueText.text = "$" + offlineEarnings + "/min";
     }
 
     //public void CheckIdles()

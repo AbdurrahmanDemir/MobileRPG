@@ -199,7 +199,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Time: 0.5
+  m_Time: 0.2
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -293,3 +293,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySO: {fileID: 0}
   targetPosition: {x: 0, y: 0}
+  target: {fileID: 0}

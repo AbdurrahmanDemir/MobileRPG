@@ -16,12 +16,14 @@ public class MenuHeroDetails : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rangeText;
     [SerializeField] private TextMeshProUGUI attackSpeedText;
     [SerializeField] private TextMeshProUGUI moveSpeedText;
+    [SerializeField] private TextMeshProUGUI specialStatNameText;
+    [SerializeField] private TextMeshProUGUI specialStatText;
     [Header("Other")]
     [SerializeField] TextMeshProUGUI upgradePriceText;
 
     public void Config(string name, Sprite icon, string type, string cardDetails,
                        float damage, float health, float range, float attackSpeed, float moveSpeed,
-                       int price)
+                       int price, string specialStatName, float specialStat)
     {
         cardNameText.text = name;
         cardIconImage.sprite = icon;
@@ -32,6 +34,8 @@ public class MenuHeroDetails : MonoBehaviour
         attackSpeedText.text = attackSpeed.ToString();
         moveSpeedText.text = moveSpeed.ToString();
         upgradePriceText.text = price.ToString();
+        specialStatNameText.text = specialStatName;
+        specialStatText.text = specialStat.ToString();
 
         switch (type)
         {

@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
         Hook.onThrowEnding += EndingThrow;
 
         TowerController.onGameLose += GameLosePanel;
+        WaveManager.onGameWin += GameWinPanel;
     }
     private void OnDestroy()
     {
@@ -32,6 +33,8 @@ public class UIManager : MonoBehaviour
         Hook.onThrowEnding -= EndingThrow;
 
         TowerController.onGameLose -= GameLosePanel;
+        WaveManager.onGameWin -= GameWinPanel;
+
 
     }
 
@@ -67,6 +70,22 @@ public class UIManager : MonoBehaviour
         GameUIStageChanged(UIGameStage.GameLose);
     }
     public void GameLoseButton()
+    {
+        GameUIStageChanged(UIGameStage.Menu);
+
+        for (int i = 0; i < enemyParent.childCount; i++)
+        {
+            Destroy(enemyParent.GetChild(i).gameObject);
+        }
+
+        towerController.ResetTower();
+    }
+
+    public void GameWinPanel()
+    {
+        GameUIStageChanged(UIGameStage.GameWin);
+    }
+    public void GameWinButton()
     {
         GameUIStageChanged(UIGameStage.Menu);
 

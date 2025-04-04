@@ -22,4 +22,6 @@ MonoBehaviour:
   hitSpeed: 5
   moveSpeed: 0.2
   undergroundRange: -50
+  specialStatName: He has no special powers.
+  specialStat: 0
   cardDescription: A ranged combat angel.

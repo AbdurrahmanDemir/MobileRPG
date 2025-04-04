@@ -8,10 +8,20 @@ public abstract class Hero : MonoBehaviour
     public HeroSO heroSO;
     protected float lastAttackTime = 0f;
     public LayerMask targetLayerMask;
-    int health;
+
+    [Header("HeroSO")]
+    protected string heroName;
+    protected Sprite heroImage;
+    protected string attackType;
+    protected bool isAreaOfEffect;
+    protected int damage;
+    protected float range;
+    protected float moveSpeed;
+    protected float cooldown;
+    protected int health;
 
     [Header("Elements")]
-     public Animator animator;
+     [SerializeField] private Animator animator;
      private Slider healthSlider;
     SpriteRenderer characterSpriteRenderer;
     private Color originalColor;
@@ -45,6 +55,16 @@ public abstract class Hero : MonoBehaviour
         characterSpriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = characterSpriteRenderer.color;
         originalScale = transform.localScale;
+
+        heroName = heroSO.heroName;
+        heroImage = heroSO.heroImage;
+        attackType = heroSO.attackType;
+        isAreaOfEffect = heroSO.isAreaOfEffect;
+        damage = heroSO.damage;
+        range = heroSO.range;
+        moveSpeed = heroSO.moveSpeed;
+        cooldown = heroSO.cooldown;
+
 
         healthSlider = GetComponentInChildren<Slider>();
         healthSlider.maxValue = heroSO.maxHealth;

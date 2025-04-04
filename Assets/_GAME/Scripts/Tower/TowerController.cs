@@ -70,4 +70,27 @@ public class TowerController : MonoBehaviour
             onGameLose?.Invoke();
         }
     }
+
+    public void TowerUpgrade()
+    {
+        if(HookManager.instance.TryPurchaseToken(HookManager.instance.costs[HookManager.instance.offlineEarnings - 3]))
+        {
+            HookManager.instance.BuyOfflineEarnings();
+
+            health += 100;
+            healthSlider.value = health;
+            healthText.text = health.ToString();
+
+
+            towerSpriteRenderer.DOColor(Color.gray, 0.1f).OnComplete(() =>
+            {
+                towerSpriteRenderer.DOColor(originalColor, 0.1f).SetDelay(0.1f);
+            });
+            transform.DOScale(originalScale * scaleReduction, 0.1f).OnComplete(() =>
+            {
+                transform.DOScale(originalScale, 0.1f);
+            });
+        }
+
+    }
 }

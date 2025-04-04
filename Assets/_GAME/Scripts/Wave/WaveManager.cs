@@ -26,6 +26,8 @@ public class WaveManager : MonoBehaviour
 
     [Header("Action")]
     private bool onThrow = false;
+    public static Action onGameWin;
+
 
     private void Awake()
     {
@@ -107,6 +109,7 @@ public class WaveManager : MonoBehaviour
                     PlayerPrefs.SetInt("WaveIndex", waveIndex);
 
                     Debug.Log("All waves completed.");
+                    onGameWin?.Invoke();
                     isTimerOn = false;
                     return;
                 }

@@ -22,4 +22,6 @@ MonoBehaviour:
   hitSpeed: 1.3
   moveSpeed: 0.2
   undergroundRange: -30
+  specialStatName: She has no special powers.
+  specialStat: 0
   cardDescription: A melee angel.

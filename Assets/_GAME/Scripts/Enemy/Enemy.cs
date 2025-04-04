@@ -9,8 +9,15 @@ public abstract class Enemy : MonoBehaviour
     public EnemySO enemySO;
     protected float lastAttackTime = 0f;
     public LayerMask targetLayerMask;
-    int health;
-    public float attackSpeed;
+
+    public string enemyName;
+    public Sprite enemyImage;
+    public string attackType;
+    public int damage;
+    public float range;
+    public float moveSpeed;
+    public int health;
+    public float cooldown;
 
     [Header("Elements")]
     public Animator animator;
@@ -48,12 +55,21 @@ public abstract class Enemy : MonoBehaviour
         originalColor = characterSpriteRenderer.color;
         originalScale = transform.localScale;
 
+        enemyName = enemySO.enemyName;
+        enemyImage = enemySO.enemyImage;
+        attackType = enemySO.attackType;
+        damage = enemySO.damage;
+        range = enemySO.range;
+        moveSpeed = enemySO.moveSpeed;
+        cooldown = enemySO.cooldown;
+
+
         healthSlider = GetComponentInChildren<Slider>();
         healthSlider.maxValue = enemySO.maxHealth;
         health = enemySO.maxHealth;
         healthSlider.value = health;
 
-        attackSpeed = enemySO.cooldown;
+        cooldown = enemySO.cooldown;
     }
     void Update()
     {
@@ -66,7 +82,7 @@ public abstract class Enemy : MonoBehaviour
             if (onThrow)
                 return;
 
-            if (distanceToTarget <= enemySO.range)
+            if (distanceToTarget <= range)
             {
                 if (target == null)
                     Debug.Log("Hero olmustu");
@@ -83,7 +99,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Attack(GameObject target)
     {
-        if(Time.time- lastAttackTime>= attackSpeed)
+        if(Time.time- lastAttackTime>= cooldown)
         {
             lastAttackTime = Time.time;
 
@@ -119,7 +135,7 @@ public abstract class Enemy : MonoBehaviour
     }
     private void MoveTowardsTarget(Vector2 targetPosition)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySO.moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
     }
 
     public virtual void HeroTakeDamage(int damage)
@@ -141,6 +157,7 @@ public abstract class Enemy : MonoBehaviour
         {
             Debug.Log("enemy öldü");
             onDead?.Invoke(transform.position);
+            HookManager.instance.AddToken(10);
             Destroy(gameObject);
         }
     }
