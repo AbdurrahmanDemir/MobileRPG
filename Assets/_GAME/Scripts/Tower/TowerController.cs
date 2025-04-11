@@ -23,6 +23,15 @@ public class TowerController : MonoBehaviour
 
     public static Action onGameLose;
 
+    public void Awake()
+    {
+        UpgradeSelectManager.towerHealthItem += TowerHealthUpgradeItem;
+    }
+    private void OnDestroy()
+    {
+        UpgradeSelectManager.towerHealthItem -= TowerHealthUpgradeItem;
+    }
+
     private void Start()
     {
         towerSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -92,5 +101,21 @@ public class TowerController : MonoBehaviour
             });
         }
 
+    }
+    public void TowerHealthUpgradeItem(int healthAmount)
+    {
+        health += healthAmount;
+        healthSlider.value = health;
+        healthText.text = health.ToString();
+
+
+        towerSpriteRenderer.DOColor(Color.gray, 0.1f).OnComplete(() =>
+        {
+            towerSpriteRenderer.DOColor(originalColor, 0.1f).SetDelay(0.1f);
+        });
+        transform.DOScale(originalScale * scaleReduction, 0.1f).OnComplete(() =>
+        {
+            transform.DOScale(originalScale, 0.1f);
+        });
     }
 }

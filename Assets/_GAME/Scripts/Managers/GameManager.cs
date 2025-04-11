@@ -1,21 +1,36 @@
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private UpgradeSelectManager upgradeSelectManager;
+
     [Header("Elements")]
     [SerializeField] private GameObject[] allHeroes;
     [SerializeField] private Transform[] creatHeroPosition;
     [SerializeField] private Hook hook;
+    [Header("Settings")]
+    [SerializeField] private Slider powerUpSlider;
+    [SerializeField] private int[] powerUpLevel;
+    int powerUpIndex=0;
 
     private void Awake()
     {
         Hook.onThrowEnding += CreatHeroes;
+        Enemy.onDead += PowerUpSliderUpdate;
     }
     private void OnDestroy()
     {
         Hook.onThrowEnding -= CreatHeroes;
-    }
+        Enemy.onDead -= PowerUpSliderUpdate;
 
+    }
+    private void Start()
+    {
+        powerUpSlider.value = 0;
+        powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
+    }
     public void CreatHeroes()
     {
         for (int i = 0; i < hook.hookedHero.Count; i++)
@@ -44,4 +59,23 @@ public class GameManager : MonoBehaviour
         else
             Time.timeScale = 1;
     }
+
+    public void PowerUpSliderUpdate(Vector2 createPosition)
+    {
+        powerUpSlider.value++;
+
+        if(powerUpSlider.value >= powerUpSlider.maxValue)
+        {
+            powerUpIndex++;
+            powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
+            upgradeSelectManager.PowerUpPanelOpen();
+        }
+    }
+    public void PowerUpReset()
+    {
+        powerUpIndex = 0;
+        powerUpSlider.value = 0;
+        powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
+    }
+    
 }

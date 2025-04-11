@@ -36,6 +36,8 @@ public abstract class Hero : MonoBehaviour
         Hook.onThrowStarting += OnThrowStartingCallBack;
         Hook.onThrowEnding += OnThrowEndingCallBack;
 
+        UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
+        UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
 
         TowerController.onGameLose -= OnThrowStartingCallBack;
     }
@@ -44,6 +46,8 @@ public abstract class Hero : MonoBehaviour
         Hook.onThrowStarting -= OnThrowStartingCallBack;
         Hook.onThrowEnding -= OnThrowEndingCallBack;
 
+        UpgradeSelectManager.onPowerUpPanelOpened -= OnThrowStartingCallBack;
+        UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
 
         TowerController.onGameLose -= OnThrowStartingCallBack;
     }

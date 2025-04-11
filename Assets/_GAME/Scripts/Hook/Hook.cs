@@ -74,7 +74,6 @@ public class Hook : MonoBehaviour
                         StopThrow();
                 });
             });
-            //Screen(GAME)
 
             coll.enabled = false;
             canMove = true;

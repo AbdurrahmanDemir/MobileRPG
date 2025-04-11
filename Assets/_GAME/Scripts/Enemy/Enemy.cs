@@ -36,12 +36,18 @@ public abstract class Enemy : MonoBehaviour
         Hook.onThrowStarting += OnThrowStartingCallBack;
         Hook.onThrowEnding += OnThrowEndingCallBack;
 
+        UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
+        UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
+
         TowerController.onGameLose += OnThrowStartingCallBack;
     }
     private void OnDestroy()
     {
         Hook.onThrowStarting -= OnThrowStartingCallBack;
         Hook.onThrowEnding -= OnThrowEndingCallBack;
+
+        UpgradeSelectManager.onPowerUpPanelOpened -= OnThrowStartingCallBack;
+        UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
 
         TowerController.onGameLose -= OnThrowStartingCallBack;
     }
@@ -169,7 +175,6 @@ public abstract class Enemy : MonoBehaviour
     public void OnThrowEndingCallBack()
     {
         onThrow = false;
-
     }
 
 }

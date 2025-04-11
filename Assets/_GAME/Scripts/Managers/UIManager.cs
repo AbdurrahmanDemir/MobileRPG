@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameManager gameManager;   
+
     [Header("Elements")]
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject gamePanel;
@@ -79,11 +81,20 @@ public class UIManager : MonoBehaviour
         }
 
         towerController.ResetTower();
+        gameManager.PowerUpReset();
     }
 
     public void GameWinPanel()
     {
         GameUIStageChanged(UIGameStage.GameWin);
+
+        for (int i = 0; i < enemyParent.childCount; i++)
+        {
+            Destroy(enemyParent.GetChild(i).gameObject);
+        }
+
+        towerController.ResetTower();
+        gameManager.PowerUpReset();
     }
     public void GameWinButton()
     {

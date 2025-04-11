@@ -68,6 +68,16 @@ public class HookManager : MonoBehaviour
             Destroy(gameObject);
 
         LoadData();
+
+        UpgradeSelectManager.hookLenghtItem += BuyLength;
+        UpgradeSelectManager.hookStranghtItem+= BuyStrength;
+        UpgradeSelectManager.tokenAddItem += AddToken;
+    }
+    private void OnDestroy()
+    {
+        UpgradeSelectManager.hookLenghtItem = BuyLength;
+        UpgradeSelectManager.hookStranghtItem -= BuyStrength;
+        UpgradeSelectManager.tokenAddItem -= AddToken;
     }
     void Start()
     {
