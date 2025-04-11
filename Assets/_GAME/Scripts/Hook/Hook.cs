@@ -34,7 +34,7 @@ public class Hook : MonoBehaviour
         mainCamera = Camera.main;
         coll= GetComponent<Collider2D>();
         hookedHero = new List<HookedHero>();
-        throwPriceText.text = (throwCount + 10).ToString();
+        throwPriceText.text = (throwCount * 5).ToString();
     }
 
     private void Update()
@@ -50,10 +50,10 @@ public class Hook : MonoBehaviour
 
     public void StartThrow()
     {
-        if (hookManager.TryPurchaseToken(throwCount + 10))
+        if (hookManager.TryPurchaseToken(throwCount * 5))
         {
             throwCount++;
-            throwPriceText.text= (throwCount+10).ToString();
+            throwPriceText.text= (throwCount * 5).ToString();
             length = HookManager.instance.hookLength - 20;
             strength = HookManager.instance.hookStrength;
             heroCount = 0;

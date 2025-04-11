@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider powerUpSlider;
     [SerializeField] private int[] powerUpLevel;
     int powerUpIndex=0;
+
+
+    [Header("Enemy")]
+    public static int enemyCount;
 
     private void Awake()
     {
@@ -44,10 +49,12 @@ public class GameManager : MonoBehaviour
                 case "Range Angel":
                     int RandomPos1 = Random.Range(0, creatHeroPosition.Length);
                     Instantiate(allHeroes[1], creatHeroPosition[RandomPos1]);
+
                     break;
                 case "Angel Man":
                     int RandomPos2 = Random.Range(0, creatHeroPosition.Length);
                     Instantiate(allHeroes[2], creatHeroPosition[RandomPos2]);
+
                     break;
             }
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+public class OldMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject sceneLoadingPanel;
     [SerializeField] private Slider loadingSlider;

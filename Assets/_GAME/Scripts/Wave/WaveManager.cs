@@ -108,7 +108,9 @@ public class WaveManager : MonoBehaviour
                     waveIndex++;
                     PlayerPrefs.SetInt("WaveIndex", waveIndex);
 
+                    
                     Debug.Log("All waves completed.");
+
                     onGameWin?.Invoke();
                     isTimerOn = false;
                     return;
@@ -190,6 +192,8 @@ public class WaveManager : MonoBehaviour
             segment.segmentEnemys[currentEnemyIndex].enemy[currentEnemySubIndex],
             creatEnemyPosition[randomCreatPos].position,
             Quaternion.Euler(0f, 180f, 0f), enemyParent);
+
+        GameManager.enemyCount++;
 
         currentEnemyCount--;
         return true;
