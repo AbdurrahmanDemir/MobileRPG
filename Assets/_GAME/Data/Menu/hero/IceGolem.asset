@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IceGolem
   m_EditorClassIdentifier: 
   cardName: RangeAngel
-  heroIcon: {fileID: 21300000, guid: 3b22de3a728568448845a4299be78d01, type: 3}
+  heroIcon: {fileID: 21300000, guid: baa6e13f607c42946969fb6e2f07ed0e, type: 3}
   cardType: 1
   baseUpgradeCost: 10
   range: 3

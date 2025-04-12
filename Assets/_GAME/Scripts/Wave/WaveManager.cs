@@ -22,7 +22,7 @@ public class WaveManager : MonoBehaviour
     private int currentEnemySubIndex;
     private int currentEnemyIndex;
     public int currentEnemyCount;
-    private float segmentDelay = 10f;
+    private float segmentDelay = 5f;
 
     [Header("Action")]
     private bool onThrow = false;

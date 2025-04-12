@@ -163,7 +163,7 @@ public abstract class Enemy : MonoBehaviour
         {
             Debug.Log("enemy öldü");
             onDead?.Invoke(transform.position);
-            HookManager.instance.AddToken(10);
+            HookManager.instance.AddToken(5);
             GameManager.enemyCount--;
             Debug.Log("ENEMY COUNT: " + GameManager.enemyCount);
             Destroy(gameObject);
