@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance;
+    [SerializeField] private EnemyTowerController enemyTowerController;
 
     [Header("Elements")]
     [SerializeField] private Wave[] waves;
@@ -26,7 +27,6 @@ public class WaveManager : MonoBehaviour
 
     [Header("Action")]
     private bool onThrow = false;
-    public static Action onGameWin;
 
 
     private void Awake()
@@ -38,11 +38,17 @@ public class WaveManager : MonoBehaviour
 
         Hook.onThrowStarting += OnThrowStartingCallBack;
         Hook.onThrowEnding += OnThrowEndingCallBack;
+
+        TowerController.onGameLose += OnThrowStartingCallBack;
+        EnemyTowerController.onGameWin += OnThrowStartingCallBack;
     }
     private void OnDestroy()
     {
         Hook.onThrowStarting -= OnThrowStartingCallBack;
         Hook.onThrowEnding -= OnThrowEndingCallBack;
+
+        TowerController.onGameLose -= OnThrowStartingCallBack;
+        EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
     }
 
     //private void Start()
@@ -64,6 +70,8 @@ public class WaveManager : MonoBehaviour
         currentWaveIndex = index;
         currentSegmentIndex = 0;
         currentEnemyIndex = 0;
+        enemyTowerController.towerSO = waves[currentWaveIndex].waveTower;
+        enemyTowerController.TowerInfoUpdate();
         currentWave = waves[currentWaveIndex];
         //waveUI.waveIndexText.text= currentWaveIndex.ToString();
         isTimerOn = true;
@@ -94,32 +102,23 @@ public class WaveManager : MonoBehaviour
             }
             else
             {
-                // Geçerli segment tamamlandý
                 currentSegmentIndex++;
                 Debug.Log("Moving to next segment. Current Index: " + currentSegmentIndex);
 
-                // Segment kontrolü yap ve dalgayý tamamla
                 if (currentSegmentIndex >= currentWave.segments.Count)
                 {
                     Debug.Log("All segments in the wave completed.");
-
-
-                    int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
-                    waveIndex++;
-                    PlayerPrefs.SetInt("WaveIndex", waveIndex);
+                             
 
                     
                     Debug.Log("All waves completed.");
 
-                    onGameWin?.Invoke();
                     isTimerOn = false;
                     return;
                 }
 
-                // Segment bilgilerini güncelle
                 waveUI.waveSegmentText.text = "Wave " + (currentSegmentIndex + 1) + " / " + currentWave.segments.Count;
 
-                // Gecikmeli segment baþlatma
                 isTimerOn = false;
                 Invoke("StartNextSegment", segmentDelay);
             }
@@ -129,7 +128,7 @@ public class WaveManager : MonoBehaviour
     private void StartNextSegment()
     {
         isTimerOn = true;
-        timer = 0; // Zamanlayýcýyý sýfýrla
+        timer = 0;
         Debug.Log("Starting next segment. Current Index: " + currentSegmentIndex);
         SetupNextSegment();
     }
@@ -139,7 +138,7 @@ public class WaveManager : MonoBehaviour
     private void SetupNextSegment()
     {
         currentEnemyIndex = 0;
-        currentEnemySubIndex = 0; // Yeni deðiþkeni sýfýrla
+        currentEnemySubIndex = 0; 
         if (currentSegmentIndex < currentWave.segments.Count)
         {
             if (currentWave.segments[currentSegmentIndex].segmentEnemys.Length > 0)
@@ -174,7 +173,7 @@ public class WaveManager : MonoBehaviour
                 }
                 else
                 {
-                    return false; // Bu segmentte baþka düþman yok
+                    return false; 
                 }
             }
         }
@@ -213,7 +212,6 @@ public class WaveManager : MonoBehaviour
     {
         onThrow = false;
         Debug.Log("Avtipn çalýþtý" + onThrow);
-
     }
 }
 
@@ -221,6 +219,7 @@ public class WaveManager : MonoBehaviour
 public struct Wave
 {
     public string waveName;
+    public TowerSO waveTower;
     public List<WaveSegmet> segments;
 }
 

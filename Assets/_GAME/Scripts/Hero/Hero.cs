@@ -39,7 +39,8 @@ public abstract class Hero : MonoBehaviour
         UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
 
-        TowerController.onGameLose -= OnThrowStartingCallBack;
+        TowerController.onGameLose += OnThrowStartingCallBack;
+        EnemyTowerController.onGameWin += OnThrowStartingCallBack;
     }
     private void OnDestroy()
     {
@@ -50,6 +51,8 @@ public abstract class Hero : MonoBehaviour
         UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
 
         TowerController.onGameLose -= OnThrowStartingCallBack;
+        EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
+
     }
 
     private void Start()

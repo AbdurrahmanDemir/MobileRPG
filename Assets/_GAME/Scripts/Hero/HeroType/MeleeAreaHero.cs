@@ -14,7 +14,11 @@ public class MeleeAreaHero : Hero
         foreach (var targetx in targetsInRange)
         {
             Debug.Log($"{gameObject.name} is attacking {targetx.gameObject.name} with area of effect attack for {heroSO.damage} damage!");
-            targetx.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
+          
+            if (targetx.CompareTag("Enemy"))
+                targetx.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
+            else if (targetx.CompareTag("EnemyTower"))
+                targetx.GetComponent<EnemyTowerController>().TakeDamage(heroSO.damage);
         }
     }
 }

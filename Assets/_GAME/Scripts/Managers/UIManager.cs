@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject upgradeHookPanel;
     [Header("Level")]
     [SerializeField] private Transform enemyParent;
+    [SerializeField] private Transform heroParent;
     [SerializeField] private TowerController towerController;
 
 
@@ -27,7 +28,7 @@ public class UIManager : MonoBehaviour
         Hook.onThrowEnding += EndingThrow;
 
         TowerController.onGameLose += GameLosePanel;
-        WaveManager.onGameWin += GameWinPanel;
+        EnemyTowerController.onGameWin += GameWinPanel;
     }
     private void OnDestroy()
     {
@@ -35,7 +36,7 @@ public class UIManager : MonoBehaviour
         Hook.onThrowEnding -= EndingThrow;
 
         TowerController.onGameLose -= GameLosePanel;
-        WaveManager.onGameWin -= GameWinPanel;
+        EnemyTowerController.onGameWin -= GameWinPanel;
 
 
     }
@@ -77,7 +78,12 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < enemyParent.childCount; i++)
         {
-            Destroy(enemyParent.GetChild(i).gameObject);
+            if(enemyParent.GetChild(i) != null)
+                Destroy(enemyParent.GetChild(i).gameObject);
+
+            if(heroParent.GetChild(i) != null)
+                Destroy(heroParent.GetChild(i).gameObject);
+
         }
 
         towerController.ResetTower();
@@ -90,7 +96,12 @@ public class UIManager : MonoBehaviour
 
         for (int i = 0; i < enemyParent.childCount; i++)
         {
-            Destroy(enemyParent.GetChild(i).gameObject);
+            if (enemyParent.GetChild(i) != null)
+                Destroy(enemyParent.GetChild(i).gameObject);
+
+            if (heroParent.GetChild(i) != null)
+                Destroy(heroParent.GetChild(i).gameObject);
+
         }
 
         towerController.ResetTower();

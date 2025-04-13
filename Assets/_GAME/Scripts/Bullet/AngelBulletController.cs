@@ -41,7 +41,11 @@ public class AngelBulletController : MonoBehaviour
         {
             collision.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
             ReleaseBullet();
-
+        }
+        else if (collision.CompareTag("EnemyTower"))
+        {
+            collision.GetComponent<EnemyTowerController>().TakeDamage(heroSO.damage);
+            ReleaseBullet();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -50,7 +54,11 @@ public class AngelBulletController : MonoBehaviour
         {
             collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
             ReleaseBullet();
-
+        }
+        else if (collision.gameObject.CompareTag("EnemyTower"))
+        {
+            collision.gameObject.GetComponent<EnemyTowerController>().TakeDamage(heroSO.damage);
+            ReleaseBullet();
         }
     }
 

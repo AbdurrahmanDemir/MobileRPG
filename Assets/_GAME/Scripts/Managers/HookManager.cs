@@ -72,12 +72,18 @@ public class HookManager : MonoBehaviour
         UpgradeSelectManager.hookLenghtItem += BuyLength;
         UpgradeSelectManager.hookStranghtItem+= BuyStrength;
         UpgradeSelectManager.tokenAddItem += AddToken;
+
+        TowerController.onGameLose += ResetToken;
+        EnemyTowerController.onGameWin += ResetToken;
     }
     private void OnDestroy()
     {
         UpgradeSelectManager.hookLenghtItem = BuyLength;
         UpgradeSelectManager.hookStranghtItem -= BuyStrength;
         UpgradeSelectManager.tokenAddItem -= AddToken;
+
+        TowerController.onGameLose -= ResetToken;
+        EnemyTowerController.onGameWin -= ResetToken;
     }
     void Start()
     {
@@ -93,6 +99,13 @@ public class HookManager : MonoBehaviour
         lengthCost = costs[-hookLength / 10 - 3];
         strengthCost = costs[hookStrength - 3];
         towerUpgradeCost = costs[offlineEarnings - 3];
+    }
+
+    void ResetToken()
+    {
+        token = 20;
+        UpdateTokenText();
+
     }
     public bool TryPurchaseToken(int price)
     {

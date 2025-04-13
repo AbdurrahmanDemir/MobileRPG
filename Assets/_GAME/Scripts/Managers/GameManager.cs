@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private GameObject[] allHeroes;
     [SerializeField] private Transform[] creatHeroPosition;
+    [SerializeField] private Transform heroParent;
     [SerializeField] private Hook hook;
     [Header("Settings")]
     [SerializeField] private Slider powerUpSlider;
@@ -44,16 +45,16 @@ public class GameManager : MonoBehaviour
             {
                 case "Angel":
                     int RandomPos = Random.Range(0, creatHeroPosition.Length);
-                    Instantiate(allHeroes[0], creatHeroPosition[RandomPos]);
+                    Instantiate(allHeroes[0], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
                     break;
                 case "Range Angel":
                     int RandomPos1 = Random.Range(0, creatHeroPosition.Length);
-                    Instantiate(allHeroes[1], creatHeroPosition[RandomPos1]);
+                    Instantiate(allHeroes[1], creatHeroPosition[RandomPos1].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
 
                     break;
                 case "Angel Man":
                     int RandomPos2 = Random.Range(0, creatHeroPosition.Length);
-                    Instantiate(allHeroes[2], creatHeroPosition[RandomPos2]);
+                    Instantiate(allHeroes[2], creatHeroPosition[RandomPos2].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
 
                     break;
             }
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
             powerUpIndex++;
             powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
             upgradeSelectManager.PowerUpPanelOpen();
+            powerUpSlider.value = 0;
         }
     }
     public void PowerUpReset()

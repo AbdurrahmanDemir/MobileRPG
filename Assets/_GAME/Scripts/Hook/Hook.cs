@@ -34,9 +34,16 @@ public class Hook : MonoBehaviour
         mainCamera = Camera.main;
         coll= GetComponent<Collider2D>();
         hookedHero = new List<HookedHero>();
-        throwPriceText.text = (throwCount * 5).ToString();
-    }
+        throwPriceText.text = (throwCount * 10).ToString();
 
+        TowerController.onGameLose += ResetThrowCount;
+        EnemyTowerController.onGameWin += ResetThrowCount;
+    }
+    private void OnDestroy()
+    {
+        TowerController.onGameLose -= ResetThrowCount;
+        EnemyTowerController.onGameWin -= ResetThrowCount;
+    }
     private void Update()
     {
         if (canMove && Input.GetMouseButton(0))
@@ -47,13 +54,16 @@ public class Hook : MonoBehaviour
             transform.position = hookPosition;
         }
     }
-
+    void ResetThrowCount()
+    {
+        this.throwCount = 0;
+    }
     public void StartThrow()
     {
-        if (hookManager.TryPurchaseToken(throwCount * 5))
+        if (hookManager.TryPurchaseToken(throwCount * 10))
         {
             throwCount++;
-            throwPriceText.text= (throwCount * 5).ToString();
+            throwPriceText.text= (throwCount * 10).ToString();
             length = HookManager.instance.hookLength - 20;
             strength = HookManager.instance.hookStrength;
             heroCount = 0;

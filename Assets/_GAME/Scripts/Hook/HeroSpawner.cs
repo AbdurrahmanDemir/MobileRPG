@@ -6,12 +6,17 @@ public class HeroSpawner : MonoBehaviour
 
     void Awake()
     {
+        HeroSpawn();
+    }
+
+    void HeroSpawn()
+    {
         for (int i = 0; i < heroTypes.Length; i++)
         {
             int num = 0;
             while (num < heroTypes[i].heroCount)
             {
-                HookedHero hero = UnityEngine.Object.Instantiate<HookedHero>(heroPrefabs);
+                HookedHero hero = Instantiate(heroPrefabs);
                 hero.Type = heroTypes[i];
                 hero.ResetHero();
                 num++;

@@ -40,6 +40,8 @@ public abstract class Enemy : MonoBehaviour
         UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
 
         TowerController.onGameLose += OnThrowStartingCallBack;
+        EnemyTowerController.onGameWin += OnThrowStartingCallBack;
+
     }
     private void OnDestroy()
     {
@@ -50,6 +52,8 @@ public abstract class Enemy : MonoBehaviour
         UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
 
         TowerController.onGameLose -= OnThrowStartingCallBack;
+        EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
+
     }
 
 
@@ -163,7 +167,7 @@ public abstract class Enemy : MonoBehaviour
         {
             Debug.Log("enemy öldü");
             onDead?.Invoke(transform.position);
-            HookManager.instance.AddToken(5);
+            HookManager.instance.AddToken(10);
             GameManager.enemyCount--;
             Debug.Log("ENEMY COUNT: " + GameManager.enemyCount);
             Destroy(gameObject);
