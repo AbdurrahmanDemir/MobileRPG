@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
                 case "Angel Man":
                     int RandomPos2 = Random.Range(0, creatHeroPosition.Length);
                     Instantiate(allHeroes[2], creatHeroPosition[RandomPos2].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+                    break;
+                case "Ice Golem":
+                    int RandomPos3 = Random.Range(0, creatHeroPosition.Length);
+                    Instantiate(allHeroes[3], creatHeroPosition[RandomPos3].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
 
                     break;
             }

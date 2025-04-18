@@ -36,6 +36,9 @@ public abstract class Hero : MonoBehaviour
         Hook.onThrowStarting += OnThrowStartingCallBack;
         Hook.onThrowEnding += OnThrowEndingCallBack;
 
+        UpgradeSelectManager.heroDamageItem += PowerUpHeroDamage;
+        UpgradeSelectManager.heroHealthItem += PowerUpHeroHealth;
+
         UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
 
@@ -46,6 +49,9 @@ public abstract class Hero : MonoBehaviour
     {
         Hook.onThrowStarting -= OnThrowStartingCallBack;
         Hook.onThrowEnding -= OnThrowEndingCallBack;
+
+        UpgradeSelectManager.heroDamageItem -= PowerUpHeroDamage;
+        UpgradeSelectManager.heroHealthItem -= PowerUpHeroHealth;
 
         UpgradeSelectManager.onPowerUpPanelOpened -= OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
@@ -173,6 +179,15 @@ public abstract class Hero : MonoBehaviour
             Destroy(gameObject);
 
         }
+    }
+    public void PowerUpHeroHealth(int amount)
+    {
+        health += amount;
+        healthSlider.value = health;
+    }
+    public void PowerUpHeroDamage(int amount)
+    {
+        damage += amount;
     }
 
     public void OnThrowStartingCallBack()

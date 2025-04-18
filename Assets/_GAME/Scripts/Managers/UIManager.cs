@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : MonoBehaviour
@@ -76,18 +77,20 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.Menu);
 
-        for (int i = 0; i < enemyParent.childCount; i++)
-        {
-            if(enemyParent.GetChild(i) != null)
-                Destroy(enemyParent.GetChild(i).gameObject);
+        //for (int i = 0; i < enemyParent.childCount; i++)
+        //{
+        //    if(enemyParent.GetChild(i) != null)
+        //        Destroy(enemyParent.GetChild(i).gameObject);
 
-            if(heroParent.GetChild(i) != null)
-                Destroy(heroParent.GetChild(i).gameObject);
+        //    if(heroParent.GetChild(i) != null)
+        //        Destroy(heroParent.GetChild(i).gameObject);
 
-        }
+        //}
 
         towerController.ResetTower();
         gameManager.PowerUpReset();
+
+        SceneManager.LoadScene(0);
     }
 
     public void GameWinPanel()
@@ -111,12 +114,17 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.Menu);
 
-        for (int i = 0; i < enemyParent.childCount; i++)
-        {
-            Destroy(enemyParent.GetChild(i).gameObject);
-        }
+        //for (int i = 0; i < enemyParent.childCount; i++)
+        //{
+        //    Destroy(enemyParent.GetChild(i).gameObject);
+        //}
 
         towerController.ResetTower();
+
+        SceneManager.LoadScene(0);
+
+
+
     }
     public void GameUIStageChanged(UIGameStage stage)
     {

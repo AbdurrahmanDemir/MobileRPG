@@ -20,6 +20,8 @@ public class UpgradeSelectManager : MonoBehaviour
     public static Action hookLenghtItem;
     public static Action hookStranghtItem;
     public static Action<int> tokenAddItem;
+    public static Action<int> heroDamageItem;
+    public static Action<int> heroHealthItem;
 
     public void GetUpgrade()
     {
@@ -54,8 +56,12 @@ public class UpgradeSelectManager : MonoBehaviour
                 case UpgradeType.LegendaryHeroCount:
                     break;
                 case UpgradeType.DamageUpgrade:
+                    buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
+                .AddListener(() => HeroDamageItem(upgradeData[randomTypes].amount));
                     break;
                 case UpgradeType.HealthUpgrade:
+                    buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
+                .AddListener(() => HeroHealthItem(upgradeData[randomTypes].amount));
                     break;
                 case UpgradeType.TokenAdd:
                     buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
@@ -89,6 +95,16 @@ public class UpgradeSelectManager : MonoBehaviour
     public void TokenAddItem(int amount)
     {
         tokenAddItem?.Invoke(amount);
+        PowerUpPanelOpen();
+    }
+    public void HeroDamageItem(int amount)
+    {
+        heroDamageItem?.Invoke(amount);
+        PowerUpPanelOpen();
+    }
+    public void HeroHealthItem(int amount)
+    {
+        heroHealthItem?.Invoke(amount);
         PowerUpPanelOpen();
     }
 

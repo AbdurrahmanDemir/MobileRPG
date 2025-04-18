@@ -69,8 +69,8 @@ public class HookManager : MonoBehaviour
 
         LoadData();
 
-        UpgradeSelectManager.hookLenghtItem += BuyLength;
-        UpgradeSelectManager.hookStranghtItem+= BuyStrength;
+        UpgradeSelectManager.hookLenghtItem += PowerUpLength;
+        UpgradeSelectManager.hookStranghtItem+= PowerUpStrength;
         UpgradeSelectManager.tokenAddItem += AddToken;
 
         TowerController.onGameLose += ResetToken;
@@ -78,8 +78,8 @@ public class HookManager : MonoBehaviour
     }
     private void OnDestroy()
     {
-        UpgradeSelectManager.hookLenghtItem = BuyLength;
-        UpgradeSelectManager.hookStranghtItem -= BuyStrength;
+        UpgradeSelectManager.hookLenghtItem = PowerUpLength;
+        UpgradeSelectManager.hookStranghtItem -= PowerUpStrength;
         UpgradeSelectManager.tokenAddItem -= AddToken;
 
         TowerController.onGameLose -= ResetToken;
@@ -135,7 +135,10 @@ public class HookManager : MonoBehaviour
 
     public void BuyLength()
     {
-        if(TryPurchaseToken(costs[-hookLength / 10 - 3]))
+        if(hookLength == 100)
+            PopUpController.instance.OpenPopUp("LENGTH MAX SIZE");
+
+        if (TryPurchaseToken(costs[-hookLength / 10 - 3]))
         {
             hookLength -= 10;
             lengthCost = costs[-hookLength / 10 - 3];
@@ -166,6 +169,31 @@ public class HookManager : MonoBehaviour
     
 
     }
+
+    public void PowerUpLength()
+    {
+        if (hookLength == 100)
+            PopUpController.instance.OpenPopUp("LENGTH MAX SIZE");
+
+        if (TryPurchaseToken(0))
+        {
+            hookLength -= 10;
+            lengthCost = costs[-hookLength / 10 - 3];
+            //PlayerPrefs.SetInt("Length", -hookLength);
+            UpdateTexts();
+        }
+    }
+    public void PowerUpStrength()
+    {
+        if (TryPurchaseToken(0))
+        {
+            hookStrength++;
+            strengthCost = costs[hookStrength - 3];
+            //PlayerPrefs.SetInt("Strength", hookStrength);
+            UpdateTexts();
+        }
+    }
+
 
     public void CollectMoney()
     {

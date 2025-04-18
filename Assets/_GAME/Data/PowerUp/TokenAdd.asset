@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd25a96bd5861bc4898ce8c4eae25b02, type: 3}
-  m_Name: HookStrenght
+  m_Name: TokenAdd
   m_EditorClassIdentifier: 
-  upgradeType: 2
-  upgradeIcon: {fileID: 21300000, guid: fe76fc7db4acaf4419681cae6f505ddc, type: 3}
-  upgradeName: Hook Strength
-  upgradeDescription: "Hook Strength y\xFCkselt"
-  amount: 1
+  upgradeType: 7
+  upgradeIcon: {fileID: 21300000, guid: 2cc5e317ec48f435aac4bb12606baa4f, type: 3}
+  upgradeName: Token Add
+  upgradeDescription: Add 50 Tokens
+  amount: 50

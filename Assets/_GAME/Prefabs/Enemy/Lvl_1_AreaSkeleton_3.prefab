@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 4146953157047881720}
   - component: {fileID: 4943628514072383343}
   m_Layer: 6
-  m_Name: Skeleton_3
+  m_Name: Lvl_1_AreaSkeleton_3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -630,4 +630,13 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  enemyName: 
+  enemyImage: {fileID: 0}
+  attackType: 
+  damage: 0
+  range: 0
+  moveSpeed: 0
+  health: 0
+  cooldown: 0
+  animator: {fileID: 0}
   scaleReduction: {x: 0.9, y: 0.9}

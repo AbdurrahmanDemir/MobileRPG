@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cafd4d174a19eaa429c84ac86a200ff9, type: 3}
-  m_Name: 3_MeleeAreaEnemy
+  m_Name: Lvl_1_AreaSkeleton_3
   m_EditorClassIdentifier: 
   enemyName: Melee Area
   enemyImage: {fileID: 5025148291701961715, guid: 3754d19fc2b6c9046ab94ee724c8628a, type: 3}

@@ -68,7 +68,7 @@ public abstract class Enemy : MonoBehaviour
         enemyName = enemySO.enemyName;
         enemyImage = enemySO.enemyImage;
         attackType = enemySO.attackType;
-        damage = enemySO.damage;
+        damage = enemySO.GetEnemyDamage();
         range = enemySO.range;
         moveSpeed = enemySO.moveSpeed;
         cooldown = enemySO.cooldown;
@@ -76,7 +76,7 @@ public abstract class Enemy : MonoBehaviour
 
         healthSlider = GetComponentInChildren<Slider>();
         healthSlider.maxValue = enemySO.maxHealth;
-        health = enemySO.maxHealth;
+        health = enemySO.GetEnemyHealth();
         healthSlider.value = health;
 
         cooldown = enemySO.cooldown;

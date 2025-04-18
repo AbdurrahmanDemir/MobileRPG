@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd25a96bd5861bc4898ce8c4eae25b02, type: 3}
-  m_Name: TokenAdd
+  m_Name: HeroHealth
   m_EditorClassIdentifier: 
-  upgradeType: 7
-  upgradeIcon: {fileID: 21300000, guid: 2cc5e317ec48f435aac4bb12606baa4f, type: 3}
-  upgradeName: Token Add
-  upgradeDescription: token ekle
-  amount: 5
+  upgradeType: 6
+  upgradeIcon: {fileID: -7432363679474290170, guid: c6813983d2489a541a92c37003b5ffd2, type: 3}
+  upgradeName: Hero Health
+  upgradeDescription: Increases the health of all heroes by 50
+  amount: 50

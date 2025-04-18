@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd25a96bd5861bc4898ce8c4eae25b02, type: 3}
-  m_Name: HookLenght
+  m_Name: HeroDamage
   m_EditorClassIdentifier: 
-  upgradeType: 1
-  upgradeIcon: {fileID: 21300000, guid: fe76fc7db4acaf4419681cae6f505ddc, type: 3}
-  upgradeName: Hook Lenght
-  upgradeDescription: "Hook Lenght y\xFCkselt"
-  amount: 1
+  upgradeType: 5
+  upgradeIcon: {fileID: 21300000, guid: e724bdf52a75043c0a66a6ede3a90dd7, type: 3}
+  upgradeName: Hero Damage
+  upgradeDescription: Increases the damage of all heroes by 5.
+  amount: 5
