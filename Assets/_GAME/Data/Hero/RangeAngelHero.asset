@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3a106fb2035134db35c0ee40356709, type: 3}
   m_Name: RangeAngelHero
   m_EditorClassIdentifier: 
-  heroName: Range Angel
+  heroName: Black Witch
   heroImage: {fileID: -825241786462462102, guid: 2da4e142a17a56f4fad8e5c10ddc70e5, type: 3}
   attackType: Range
   isAreaOfEffect: 0

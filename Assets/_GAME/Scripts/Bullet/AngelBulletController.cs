@@ -39,12 +39,12 @@ public class AngelBulletController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
+            collision.GetComponent<Enemy>().HeroTakeDamage(heroSO.GetCurrentDamage());
             ReleaseBullet();
         }
         else if (collision.CompareTag("EnemyTower"))
         {
-            collision.GetComponent<EnemyTowerController>().TakeDamage(heroSO.damage);
+            collision.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
             ReleaseBullet();
         }
     }
@@ -52,12 +52,12 @@ public class AngelBulletController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
+            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.GetCurrentDamage());
             ReleaseBullet();
         }
         else if (collision.gameObject.CompareTag("EnemyTower"))
         {
-            collision.gameObject.GetComponent<EnemyTowerController>().TakeDamage(heroSO.damage);
+            collision.gameObject.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
             ReleaseBullet();
         }
     }

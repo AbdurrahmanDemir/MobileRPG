@@ -14,5 +14,14 @@ public class HeroSO : ScriptableObject
     public float range;
     public float moveSpeed;
     public float cooldown;
+
+    public int GetCurrentHealth()
+    {
+        return PlayerPrefs.GetInt($"{heroName}_Health", maxHealth);
+    }
+    public int GetCurrentDamage()
+    {
+        return PlayerPrefs.GetInt($"{heroName}_Damage", damage);
+    }
 }
 

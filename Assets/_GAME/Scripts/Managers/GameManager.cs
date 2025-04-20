@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider powerUpSlider;
     [SerializeField] private int[] powerUpLevel;
     int powerUpIndex=0;
+    [Header("Level Settings")]
+    public int[] arenaWinReward;
 
 
     [Header("Enemy")]
@@ -90,5 +92,6 @@ public class GameManager : MonoBehaviour
         powerUpSlider.value = 0;
         powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
     }
+
     
 }

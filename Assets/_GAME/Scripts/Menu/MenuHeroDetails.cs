@@ -20,9 +20,10 @@ public class MenuHeroDetails : MonoBehaviour
     [SerializeField] private TextMeshProUGUI specialStatText;
     [Header("Other")]
     [SerializeField] TextMeshProUGUI upgradePriceText;
+    [SerializeField] Button upgradeButton;
 
     public void Config(string name, Sprite icon, string type, string cardDetails,
-                       float damage, float health, float range, float attackSpeed, float moveSpeed,
+                       int damage, int health, float range, float attackSpeed, float moveSpeed,
                        int price, string specialStatName, float specialStat)
     {
         cardNameText.text = name;
@@ -65,6 +66,11 @@ public class MenuHeroDetails : MonoBehaviour
                 break;
         }
 
+    }
+
+    public Button GetUpgradeButton()
+    {
+        return upgradeButton;
     }
     public void TogglePanel()
     {

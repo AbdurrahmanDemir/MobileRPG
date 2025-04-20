@@ -21,7 +21,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform enemyParent;
     [SerializeField] private Transform heroParent;
     [SerializeField] private TowerController towerController;
-
+    [Header("Game Win/Lose Panel Settings")]
+    [SerializeField] private TextMeshProUGUI winArenaText;
+    [SerializeField] private TextMeshProUGUI winGoldText;
+    [SerializeField] private TextMeshProUGUI winBonusGoldText;
+    [SerializeField] private TextMeshProUGUI winEnemyCountText;
+    [SerializeField] private TextMeshProUGUI loseArenaText;
+    [SerializeField] private TextMeshProUGUI loseGoldText;
+    [SerializeField] private TextMeshProUGUI loseBonusGoldText;
+    [SerializeField] private TextMeshProUGUI loseEnemyCountText;
 
     private void Awake()
     {
@@ -72,6 +80,16 @@ public class UIManager : MonoBehaviour
     public void GameLosePanel()
     {
         GameUIStageChanged(UIGameStage.GameLose);
+
+        loseArenaText.text= (PlayerPrefs.GetInt("WaveIndex", 0)-1).ToString();
+        int enemyCount = GameManager.enemyCount;
+        loseEnemyCountText.text = "Number of enemies killed: " + enemyCount.ToString();
+        int rewardedGold = enemyCount * 5;
+        loseBonusGoldText.text = rewardedGold.ToString();
+        loseGoldText.text = 0.ToString();
+
+
+        DataManager.instance.AddGold(rewardedGold);
     }
     public void GameLoseButton()
     {
@@ -97,30 +115,20 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.GameWin);
 
-        for (int i = 0; i < enemyParent.childCount; i++)
-        {
-            if (enemyParent.GetChild(i) != null)
-                Destroy(enemyParent.GetChild(i).gameObject);
+        winArenaText.text = (PlayerPrefs.GetInt("WaveIndex", 0)).ToString();
+        int enemyCount = GameManager.enemyCount;
+        winEnemyCountText.text = "Number of enemies killed: " + enemyCount.ToString();
+        int rewardedGold = enemyCount * 5;
+        winBonusGoldText.text = rewardedGold.ToString();
+        winGoldText.text = gameManager.arenaWinReward[(PlayerPrefs.GetInt("WaveIndex", 0))].ToString();
 
-            if (heroParent.GetChild(i) != null)
-                Destroy(heroParent.GetChild(i).gameObject);
+        DataManager.instance.AddGold(rewardedGold+ gameManager.arenaWinReward[(PlayerPrefs.GetInt("WaveIndex", 0))]);
 
-        }
-
-        towerController.ResetTower();
-        gameManager.PowerUpReset();
     }
     public void GameWinButton()
     {
-        GameUIStageChanged(UIGameStage.Menu);
-
-        //for (int i = 0; i < enemyParent.childCount; i++)
-        //{
-        //    Destroy(enemyParent.GetChild(i).gameObject);
-        //}
-
         towerController.ResetTower();
-
+        gameManager.PowerUpReset();
         SceneManager.LoadScene(0);
 
 

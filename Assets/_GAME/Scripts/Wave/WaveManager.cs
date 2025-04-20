@@ -192,7 +192,6 @@ public class WaveManager : MonoBehaviour
             creatEnemyPosition[randomCreatPos].position,
             Quaternion.Euler(0f, 180f, 0f), enemyParent);
 
-        GameManager.enemyCount++;
 
         currentEnemyCount--;
         return true;

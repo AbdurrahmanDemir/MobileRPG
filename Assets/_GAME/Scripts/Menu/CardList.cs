@@ -33,13 +33,18 @@ public class CardList : MonoBehaviour
 
             Button cardButton = heroScript.detailsButton;
 
-            int capturedIndex = i; // Index'i yakala
+            int capturedIndex = i;
             cardButton.onClick.AddListener(() => CardDetailsPanel(capturedIndex));
         }
     }
 
     public void CardDetailsPanel(int index)
     {
+        foreach (Transform child in heroDetailsTransform)
+        {
+            Destroy(child.gameObject);
+        }
+
         GameObject cardDetails = Instantiate(heroCardDetailsPrefabs, heroDetailsTransform);
         MenuHeroDetails cardScript = cardDetails.GetComponent<MenuHeroDetails>();
         DOTween.Kill(cardDetails.transform);
@@ -49,8 +54,7 @@ public class CardList : MonoBehaviour
             cardDetails.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
         }
 
-
-    cardScript.Config(
+        cardScript.Config(
             heroes[index].name,
             heroes[index].heroIcon,
             heroes[index].cardType.ToString(),
@@ -58,12 +62,22 @@ public class CardList : MonoBehaviour
             heroes[index].GetCurrentDamage(),
             heroes[index].GetCurrentHealth(),
             heroes[index].range,
-            heroes[index].hitSpeed,
+            heroes[index].cooldown,
             heroes[index].moveSpeed,
             heroes[index].GetUpgradeCost(),
             heroes[index].specialStatName,
             heroes[index].specialStat
-        ) ;
+        );
+
+        Button upgradeButton = cardScript.GetUpgradeButton();
+
+        int capturedIndex = index;
+        upgradeButton.onClick.AddListener(() =>
+        {
+            heroes[capturedIndex].UpgradeHero();
+            CardDetailsPanel(capturedIndex); 
+        });
     }
+
 
 }

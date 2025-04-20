@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3a106fb2035134db35c0ee40356709, type: 3}
   m_Name: AngelAreaMelee
   m_EditorClassIdentifier: 
-  heroName: Angel Area
+  heroName: Male Angel
   heroImage: {fileID: 6860103759488702132, guid: 22e39aba98a248c4e8976d8fe91a7ee1, type: 3}
   attackType: Melee Area
   isAreaOfEffect: 1

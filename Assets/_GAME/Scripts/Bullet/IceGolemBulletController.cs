@@ -40,12 +40,12 @@ public class IceGolemBulletController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
+            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.GetCurrentDamage());
             StartCoroutine(EnemyAttackSpeed(collision.gameObject));
         }
         else if (collision.CompareTag("EnemyTower"))
         {
-            collision.GetComponent<EnemyTowerController>().TakeDamage(heroSO.damage);
+            collision.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
             StartCoroutine(EnemyAttackSpeed(collision.gameObject));
         }
     }
@@ -54,13 +54,13 @@ public class IceGolemBulletController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
 
-            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.damage);
+            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.GetCurrentDamage());
             StartCoroutine(EnemyAttackSpeed(collision.gameObject));
 
         }
         else if (collision.gameObject.CompareTag("EnemyTower"))
         {
-            collision.gameObject.GetComponent<EnemyTowerController>().TakeDamage(heroSO.damage);
+            collision.gameObject.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
             StartCoroutine(EnemyAttackSpeed(collision.gameObject));
         }
     }

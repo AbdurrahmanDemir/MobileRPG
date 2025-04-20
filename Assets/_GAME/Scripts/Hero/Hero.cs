@@ -73,7 +73,7 @@ public abstract class Hero : MonoBehaviour
         heroImage = heroSO.heroImage;
         attackType = heroSO.attackType;
         isAreaOfEffect = heroSO.isAreaOfEffect;
-        damage = heroSO.damage;
+        damage = heroSO.GetCurrentDamage();
         range = heroSO.range;
         moveSpeed = heroSO.moveSpeed;
         cooldown = heroSO.cooldown;
@@ -81,7 +81,7 @@ public abstract class Hero : MonoBehaviour
 
         healthSlider = GetComponentInChildren<Slider>();
         healthSlider.maxValue = heroSO.maxHealth;
-        health = heroSO.maxHealth;
+        health = heroSO.GetCurrentHealth();
         healthSlider.value = health;
     }
 

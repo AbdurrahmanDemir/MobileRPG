@@ -10,6 +10,10 @@ public class DataManager : MonoBehaviour
     [SerializeField] private int gold;
     [SerializeField] private int xp;
     [SerializeField] private int energy;
+    [Header(" Text ")]
+    [SerializeField] private TextMeshProUGUI[] GoldText;
+    [SerializeField] private TextMeshProUGUI[] XpText;
+    [SerializeField] private TextMeshProUGUI[] EnergyText;
 
     private GameObject popUp;
 
@@ -58,14 +62,20 @@ public class DataManager : MonoBehaviour
 
     private void UpdateGoldText()
     {
-        TextMeshProUGUI coinText = GameObject.FindGameObjectWithTag("CoinText").GetComponent<TextMeshProUGUI>();
-        coinText.text = gold.ToString();
+        for (int i = 0; i < GoldText.Length; i++)
+        {
+            GoldText[i].text= gold.ToString();
+        }
     }
 
     private void UpdateXPText()
     {
-            TextMeshProUGUI xpText = GameObject.FindGameObjectWithTag("XpText").GetComponent<TextMeshProUGUI>();
-            xpText.text = xp.ToString();
+        //TextMeshProUGUI xpText = GameObject.FindGameObjectWithTag("XpText").GetComponent<TextMeshProUGUI>();
+        //xpText.text = xp.ToString();
+        for (int i = 0; i < XpText.Length; i++)
+        {
+            XpText[i].text = xp.ToString();
+        }
 
     }
 
@@ -118,8 +128,10 @@ public class DataManager : MonoBehaviour
 
     private void UpdateEnergyText()
     {
-        TextMeshProUGUI energyText = GameObject.FindGameObjectWithTag("EnergyText").GetComponent<TextMeshProUGUI>();
-        energyText.text = energy.ToString();
+        for (int i = 0; i < EnergyText.Length; i++)
+        {
+            EnergyText[i].text = energy.ToString();
+        }
     }
 
     public void AddEnergy(int value)

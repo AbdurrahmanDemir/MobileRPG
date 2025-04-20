@@ -17,11 +17,11 @@ MonoBehaviour:
   cardType: 0
   baseUpgradeCost: 10
   range: 0.5
-  damage: 10
+  damage: 60
   health: 500
-  hitSpeed: 1.3
-  moveSpeed: 0.2
+  cooldown: 0.5
+  moveSpeed: 0.5
   undergroundRange: -30
   specialStatName: She has no special powers.
   specialStat: 0
-  cardDescription: A melee angel.
+  cardDescription: Angel deals damage to enemies with her sword.

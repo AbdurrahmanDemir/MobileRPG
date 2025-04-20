@@ -10,9 +10,9 @@ public class MenuHeroCardSO : ScriptableObject
     public CardType cardType;
     public int baseUpgradeCost = 10;
     public float range;
-    public float damage;
-    public float health;
-    public float hitSpeed;
+    public int damage;
+    public int health;
+    public float cooldown;
     public float moveSpeed;
     public float undergroundRange;
     [Header("Other Stat")]
@@ -21,34 +21,35 @@ public class MenuHeroCardSO : ScriptableObject
     [TextArea] public string cardDescription;
 
 
-    public float GetCurrentHealth()
+    public int GetCurrentHealth()
     {
-        return PlayerPrefs.GetFloat($"{cardName}_Health", health);
+        return PlayerPrefs.GetInt($"{cardName}_Health", health);
     }
-    public float GetCurrentDamage()
+    public int GetCurrentDamage()
     {
-        return PlayerPrefs.GetFloat($"{cardName}_Damage", damage);
+        return PlayerPrefs.GetInt($"{cardName}_Damage", damage);
     }
     public int GetUpgradeCost()
     {
-        return PlayerPrefs.GetInt($"{cardName}_UpgradeCostHero", baseUpgradeCost);
+        return PlayerPrefs.GetInt($"{cardName}_UpgradeCost", baseUpgradeCost);
     }
-    public void UpgradeDamage()
+    public void UpgradeHero()
     {
-        float currentDamage = GetCurrentDamage();
+        int currentDamage = GetCurrentDamage();
         int upgradeCost = GetUpgradeCost();
-        float currentHealth = GetCurrentHealth();
+        int currentHealth = GetCurrentHealth();
 
-        // Yeni deðerleri hesapla
-        float newDamage = currentDamage + 1;
-        int newUpgradeCost = upgradeCost * 2;
-        float newHealth = currentHealth + 1;
+        if (DataManager.instance.TryPurchaseGold(upgradeCost))
+        {
+            int newDamage = currentDamage + 5;
+            int newUpgradeCost = upgradeCost * 5;
+            int newHealth = currentHealth + 50;
 
-        // PlayerPrefs'e kaydet
-        PlayerPrefs.SetFloat($"{cardName}_Damage", newDamage);
-        PlayerPrefs.SetFloat($"{cardName}_Health", newHealth);
-        PlayerPrefs.SetInt($"{cardName}_UpgradeCost", newUpgradeCost);
-        PlayerPrefs.Save();
+            PlayerPrefs.SetInt($"{cardName}_Damage", newDamage);
+            PlayerPrefs.SetInt($"{cardName}_Health", newHealth);
+            PlayerPrefs.SetInt($"{cardName}_UpgradeCost", newUpgradeCost);
+            PlayerPrefs.Save();
+        }
     }
 }
 public enum CardType
