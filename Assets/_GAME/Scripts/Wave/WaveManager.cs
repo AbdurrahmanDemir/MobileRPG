@@ -187,10 +187,14 @@ public class WaveManager : MonoBehaviour
         }
 
         int randomCreatPos = Random.Range(0, creatEnemyPosition.Length);
-        Instantiate(
+        GameObject enemyInstance=  Instantiate(
             segment.segmentEnemys[currentEnemyIndex].enemy[currentEnemySubIndex],
             creatEnemyPosition[randomCreatPos].position,
             Quaternion.Euler(0f, 180f, 0f), enemyParent);
+
+        //Enemy enemy = enemyInstance.GetComponent<Enemy>();
+        //enemy.Initialize(segment.segmentEnemys[currentEnemyIndex].enemyLevel);
+
 
 
         currentEnemyCount--;
@@ -205,6 +209,7 @@ public class WaveManager : MonoBehaviour
     public void OnThrowStartingCallBack()
     {
         onThrow = true;
+        Time.timeScale = 1;
         Debug.Log("Avtipn çalýþtý" + onThrow);
     }
     public void OnThrowEndingCallBack()
@@ -233,5 +238,6 @@ public struct WaveSegmet
 public struct WaveSegmentEnemyManage
 {
     public GameObject[] enemy;
+    public EnemySO enemyLevel;
     public int enemyCount;
 }

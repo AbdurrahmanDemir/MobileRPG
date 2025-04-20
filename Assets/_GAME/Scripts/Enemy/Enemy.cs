@@ -5,6 +5,8 @@ using DG.Tweening;
 
 public abstract class Enemy : MonoBehaviour
 {
+
+
     [Header("Settings")]
     public EnemySO enemySO;
     protected float lastAttackTime = 0f;
@@ -65,6 +67,26 @@ public abstract class Enemy : MonoBehaviour
         originalColor = characterSpriteRenderer.color;
         originalScale = transform.localScale;
 
+        //enemyName = enemySO.enemyName;
+        //enemyImage = enemySO.enemyImage;
+        //attackType = enemySO.attackType;
+        //damage = enemySO.GetEnemyDamage();
+        //range = enemySO.range;
+        //moveSpeed = enemySO.moveSpeed;
+        //cooldown = enemySO.cooldown;
+
+
+        //healthSlider = GetComponentInChildren<Slider>();
+        //healthSlider.maxValue = enemySO.maxHealth;
+        //health = enemySO.GetEnemyHealth();
+        //healthSlider.value = health;
+
+        //cooldown = enemySO.cooldown;
+    }
+    public void Initialize(EnemySO so)
+    {
+        enemySO = so;
+
         enemyName = enemySO.enemyName;
         enemyImage = enemySO.enemyImage;
         attackType = enemySO.attackType;
@@ -73,14 +95,15 @@ public abstract class Enemy : MonoBehaviour
         moveSpeed = enemySO.moveSpeed;
         cooldown = enemySO.cooldown;
 
-
-        healthSlider = GetComponentInChildren<Slider>();
-        healthSlider.maxValue = enemySO.maxHealth;
         health = enemySO.GetEnemyHealth();
-        healthSlider.value = health;
 
-        cooldown = enemySO.cooldown;
+        if (healthSlider == null)
+            healthSlider = GetComponentInChildren<Slider>();
+
+        healthSlider.maxValue = health;
+        healthSlider.value = health;
     }
+
     void Update()
     {
         GameObject target = FindClosestTarget();
