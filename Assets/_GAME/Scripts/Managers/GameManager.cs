@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [Header("Enemy")]
     public static int enemyCount;
 
+    [Header("Arena Tileset")]
+    [SerializeField] private GameObject[] arenaTileset;
+
     private void Awake()
     {
         Hook.onThrowEnding += CreatHeroes;
@@ -93,5 +96,8 @@ public class GameManager : MonoBehaviour
         powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
     }
 
-    
+    public GameObject GetArenaTileset(int index)
+    {
+        return arenaTileset[index];
+    }
 }

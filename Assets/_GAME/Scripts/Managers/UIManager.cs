@@ -75,6 +75,27 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.Game);
         int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
+
+        switch (waveIndex)
+        {
+            case 0:
+                GameObject arena = gameManager.GetArenaTileset(0);
+                arena.SetActive(true);
+                break;
+            case 1:
+                GameObject arena1 = gameManager.GetArenaTileset(0);
+                arena1.SetActive(true);
+                break;
+            case 2:
+                GameObject arena2 = gameManager.GetArenaTileset(1);
+                arena2.SetActive(true);
+                break;
+            case 3:
+                GameObject arena3 = gameManager.GetArenaTileset(1);
+                arena3.SetActive(true);
+                break;
+        }
+
         WaveManager.instance.StartWaves(waveIndex);
     }
     public void GameLosePanel()
@@ -94,16 +115,6 @@ public class UIManager : MonoBehaviour
     public void GameLoseButton()
     {
         GameUIStageChanged(UIGameStage.Menu);
-
-        //for (int i = 0; i < enemyParent.childCount; i++)
-        //{
-        //    if(enemyParent.GetChild(i) != null)
-        //        Destroy(enemyParent.GetChild(i).gameObject);
-
-        //    if(heroParent.GetChild(i) != null)
-        //        Destroy(heroParent.GetChild(i).gameObject);
-
-        //}
 
         towerController.ResetTower();
         gameManager.PowerUpReset();
@@ -130,7 +141,6 @@ public class UIManager : MonoBehaviour
         towerController.ResetTower();
         gameManager.PowerUpReset();
         SceneManager.LoadScene(0);
-
 
 
     }

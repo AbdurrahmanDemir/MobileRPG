@@ -127,6 +127,15 @@ public class HookManager : MonoBehaviour
         token += value;
         UpdateTokenText();
     }
+
+    public void Buy30Token()
+    {
+        if (DataManager.instance.TryPurchaseGold(100))
+        {
+        AddToken(30);
+
+        }
+    }
     private void UpdateTokenText()
     {
         tokenText.text = token.ToString();

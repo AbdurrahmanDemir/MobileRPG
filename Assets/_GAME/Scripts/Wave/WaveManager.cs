@@ -192,8 +192,8 @@ public class WaveManager : MonoBehaviour
             creatEnemyPosition[randomCreatPos].position,
             Quaternion.Euler(0f, 180f, 0f), enemyParent);
 
-        //Enemy enemy = enemyInstance.GetComponent<Enemy>();
-        //enemy.Initialize(segment.segmentEnemys[currentEnemyIndex].enemyLevel);
+        Enemy enemy = enemyInstance.GetComponent<Enemy>();
+        enemy.Initialize(segment.segmentEnemys[currentEnemyIndex].enemyLevel);
 
 
 
