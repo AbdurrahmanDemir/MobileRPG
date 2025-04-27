@@ -28894,7 +28894,7 @@ MonoBehaviour:
   - name: Garbege
     price: 0
     heroCount: 20
-    minLenght: 0
+    minLenght: -10
     maxLenght: -100
     collierRadius: 0.5
     sprite: {fileID: -308088932557407860, guid: ba7c5ca12ba5d9d49b0a1b0646f3f79f, type: 3}
@@ -33023,7 +33023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &994073939
 Transform:
   m_ObjectHideFlags: 0
@@ -33995,7 +33995,7 @@ MonoBehaviour:
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
         enemyLevel: {fileID: 11400000, guid: 7e3002c2f9d0d98479afef7587ad43f0, type: 2}
-        enemyCount: 1
+        enemyCount: 3
     - segmetDuration: 3
       segmentEnemys:
       - enemy:
@@ -34067,39 +34067,39 @@ MonoBehaviour:
     - segmetDuration: 2
       segmentEnemys:
       - enemy:
-        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        - {fileID: 6225863552684781358, guid: 812b41ef72a63ea429710d90cae144e8, type: 3}
         enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
         enemyCount: 8
       - enemy:
-        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        - {fileID: 6913387179189225538, guid: 4af808d32d270ec4493ed76ed51a6896, type: 3}
         enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
         enemyCount: 3
       - enemy:
-        - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
+        - {fileID: 2064997001110706486, guid: 62d98db9725cd6c41a6362df71d79e88, type: 3}
         enemyLevel: {fileID: 11400000, guid: 9e8b97ec2ce787f4581518dbe99b7a3e, type: 2}
         enemyCount: 3
     - segmetDuration: 2
       segmentEnemys:
       - enemy:
-        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        - {fileID: 6225863552684781358, guid: 812b41ef72a63ea429710d90cae144e8, type: 3}
         enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
         enemyCount: 10
       - enemy:
-        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        - {fileID: 6913387179189225538, guid: 4af808d32d270ec4493ed76ed51a6896, type: 3}
         enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
         enemyCount: 3
     - segmetDuration: 2
       segmentEnemys:
       - enemy:
-        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        - {fileID: 6225863552684781358, guid: 812b41ef72a63ea429710d90cae144e8, type: 3}
         enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
         enemyCount: 8
       - enemy:
-        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        - {fileID: 6913387179189225538, guid: 4af808d32d270ec4493ed76ed51a6896, type: 3}
         enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
         enemyCount: 2
       - enemy:
-        - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
+        - {fileID: 2064997001110706486, guid: 62d98db9725cd6c41a6362df71d79e88, type: 3}
         enemyLevel: {fileID: 11400000, guid: 64d80c8567c96d046a90948f50158939, type: 2}
         enemyCount: 3
   - waveName: Wave 4
@@ -34108,42 +34108,42 @@ MonoBehaviour:
     - segmetDuration: 2
       segmentEnemys:
       - enemy:
-        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        - {fileID: 6225863552684781358, guid: 812b41ef72a63ea429710d90cae144e8, type: 3}
         enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
         enemyCount: 5
       - enemy:
-        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        - {fileID: 6913387179189225538, guid: 4af808d32d270ec4493ed76ed51a6896, type: 3}
         enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
         enemyCount: 1
       - enemy:
-        - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
+        - {fileID: 2064997001110706486, guid: 62d98db9725cd6c41a6362df71d79e88, type: 3}
         enemyLevel: {fileID: 11400000, guid: 9e8b97ec2ce787f4581518dbe99b7a3e, type: 2}
         enemyCount: 1
     - segmetDuration: 2
       segmentEnemys:
       - enemy:
-        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        - {fileID: 6225863552684781358, guid: 812b41ef72a63ea429710d90cae144e8, type: 3}
         enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
         enemyCount: 10
       - enemy:
-        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        - {fileID: 6913387179189225538, guid: 4af808d32d270ec4493ed76ed51a6896, type: 3}
         enemyLevel: {fileID: 11400000, guid: 7e3002c2f9d0d98479afef7587ad43f0, type: 2}
         enemyCount: 5
     - segmetDuration: 3
       segmentEnemys:
       - enemy:
-        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        - {fileID: 6225863552684781358, guid: 812b41ef72a63ea429710d90cae144e8, type: 3}
         enemyLevel: {fileID: 11400000, guid: b9dd4236bff8ca149b0b8d3febccf6de, type: 2}
         enemyCount: 10
       - enemy:
-        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        - {fileID: 6913387179189225538, guid: 4af808d32d270ec4493ed76ed51a6896, type: 3}
         enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
         enemyCount: 2
       - enemy:
-        - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
+        - {fileID: 2064997001110706486, guid: 62d98db9725cd6c41a6362df71d79e88, type: 3}
         enemyLevel: {fileID: 11400000, guid: 64d80c8567c96d046a90948f50158939, type: 2}
         enemyCount: 3
-  - waveName: Wave 4
+  - waveName: Wave 5
     waveTower: {fileID: 11400000, guid: 0bc22d2f9ce85ec4598518c44a930116, type: 2}
     segments:
     - segmetDuration: 2
@@ -64990,7 +64990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1967945530
 Transform:
   m_ObjectHideFlags: 0
@@ -72560,10 +72560,10 @@ RectTransform:
   - {fileID: 8897416774418616065}
   m_Father: {fileID: 7204319599081688055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 945, y: -112.97485}
+  m_SizeDelta: {x: 270, y: 225.9497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3319723051650046877
 MonoBehaviour:
@@ -74474,10 +74474,10 @@ RectTransform:
   - {fileID: 7646011447926160738}
   m_Father: {fileID: 7204319599081688055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 135, y: -112.97485}
+  m_SizeDelta: {x: 270, y: 225.9497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &4334853240139501186
 RectTransform:
@@ -77559,10 +77559,10 @@ RectTransform:
   - {fileID: 4454217491691386806}
   m_Father: {fileID: 7204319599081688055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 405, y: -112.97485}
+  m_SizeDelta: {x: 270, y: 225.9497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5572335119691654887
 MonoBehaviour:
@@ -81247,10 +81247,10 @@ RectTransform:
   - {fileID: 7286484047003642052}
   m_Father: {fileID: 7204319599081688055}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 675, y: -112.97485}
+  m_SizeDelta: {x: 270, y: 225.9497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8668166408964578723
 GameObject:
@@ -81913,7 +81913,7 @@ RectTransform:
   m_Father: {fileID: 9048455393536845658}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.765, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -82717,9 +82717,9 @@ RectTransform:
   - {fileID: 9048455393356490053}
   m_Father: {fileID: 9048455392681434491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 657.365, y: -202.5}
   m_SizeDelta: {x: 254.33, y: 81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9048455393013463131
@@ -83653,9 +83653,9 @@ RectTransform:
   - {fileID: 9048455392375492139}
   m_Father: {fileID: 9048455392681434491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 674.23004, y: -40.5}
   m_SizeDelta: {x: 220.6, y: 81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9048455393990906576
@@ -83691,9 +83691,9 @@ RectTransform:
   - {fileID: 9048455393544322548}
   m_Father: {fileID: 9048455392681434491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 638.705, y: -121.5}
   m_SizeDelta: {x: 291.65, y: 81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9048455393993213856
