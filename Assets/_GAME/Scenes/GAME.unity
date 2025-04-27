@@ -28865,7 +28865,7 @@ MonoBehaviour:
   heroTypes:
   - name: Angel
     price: 1
-    heroCount: 100
+    heroCount: 80
     minLenght: -10
     maxLenght: -100
     collierRadius: 5
@@ -28891,6 +28891,13 @@ MonoBehaviour:
     maxLenght: -100
     collierRadius: 1
     sprite: {fileID: 21300000, guid: baa6e13f607c42946969fb6e2f07ed0e, type: 3}
+  - name: Garbege
+    price: 0
+    heroCount: 20
+    minLenght: 0
+    maxLenght: -100
+    collierRadius: 0.5
+    sprite: {fileID: -308088932557407860, guid: ba7c5ca12ba5d9d49b0a1b0646f3f79f, type: 3}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -33247,7 +33254,6 @@ RectTransform:
   - {fileID: 273137004400772241}
   - {fileID: 1364873152}
   - {fileID: 1200458096267156257}
-  - {fileID: 2102945059}
   - {fileID: 2873908174946134715}
   - {fileID: 523169646}
   - {fileID: 3910679827822157686}
@@ -34011,7 +34017,7 @@ MonoBehaviour:
       segmentEnemys:
       - enemy:
         - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
-        enemyLevel: {fileID: 11400000, guid: b9dd4236bff8ca149b0b8d3febccf6de, type: 2}
+        enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
         enemyCount: 8
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
@@ -34021,27 +34027,27 @@ MonoBehaviour:
       segmentEnemys:
       - enemy:
         - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
-        enemyLevel: {fileID: 11400000, guid: b9dd4236bff8ca149b0b8d3febccf6de, type: 2}
+        enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
         enemyCount: 10
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
         enemyLevel: {fileID: 11400000, guid: 7e3002c2f9d0d98479afef7587ad43f0, type: 2}
         enemyCount: 2
-    - segmetDuration: 3
+    - segmetDuration: 2
       segmentEnemys:
       - enemy:
         - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
-        enemyLevel: {fileID: 11400000, guid: b9dd4236bff8ca149b0b8d3febccf6de, type: 2}
-        enemyCount: 5
+        enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
+        enemyCount: 8
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
         enemyLevel: {fileID: 11400000, guid: 7e3002c2f9d0d98479afef7587ad43f0, type: 2}
-        enemyCount: 1
+        enemyCount: 2
       - enemy:
         - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
         enemyLevel: {fileID: 11400000, guid: 64d80c8567c96d046a90948f50158939, type: 2}
         enemyCount: 2
-    - segmetDuration: 3
+    - segmetDuration: 2
       segmentEnemys:
       - enemy:
         - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
@@ -34050,12 +34056,53 @@ MonoBehaviour:
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
         enemyLevel: {fileID: 11400000, guid: 7e3002c2f9d0d98479afef7587ad43f0, type: 2}
-        enemyCount: 1
+        enemyCount: 3
       - enemy:
         - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
         enemyLevel: {fileID: 11400000, guid: 64d80c8567c96d046a90948f50158939, type: 2}
-        enemyCount: 2
+        enemyCount: 3
   - waveName: Wave 3
+    waveTower: {fileID: 11400000, guid: 0bc22d2f9ce85ec4598518c44a930116, type: 2}
+    segments:
+    - segmetDuration: 2
+      segmentEnemys:
+      - enemy:
+        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
+        enemyCount: 8
+      - enemy:
+        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
+        enemyCount: 3
+      - enemy:
+        - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
+        enemyLevel: {fileID: 11400000, guid: 9e8b97ec2ce787f4581518dbe99b7a3e, type: 2}
+        enemyCount: 3
+    - segmetDuration: 2
+      segmentEnemys:
+      - enemy:
+        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
+        enemyCount: 10
+      - enemy:
+        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
+        enemyCount: 3
+    - segmetDuration: 2
+      segmentEnemys:
+      - enemy:
+        - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
+        enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
+        enemyCount: 8
+      - enemy:
+        - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
+        enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
+        enemyCount: 2
+      - enemy:
+        - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
+        enemyLevel: {fileID: 11400000, guid: 64d80c8567c96d046a90948f50158939, type: 2}
+        enemyCount: 3
+  - waveName: Wave 4
     waveTower: {fileID: 11400000, guid: 0bc22d2f9ce85ec4598518c44a930116, type: 2}
     segments:
     - segmetDuration: 2
@@ -34081,21 +34128,21 @@ MonoBehaviour:
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
         enemyLevel: {fileID: 11400000, guid: 7e3002c2f9d0d98479afef7587ad43f0, type: 2}
-        enemyCount: 2
+        enemyCount: 5
     - segmetDuration: 3
       segmentEnemys:
       - enemy:
         - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
         enemyLevel: {fileID: 11400000, guid: b9dd4236bff8ca149b0b8d3febccf6de, type: 2}
-        enemyCount: 5
+        enemyCount: 10
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
         enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
-        enemyCount: 1
+        enemyCount: 2
       - enemy:
         - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
         enemyLevel: {fileID: 11400000, guid: 64d80c8567c96d046a90948f50158939, type: 2}
-        enemyCount: 2
+        enemyCount: 3
   - waveName: Wave 4
     waveTower: {fileID: 11400000, guid: 0bc22d2f9ce85ec4598518c44a930116, type: 2}
     segments:
@@ -34103,11 +34150,11 @@ MonoBehaviour:
       segmentEnemys:
       - enemy:
         - {fileID: 5335036324041323531, guid: f9f7ee675e1f4ff42956d814cd985679, type: 3}
-        enemyLevel: {fileID: 11400000, guid: d82531edf9933c249b28a95acd38223e, type: 2}
-        enemyCount: 5
+        enemyLevel: {fileID: 11400000, guid: 4e161704660595945a5b0e89c493f513, type: 2}
+        enemyCount: 8
       - enemy:
         - {fileID: 1159897207262870502, guid: 9fffec811a56c7f458fc85c490c7c668, type: 3}
-        enemyLevel: {fileID: 11400000, guid: ee739d5e654ca334b9ad5c745eff0986, type: 2}
+        enemyLevel: {fileID: 11400000, guid: 98a1e5fd60fb1bf4f889c25bfcc0155d, type: 2}
         enemyCount: 1
       - enemy:
         - {fileID: 7496126799002625026, guid: 781978142a526904ca90788dc0c50c57, type: 3}
@@ -36152,6 +36199,7 @@ RectTransform:
   m_Children:
   - {fileID: 85604427}
   - {fileID: 756166959}
+  - {fileID: 2102945059}
   m_Father: {fileID: 1027248506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -65918,11 +65966,11 @@ RectTransform:
   m_Children:
   - {fileID: 1631369233}
   - {fileID: 288961597}
-  m_Father: {fileID: 1027248506}
+  m_Father: {fileID: 1364873152}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -386.92078, y: 138}
+  m_AnchoredPosition: {x: -376, y: 138}
   m_SizeDelta: {x: 248.1585, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2102945060
@@ -74686,10 +74734,10 @@ RectTransform:
   - {fileID: 1493418426}
   m_Father: {fileID: 1837928648}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -540.00006, y: 575}
-  m_SizeDelta: {x: 1080, y: -1711.0071}
+  m_AnchorMin: {x: 0.5, y: 0.79600006}
+  m_AnchorMax: {x: 0.5, y: 0.79600006}
+  m_AnchoredPosition: {x: -0.000061035156, y: 39.870728}
+  m_SizeDelta: {x: 1080, y: 141.2515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4489529956678897318
 MonoBehaviour:
@@ -74726,7 +74774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 456a8338c86a446ba8c9116838eb6ecd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6469ae336d7b6494da5dd1416bf30eee, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

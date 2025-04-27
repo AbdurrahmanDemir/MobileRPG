@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Melee Area
   enemyImage: {fileID: 5025148291701961715, guid: 3754d19fc2b6c9046ab94ee724c8628a, type: 3}
+  enemyLevel: 2
   attackType: Range
   isAreaOfEffect: 1
   maxHealth: 350
