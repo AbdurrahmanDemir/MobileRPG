@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -69,10 +70,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    
     public void GameSpeedController()
     {
         if (Time.timeScale == 1)
-            Time.timeScale = 3;
+            Time.timeScale = 2;
         else
             Time.timeScale = 1;
     }

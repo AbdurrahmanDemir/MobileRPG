@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Ice Golem
   heroIcon: {fileID: -1270135229, guid: 3b22de3a728568448845a4299be78d01, type: 3}
   cardType: 1
-  baseUpgradeCost: 10
+  baseUpgradeCost: 100
   range: 3
   damage: 20
   health: 100

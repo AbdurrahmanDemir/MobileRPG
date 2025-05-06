@@ -94,6 +94,30 @@ public class UIManager : MonoBehaviour
                 GameObject arena3 = gameManager.GetArenaTileset(1);
                 arena3.SetActive(true);
                 break;
+            case 4:
+                GameObject arena4 = gameManager.GetArenaTileset(2);
+                arena4.SetActive(true);
+                break;
+            case 5:
+                GameObject arena5 = gameManager.GetArenaTileset(2);
+                arena5.SetActive(true);
+                break;
+            case 6:
+                GameObject arena6 = gameManager.GetArenaTileset(3);
+                arena6.SetActive(true);
+                break;
+            case 7:
+                GameObject arena7 = gameManager.GetArenaTileset(3);
+                arena7.SetActive(true);
+                break;
+            case 8:
+                GameObject arena8 = gameManager.GetArenaTileset(4);
+                arena8.SetActive(true);
+                break;
+            case 9:
+                GameObject arena9 = gameManager.GetArenaTileset(4);
+                arena9.SetActive(true);
+                break;
         }
 
         WaveManager.instance.StartWaves(waveIndex);

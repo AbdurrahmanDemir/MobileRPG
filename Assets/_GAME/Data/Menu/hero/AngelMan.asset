@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Male Angel
   heroIcon: {fileID: -5368462910810119155, guid: 1778e132e662a4a4396ba3943464c417, type: 3}
   cardType: 2
-  baseUpgradeCost: 10
+  baseUpgradeCost: 100
   range: 0.5
   damage: 60
   health: 350

@@ -7,6 +7,7 @@ public class UpgradeSelectSO : ScriptableObject
     [Header("Upgrade Info")]
     public UpgradeType upgradeType;
     public Sprite upgradeIcon;
+    public Sprite upgradeBg;
     public string upgradeName;
     [TextArea] public string upgradeDescription;
     public int amount;

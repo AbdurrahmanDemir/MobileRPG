@@ -32,7 +32,7 @@ public class UpgradeSelectManager : MonoBehaviour
             GameObject buttonInstance = Instantiate(buttonPrefabs, buttonTransform);
             int randomTypes = Random.Range(0, upgradeData.Length);
 
-            buttonInstance.GetComponent<UpgradeSelectButton>().Config(upgradeData[randomTypes].upgradeIcon, upgradeData[randomTypes].name, upgradeData[randomTypes].upgradeDescription);
+            buttonInstance.GetComponent<UpgradeSelectButton>().Config(upgradeData[randomTypes].upgradeBg,upgradeData[randomTypes].upgradeIcon, upgradeData[randomTypes].upgradeName, upgradeData[randomTypes].upgradeDescription);
 
             switch (upgradeData[randomTypes].upgradeType)
             {

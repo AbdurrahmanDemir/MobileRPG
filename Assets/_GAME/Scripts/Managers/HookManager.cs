@@ -25,6 +25,7 @@ public class HookManager : MonoBehaviour
     public TextMeshProUGUI gameScreenMoney;
     public TextMeshProUGUI lengthCostText;
     public TextMeshProUGUI lengthValueText;
+    public TextMeshProUGUI menuLengthValueText;
     public TextMeshProUGUI strengthCostText;
     public TextMeshProUGUI strengthValueText;
     public TextMeshProUGUI offlineCostText;
@@ -156,6 +157,16 @@ public class HookManager : MonoBehaviour
         }
 
     }
+    public void UpgradeLenght()
+    {
+        if (hookLength == 100)
+            PopUpController.instance.OpenPopUp("LENGTH MAX SIZE");
+
+            hookLength -= 1;
+            PlayerPrefs.SetInt("Length", -hookLength);
+            UpdateTexts();
+       
+    }
 
     public void BuyStrength()
     {
@@ -217,12 +228,14 @@ public class HookManager : MonoBehaviour
     public void UpdateTexts()
     {
         lengthCostText.text = lengthCost.ToString();
-        lengthValueText.text = -hookLength + "m";
+        lengthValueText.text = -hookLength + "m <color=green>+10 m</color>";
+        menuLengthValueText.text = -hookLength + "m <color=green>+1 m</color>";
         strengthCostText.text = strengthCost.ToString();
-        strengthValueText.text = hookStrength + " heroes.";
+        strengthValueText.text = hookStrength + " heroes. <color=green>+1</color>";
         offlineCostText.text = towerUpgradeCost.ToString();
-        //offlineValueText.text = "$" + offlineEarnings + "/min";
+        //offlineValueText.text = "$" + offlineEarnings + "/min <color=green>+5</color>";
     }
+
 
     //public void CheckIdles()
     //{        

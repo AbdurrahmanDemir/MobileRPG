@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Black Witch
   heroIcon: {fileID: -824999310793027297, guid: 1d0ed673772026840ac72fcc88e77541, type: 3}
   cardType: 1
-  baseUpgradeCost: 10
+  baseUpgradeCost: 100
   range: 2
   damage: 80
   health: 200

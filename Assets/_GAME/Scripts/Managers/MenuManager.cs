@@ -55,11 +55,12 @@ public class MenuManager : MonoBehaviour
         }
         else if (index > completedArenaIndex)
         {
-            arenaDescription.text = "Complete the previous arena to play in this arena.";
+            arenaDescription.text = "<color=red> Complete the previous arena to play in this arena. </color>";
+
         }
         else if (index < completedArenaIndex)
         {
-            arenaDescription.text = "You have completed this arena.";
+            arenaDescription.text = "<color=green>You have completed this arena.  </color>";
         }
     }
 

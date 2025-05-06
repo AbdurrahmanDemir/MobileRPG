@@ -16,6 +16,8 @@ public class TowerController : MonoBehaviour
     [Header("Elements")]
     private Slider healthSlider;
     [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI menuHealthText;
+    [SerializeField] private TextMeshProUGUI upgradePriceText;
     SpriteRenderer towerSpriteRenderer;
     private Color originalColor;
     private Vector2 originalScale;
@@ -39,10 +41,12 @@ public class TowerController : MonoBehaviour
         originalScale = transform.localScale;
 
         healthSlider = GetComponentInChildren<Slider>();
-        healthSlider.maxValue = towerSO.maxHealth;
-        health = towerSO.maxHealth;
+        healthSlider.maxValue = towerSO.GetCurrentHealth();
+        health = towerSO.GetCurrentHealth();
         healthSlider.value = health;
         healthText.text=health.ToString();
+        menuHealthText.text=health.ToString() + "<color=green> +100 </color>";
+        upgradePriceText.text = towerSO.GetUpgradeCost().ToString();
     }
     public void ResetTower()
     {
@@ -51,10 +55,14 @@ public class TowerController : MonoBehaviour
         originalScale = transform.localScale;
 
         healthSlider = GetComponentInChildren<Slider>();
-        healthSlider.maxValue = towerSO.maxHealth;
-        health = towerSO.maxHealth;
+        healthSlider.maxValue = towerSO.GetCurrentHealth();
+        health = towerSO.GetCurrentHealth();
         healthSlider.value = health;
         healthText.text = health.ToString();
+        menuHealthText.text = health.ToString() + "<color=green> +100 </color>";
+        upgradePriceText.text = towerSO.GetUpgradeCost().ToString();
+
+
     }
 
     public void TakeDamage(int damage)
@@ -102,6 +110,18 @@ public class TowerController : MonoBehaviour
         }
 
     }
+
+    public void TowerMenuUpgrade()
+    {
+        if (DataManager.instance.TryPurchaseGold(towerSO.GetUpgradeCost()))
+        {
+            HookManager.instance.UpgradeLenght();
+            towerSO.UpgradeDamage();
+            menuHealthText.text = health.ToString();
+            ResetTower();
+        }
+    }
+
     public void TowerHealthUpgradeItem(int healthAmount)
     {
         health += healthAmount;

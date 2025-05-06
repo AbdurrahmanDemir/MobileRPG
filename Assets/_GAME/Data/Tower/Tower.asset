@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Tower
   m_EditorClassIdentifier: 
   maxHealth: 500
+  baseUpgradeCost: 1

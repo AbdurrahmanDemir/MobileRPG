@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeType: 2
   upgradeIcon: {fileID: 21300000, guid: fe76fc7db4acaf4419681cae6f505ddc, type: 3}
-  upgradeName: Hook Strength
+  upgradeBg: {fileID: 21300000, guid: 5c2eb5bdbac7a47258c9b77479ccd7db, type: 3}
+  upgradeName: HOOK STRENGTH
   upgradeDescription: Increase hook strength by 10 meters.
   amount: 1

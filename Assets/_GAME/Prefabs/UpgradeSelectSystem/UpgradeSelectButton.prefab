@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70c54d59d5f59345a7543f91a096e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardBackground: {fileID: 2774875467215945788}
   upgradeNameText: {fileID: 7307804999194652885}
   upgradeIconImage: {fileID: 5089007048944738869}
   upgradeDescText: {fileID: 7928911087395582283}
@@ -223,11 +224,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6295949511451954282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.1457, y: -138.41}
-  m_SizeDelta: {x: 423.29, y: 168.83}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -2.1457076, y: -0.00012207031}
+  m_SizeDelta: {x: 423.29, y: 264}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8788780379296603247
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -361,8 +362,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4, y: -26}
-  m_SizeDelta: {x: 294.45, y: 50}
+  m_AnchoredPosition: {x: -0.0018444, y: 38.279}
+  m_SizeDelta: {x: 419, y: 76.558}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6432806909011923682
 CanvasRenderer:
@@ -490,16 +491,16 @@ RectTransform:
   m_GameObject: {fileID: 7145110336978066731}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.9345, y: 3.9345, z: 3.9345}
+  m_LocalScale: {x: 2.7381759, y: 2.7381759, z: 2.7381759}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7595327088789888139}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000066757, y: 102}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -41}
   m_SizeDelta: {x: 49, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8149850317742648162
 CanvasRenderer:
   m_ObjectHideFlags: 0

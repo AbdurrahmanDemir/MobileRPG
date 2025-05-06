@@ -69,16 +69,16 @@ public class Hook : MonoBehaviour
             heroCount = 0;
             float time = (-length) * 0.1f;
 
-            cameraTween = mainCamera.transform.DOMoveY(length, 1 * time * 0.25f, false).OnUpdate(delegate
+            cameraTween = mainCamera.transform.DOMoveY(length, 2 * time * 0.25f, false).OnUpdate(delegate
             {
-                if (mainCamera.transform.position.y <= -11)
+                if (mainCamera.transform.position.y <= -10)
                 {
                     transform.SetParent(mainCamera.transform);
                 }
             }).OnComplete(delegate
             {
                 coll.enabled = true;
-                cameraTween = mainCamera.transform.DOMoveY(0, time * 5, false).OnUpdate(delegate
+                cameraTween = mainCamera.transform.DOMoveY(0, time * 6, false).OnUpdate(delegate
                 {
                     if (mainCamera.transform.position.y >= -25f)
                         StopThrow();

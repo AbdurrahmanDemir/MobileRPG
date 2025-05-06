@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Angel
   heroIcon: {fileID: -4029651270730987126, guid: 9b6222e303059914491527cd0dffcbdf, type: 3}
   cardType: 0
-  baseUpgradeCost: 10
+  baseUpgradeCost: 100
   range: 0.5
   damage: 60
   health: 500

@@ -42,7 +42,7 @@ public class MenuHeroCardSO : ScriptableObject
         if (DataManager.instance.TryPurchaseGold(upgradeCost))
         {
             int newDamage = currentDamage + 5;
-            int newUpgradeCost = upgradeCost * 5;
+            int newUpgradeCost = upgradeCost * 2;
             int newHealth = currentHealth + 50;
 
             PlayerPrefs.SetInt($"{cardName}_Damage", newDamage);
