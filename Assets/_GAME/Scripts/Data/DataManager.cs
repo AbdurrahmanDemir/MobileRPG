@@ -94,7 +94,7 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            AddGold(100);
+            AddGold(1000000);
             AddEnergy(5);
         }
         xp = PlayerPrefs.GetInt("XP", 0);

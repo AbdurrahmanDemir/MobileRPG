@@ -75,53 +75,50 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.Game);
         int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
+        GameObject arena = null;
 
         switch (waveIndex)
         {
             case 0:
-                GameObject arena = gameManager.GetArenaTileset(0);
-                arena.SetActive(true);
-                break;
             case 1:
-                GameObject arena1 = gameManager.GetArenaTileset(0);
-                arena1.SetActive(true);
+                arena = gameManager.GetArenaTileset(0);
                 break;
             case 2:
-                GameObject arena2 = gameManager.GetArenaTileset(1);
-                arena2.SetActive(true);
-                break;
             case 3:
-                GameObject arena3 = gameManager.GetArenaTileset(1);
-                arena3.SetActive(true);
+                arena = gameManager.GetArenaTileset(1);
                 break;
             case 4:
-                GameObject arena4 = gameManager.GetArenaTileset(2);
-                arena4.SetActive(true);
-                break;
             case 5:
-                GameObject arena5 = gameManager.GetArenaTileset(2);
-                arena5.SetActive(true);
+                arena = gameManager.GetArenaTileset(2);
                 break;
             case 6:
-                GameObject arena6 = gameManager.GetArenaTileset(3);
-                arena6.SetActive(true);
-                break;
             case 7:
-                GameObject arena7 = gameManager.GetArenaTileset(3);
-                arena7.SetActive(true);
+                arena = gameManager.GetArenaTileset(3);
                 break;
             case 8:
-                GameObject arena8 = gameManager.GetArenaTileset(4);
-                arena8.SetActive(true);
-                break;
             case 9:
-                GameObject arena9 = gameManager.GetArenaTileset(4);
-                arena9.SetActive(true);
+                arena = gameManager.GetArenaTileset(4);
+                break;
+            case 10:
+                arena = gameManager.GetArenaTileset(0);
+                break;
+            case 11:
+                arena = gameManager.GetArenaTileset(1);
+                break;
+            case 12:
+                arena = gameManager.GetArenaTileset(2);
+                break;
+            default:
+                arena = gameManager.GetArenaTileset(0);
                 break;
         }
 
+        if (arena != null)
+            arena.SetActive(true);
+
         WaveManager.instance.StartWaves(waveIndex);
     }
+
     public void GameLosePanel()
     {
         GameUIStageChanged(UIGameStage.GameLose);
