@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        enemyCount = 0;
         powerUpSlider.value = 0;
         powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
     }
