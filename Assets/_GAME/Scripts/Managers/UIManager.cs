@@ -117,6 +117,7 @@ public class UIManager : MonoBehaviour
             arena.SetActive(true);
 
         WaveManager.instance.StartWaves(waveIndex);
+
     }
 
     public void GameLosePanel()
