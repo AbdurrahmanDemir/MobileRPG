@@ -30,11 +30,14 @@ public class IceGolemHero : Hero
         float moveSpeed = enemy.GetComponent<Enemy>().enemySO.moveSpeed;
         yield return new WaitForSeconds(iceMageSO.freezeDuration);
         onDamage = false;
-        enemy.GetComponent<Enemy>().cooldown = cooldown;
-        enemy.GetComponent<Enemy>().moveSpeed = moveSpeed;
+        if (enemy != null)
+        {
+            enemy.GetComponent<Enemy>().cooldown = cooldown;
+            enemy.GetComponent<Enemy>().moveSpeed = moveSpeed;
+            Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
+        }
 
 
-        Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
 
 
     }

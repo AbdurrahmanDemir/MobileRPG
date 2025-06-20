@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour
     [Header("Level")]
     [SerializeField] private Transform enemyParent;
     [SerializeField] private Transform heroParent;
-    [SerializeField] private TowerController towerController;
     [Header("Game Win/Lose Panel Settings")]
     [SerializeField] private TextMeshProUGUI winArenaText;
     [SerializeField] private TextMeshProUGUI winGoldText;
@@ -33,19 +32,25 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        Hook.onThrowStarting += StartingThrow;
-        Hook.onThrowEnding += EndingThrow;
+        //Hook.onThrowStarting += StartingThrow;
+        //Hook.onThrowEnding += EndingThrow;
 
-        TowerController.onGameLose += GameLosePanel;
-        EnemyTowerController.onGameWin += GameWinPanel;
+        //TowerController.onGameLose += GameLosePanel;
+        //EnemyTowerController.onGameWin += GameWinPanel;
+
+        WaveManager.onGameWin += GameWinPanel;
+        WheelManager.onGameLose+= GameLosePanel;    
     }
     private void OnDestroy()
     {
-        Hook.onThrowStarting -= StartingThrow;
-        Hook.onThrowEnding -= EndingThrow;
+        //Hook.onThrowStarting -= StartingThrow;
+        //Hook.onThrowEnding -= EndingThrow;
 
-        TowerController.onGameLose -= GameLosePanel;
-        EnemyTowerController.onGameWin -= GameWinPanel;
+        //TowerController.onGameLose -= GameLosePanel;
+        //EnemyTowerController.onGameWin -= GameWinPanel;
+
+        WaveManager.onGameWin -= GameWinPanel;
+        WheelManager.onGameLose -= GameLosePanel;
 
 
     }
@@ -138,7 +143,7 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.Menu);
 
-        towerController.ResetTower();
+        //towerController.ResetTower();
         gameManager.PowerUpReset();
 
         SceneManager.LoadScene(0);
@@ -160,7 +165,7 @@ public class UIManager : MonoBehaviour
     }
     public void GameWinButton()
     {
-        towerController.ResetTower();
+        //towerController.ResetTower();
         gameManager.PowerUpReset();
         SceneManager.LoadScene(0);
 

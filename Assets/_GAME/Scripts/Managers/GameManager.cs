@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] allHeroes;
     [SerializeField] private Transform[] creatHeroPosition;
     [SerializeField] private Transform heroParent;
-    [SerializeField] private Hook hook;
     [Header("Settings")]
     [SerializeField] private Slider powerUpSlider;
     [SerializeField] private int[] powerUpLevel;
@@ -29,12 +28,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Hook.onThrowEnding += CreatHeroes;
+        //Hook.onThrowEnding += CreatHeroes;
         Enemy.onDead += PowerUpSliderUpdate;
     }
     private void OnDestroy()
     {
-        Hook.onThrowEnding -= CreatHeroes;
+        //Hook.onThrowEnding -= CreatHeroes;
         Enemy.onDead -= PowerUpSliderUpdate;
 
     }
@@ -46,9 +45,10 @@ public class GameManager : MonoBehaviour
     }
     public void CreatHeroes()
     {
-        for (int i = 0; i < hook.hookedHero.Count; i++)
+
+        for (int i = 0; i < int.Parse(WheelManager.instance.heroes[1]); i++)
         {            
-            switch (hook.hookedHero[i].GetHeroName())
+            switch (WheelManager.instance.heroes[0].ToString())
             {
                 case "Angel":
                     int RandomPos = Random.Range(0, creatHeroPosition.Length);
@@ -66,9 +66,22 @@ public class GameManager : MonoBehaviour
                 case "Ice Golem":
                     int RandomPos3 = Random.Range(0, creatHeroPosition.Length);
                     Instantiate(allHeroes[3], creatHeroPosition[RandomPos3].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
-
                     break;
+                case "RangeAngel + Ice":
+                    int RandomPos4= Random.Range(0, creatHeroPosition.Length);
+                    Instantiate(allHeroes[3], creatHeroPosition[RandomPos4].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+                    Instantiate(allHeroes[1], creatHeroPosition[RandomPos4].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+                    break;
+                case "Range + Man":
+                    int RandomPos5 = Random.Range(0, creatHeroPosition.Length);
+                    Instantiate(allHeroes[2], creatHeroPosition[RandomPos5].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+                    Instantiate(allHeroes[1], creatHeroPosition[RandomPos5].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+                    break;
+
+
             }
+
+            //WheelManager.instance.heroes.Clear();
         }
     }
 
@@ -103,5 +116,14 @@ public class GameManager : MonoBehaviour
     public GameObject GetArenaTileset(int index)
     {
         return arenaTileset[index];
+    }
+
+    public void HeroesStartingPosition()
+    {
+        for (int i = 0; i < heroParent.childCount; i++)
+        {
+            int randomPos = Random.Range(0, creatHeroPosition.Length);
+            heroParent.GetChild(i).transform.position = creatHeroPosition[randomPos].position;
+        }
     }
 }

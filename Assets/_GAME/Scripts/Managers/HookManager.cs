@@ -74,8 +74,8 @@ public class HookManager : MonoBehaviour
         UpgradeSelectManager.hookStranghtItem+= PowerUpStrength;
         UpgradeSelectManager.tokenAddItem += AddToken;
 
-        TowerController.onGameLose += ResetToken;
-        EnemyTowerController.onGameWin += ResetToken;
+        //TowerController.onGameLose += ResetToken;
+        //EnemyTowerController.onGameWin += ResetToken;
     }
     private void OnDestroy()
     {
@@ -83,8 +83,8 @@ public class HookManager : MonoBehaviour
         UpgradeSelectManager.hookStranghtItem -= PowerUpStrength;
         UpgradeSelectManager.tokenAddItem -= AddToken;
 
-        TowerController.onGameLose -= ResetToken;
-        EnemyTowerController.onGameWin -= ResetToken;
+        //TowerController.onGameLose -= ResetToken;
+        //EnemyTowerController.onGameWin -= ResetToken;
     }
     void Start()
     {

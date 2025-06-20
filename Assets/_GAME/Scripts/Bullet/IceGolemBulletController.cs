@@ -81,25 +81,6 @@ public class IceGolemBulletController : MonoBehaviour
             onDamage = false;
         }
     }
-    //IEnumerator DamageOn(GameObject enemy)
-    //{
-    //    onDamage = true;
-    //    float cooldown = enemy.GetComponent<Enemy>().enemySO.cooldown;
-    //    float moveSpeed = enemy.GetComponent<Enemy>().enemySO.moveSpeed;
-    //    enemy.GetComponent<Enemy>().cooldown = cooldown + 2;
-    //    enemy.GetComponent<Enemy>().moveSpeed = moveSpeed - (moveSpeed*(100/100));
-
-    //    Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
-
-    //    yield return new WaitForSeconds(3f);
-    //    onDamage = false;
-    //    enemy.GetComponent<Enemy>().cooldown = cooldown;
-    //    enemy.GetComponent<Enemy>().moveSpeed = moveSpeed;
-
-    //    Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
-
-
-    //}
     private void ReleaseBullet()
     {
         if (isReleased) return;
@@ -119,4 +100,24 @@ public class IceGolemBulletController : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, 5 * Time.deltaTime);
     }
+
+    //IEnumerator DamageOn(GameObject enemy)
+    //{
+    //    onDamage = true;
+    //    float cooldown = enemy.GetComponent<Enemy>().enemySO.cooldown;
+    //    float moveSpeed = enemy.GetComponent<Enemy>().enemySO.moveSpeed;
+    //    enemy.GetComponent<Enemy>().cooldown = cooldown + 2;
+    //    enemy.GetComponent<Enemy>().moveSpeed = moveSpeed - (moveSpeed*(100/100));
+
+    //    Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
+
+    //    yield return new WaitForSeconds(3f);
+    //    onDamage = false;
+    //    enemy.GetComponent<Enemy>().cooldown = cooldown;
+    //    enemy.GetComponent<Enemy>().moveSpeed = moveSpeed;
+
+    //    Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
+
+
+    //}
 }

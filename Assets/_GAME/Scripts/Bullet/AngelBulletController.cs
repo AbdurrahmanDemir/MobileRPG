@@ -24,7 +24,7 @@ public class AngelBulletController : MonoBehaviour
     }
     private void Update()
     {
-        if (target == null || isReleased) // Eðer serbest býrakýlmýþsa hareket ettirme
+        if (target == null || isReleased) 
         {
             ReleaseBullet();
             return;

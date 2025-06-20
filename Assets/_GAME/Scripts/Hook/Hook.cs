@@ -36,14 +36,14 @@ public class Hook : MonoBehaviour
         hookedHero = new List<HookedHero>();
         throwPriceText.text = (throwCount * 10).ToString();
 
-        TowerController.onGameLose += ResetThrowCount;
-        EnemyTowerController.onGameWin += ResetThrowCount;
+        //TowerController.onGameLose += ResetThrowCount;
+        //EnemyTowerController.onGameWin += ResetThrowCount;
     }
-    private void OnDestroy()
-    {
-        TowerController.onGameLose -= ResetThrowCount;
-        EnemyTowerController.onGameWin -= ResetThrowCount;
-    }
+    //private void OnDestroy()
+    //{
+    //    TowerController.onGameLose -= ResetThrowCount;
+    //    EnemyTowerController.onGameWin -= ResetThrowCount;
+    //}
     private void Update()
     {
         if (canMove && Input.GetMouseButton(0))

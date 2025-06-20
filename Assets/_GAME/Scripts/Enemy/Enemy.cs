@@ -32,29 +32,26 @@ public abstract class Enemy : MonoBehaviour
     [Header("Action")]
     private bool onThrow=false;
     public static Action<Vector2> onDead;
+    public static Action OnAnyEnemyHealthChanged;
+
 
     private void Awake()
     {
-        Hook.onThrowStarting += OnThrowStartingCallBack;
-        Hook.onThrowEnding += OnThrowEndingCallBack;
 
         UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
 
-        TowerController.onGameLose += OnThrowStartingCallBack;
-        EnemyTowerController.onGameWin += OnThrowStartingCallBack;
+        //TowerController.onGameLose += OnThrowStartingCallBack;
+        //EnemyTowerController.onGameWin += OnThrowStartingCallBack;
 
     }
     private void OnDestroy()
     {
-        Hook.onThrowStarting -= OnThrowStartingCallBack;
-        Hook.onThrowEnding -= OnThrowEndingCallBack;
-
         UpgradeSelectManager.onPowerUpPanelOpened -= OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
 
-        TowerController.onGameLose -= OnThrowStartingCallBack;
-        EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
+        //TowerController.onGameLose -= OnThrowStartingCallBack;
+        //EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
 
     }
 
@@ -175,7 +172,7 @@ public abstract class Enemy : MonoBehaviour
     {
         health -= damage;
         healthSlider.value = health;
-
+        OnAnyEnemyHealthChanged?.Invoke();
         characterSpriteRenderer.DOColor(Color.gray, 0.1f).OnComplete(() =>
         {
             characterSpriteRenderer.DOColor(originalColor, 0.1f).SetDelay(0.1f);
@@ -190,7 +187,7 @@ public abstract class Enemy : MonoBehaviour
         {
             Debug.Log("enemy öldü");
             onDead?.Invoke(transform.position);
-            HookManager.instance.AddToken(10);
+            //HookManager.instance.AddToken(10);
             GameManager.enemyCount++;
             Debug.Log("ENEMY COUNT: " + GameManager.enemyCount);
             Destroy(gameObject);

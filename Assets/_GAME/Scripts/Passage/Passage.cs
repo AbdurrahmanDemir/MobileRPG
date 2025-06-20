@@ -28,13 +28,13 @@ public abstract class Passage : MonoBehaviour
     }
     private void Awake()
     {
-        Hook.onThrowEnding += Boost;
-        Hook.onThrowStarting += Boost;
+        //Hook.onThrowEnding += Boost;
+        //Hook.onThrowStarting += Boost;
     }
     private void OnDestroy()
     {
-        Hook.onThrowEnding -= Boost;
-        Hook.onThrowStarting -= Boost;
+        //Hook.onThrowEnding -= Boost;
+        //Hook.onThrowStarting -= Boost;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

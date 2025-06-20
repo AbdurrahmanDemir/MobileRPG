@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public abstract class Hero : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public abstract class Hero : MonoBehaviour
     protected float range;
     protected float moveSpeed;
     protected float cooldown;
-    protected int health;
+    public int health;
 
     [Header("Elements")]
      [SerializeField] private Animator animator;
@@ -30,25 +31,23 @@ public abstract class Hero : MonoBehaviour
 
     [Header("Action")]
     private bool onThrow = false;
+    public static Action OnAnyHeroHealthChanged;
 
     private void Awake()
     {
-        Hook.onThrowStarting += OnThrowStartingCallBack;
-        Hook.onThrowEnding += OnThrowEndingCallBack;
-
         UpgradeSelectManager.heroDamageItem += PowerUpHeroDamage;
         UpgradeSelectManager.heroHealthItem += PowerUpHeroHealth;
 
         UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
 
-        TowerController.onGameLose += OnThrowStartingCallBack;
-        EnemyTowerController.onGameWin += OnThrowStartingCallBack;
+        //TowerController.onGameLose += OnThrowStartingCallBack;
+        //EnemyTowerController.onGameWin += OnThrowStartingCallBack;
     }
     private void OnDestroy()
     {
-        Hook.onThrowStarting -= OnThrowStartingCallBack;
-        Hook.onThrowEnding -= OnThrowEndingCallBack;
+        //Hook.onThrowStarting -= OnThrowStartingCallBack;
+        //Hook.onThrowEnding -= OnThrowEndingCallBack;
 
         UpgradeSelectManager.heroDamageItem -= PowerUpHeroDamage;
         UpgradeSelectManager.heroHealthItem -= PowerUpHeroHealth;
@@ -56,8 +55,8 @@ public abstract class Hero : MonoBehaviour
         UpgradeSelectManager.onPowerUpPanelOpened -= OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
 
-        TowerController.onGameLose -= OnThrowStartingCallBack;
-        EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
+        //TowerController.onGameLose -= OnThrowStartingCallBack;
+        //EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
 
     }
 
@@ -162,7 +161,7 @@ public abstract class Hero : MonoBehaviour
     {
         health-=damage;
         healthSlider.value = health;
-
+        OnAnyHeroHealthChanged?.Invoke();
         characterSpriteRenderer.DOColor(Color.red, 0.1f).OnComplete(() =>
         {
             characterSpriteRenderer.DOColor(originalColor, 0.1f).SetDelay(0.1f);
