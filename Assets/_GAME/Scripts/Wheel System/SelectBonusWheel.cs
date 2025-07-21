@@ -15,48 +15,7 @@ public class SelectBonusWheel : PointerMover
             stopButton.onClick.AddListener(StopPointer);
 
         WheelSOConfig();
-        for (int i = 0; i < heroSlots.Length; i++)
-        {
-            switch (wheelSO.slotsName[i])
-            {
-                case "+5 Health":
-                    heroSlotsText[i].text = "+5";
-                    break;
-                case "+10 Health":
-                    heroSlotsText[i].text = "+10";
-                    break;
-                case "+2 Damage":
-                    heroSlotsText[i].text = "+2";
-                    break;
-                case "+5 Damage":
-                    heroSlotsText[i].text = "+5";
-                    break;
-                case "+10 Gold":
-                    heroSlotsText[i].text = "+10";
-                    break;
-                case "+30 Gold":
-                    heroSlotsText[i].text = "+30";
-                    break;
-                case "+50 Gold":
-                    heroSlotsText[i].text = "+50";
-                    break;
-                case "+5 Energy":
-                    heroSlotsText[i].text = "+5";
-                    break;
-                case "+10 Energy":
-                    heroSlotsText[i].text = "+10";
-                    break;
-                case "+1 Count":
-                    heroSlotsText[i].text = "+1";
-                    break;
-                case "+2 Count":
-                    heroSlotsText[i].text = "+2";
-                    break;
-                case "2x Count":
-                    heroSlotsText[i].text = "x2";
-                    break;
-            }
-        }
+        BonusAlertImage();
     }
     protected override void Apply(string slotName)
     {
@@ -64,6 +23,8 @@ public class SelectBonusWheel : PointerMover
         WheelManager.instance.wheelStopButtons[0].interactable = false;
         WheelManager.instance.wheelStopButtons[1].interactable = false;
         WheelManager.instance.wheelStopButtons[2].interactable = false;
+
+        WheelManager.instance.attackButton.interactable = true;
 
         switch (slotName)
         {
@@ -112,6 +73,53 @@ public class SelectBonusWheel : PointerMover
 
         }
 
+
+    }
+
+    public void BonusAlertImage()
+    {
+        for (int i = 0; i < heroSlots.Length; i++)
+        {
+            switch (wheelSO.slotsName[i])
+            {
+                case "+5 Health":
+                    heroSlotsText[i].text = "+5";
+                    break;
+                case "+10 Health":
+                    heroSlotsText[i].text = "+10";
+                    break;
+                case "+2 Damage":
+                    heroSlotsText[i].text = "+2";
+                    break;
+                case "+5 Damage":
+                    heroSlotsText[i].text = "+5";
+                    break;
+                case "+10 Gold":
+                    heroSlotsText[i].text = "+10";
+                    break;
+                case "+30 Gold":
+                    heroSlotsText[i].text = "+30";
+                    break;
+                case "+50 Gold":
+                    heroSlotsText[i].text = "+50";
+                    break;
+                case "+5 Energy":
+                    heroSlotsText[i].text = "+5";
+                    break;
+                case "+10 Energy":
+                    heroSlotsText[i].text = "+10";
+                    break;
+                case "+1 Count":
+                    heroSlotsText[i].text = "+1";
+                    break;
+                case "+2 Count":
+                    heroSlotsText[i].text = "+2";
+                    break;
+                case "2x Count":
+                    heroSlotsText[i].text = "x2";
+                    break;
+            }
+        }
 
     }
 }

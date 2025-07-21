@@ -74,6 +74,7 @@ public class AngelBulletController : MonoBehaviour
         isReleased = false;
         target = null;
         targetPosition = Vector2.zero;
+        transform.position = Vector3.zero;
     }
 
 

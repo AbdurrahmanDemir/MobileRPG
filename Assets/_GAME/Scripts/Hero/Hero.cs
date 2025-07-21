@@ -41,6 +41,16 @@ public abstract class Hero : MonoBehaviour
         UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
 
+        heroName = heroSO.heroName;
+        heroImage = heroSO.heroImage;
+        attackType = heroSO.attackType;
+        isAreaOfEffect = heroSO.isAreaOfEffect;
+        damage = heroSO.GetCurrentDamage();
+        range = heroSO.range;
+        moveSpeed = heroSO.moveSpeed;
+        cooldown = heroSO.cooldown;
+
+
         //TowerController.onGameLose += OnThrowStartingCallBack;
         //EnemyTowerController.onGameWin += OnThrowStartingCallBack;
     }
@@ -68,15 +78,7 @@ public abstract class Hero : MonoBehaviour
         originalColor = characterSpriteRenderer.color;
         originalScale = transform.localScale;
 
-        heroName = heroSO.heroName;
-        heroImage = heroSO.heroImage;
-        attackType = heroSO.attackType;
-        isAreaOfEffect = heroSO.isAreaOfEffect;
-        damage = heroSO.GetCurrentDamage();
-        range = heroSO.range;
-        moveSpeed = heroSO.moveSpeed;
-        cooldown = heroSO.cooldown;
-
+       
 
         healthSlider = GetComponentInChildren<Slider>();
         healthSlider.maxValue = heroSO.maxHealth;
@@ -162,10 +164,14 @@ public abstract class Hero : MonoBehaviour
         health-=damage;
         healthSlider.value = health;
         OnAnyHeroHealthChanged?.Invoke();
+
+        characterSpriteRenderer.DOKill();
         characterSpriteRenderer.DOColor(Color.red, 0.1f).OnComplete(() =>
         {
-            characterSpriteRenderer.DOColor(originalColor, 0.1f).SetDelay(0.1f);
+            characterSpriteRenderer.DOColor(originalColor, 0.1f);
         });
+
+        transform.DOKill();
         transform.DOScale(originalScale * scaleReduction, 0.1f).OnComplete(() =>
         {
             transform.DOScale(originalScale, 0.1f);

@@ -13,18 +13,8 @@ public class SelectHeroWheel : PointerMover
             stopButton.onClick.AddListener(StopPointer);
 
         WheelSOConfig();
-        for (int i = 0; i < heroSlots.Length; i++)
-        {
-            switch (wheelSO.slotsName[i])
-            {
-                case "RangeAngel + Ice":
-                    bonusAlert[i].SetActive(true);
-                    break;
-                case "Range + Man":
-                    bonusAlert[i].SetActive(true);
-                    break;
-            }
-        }
+
+        BonusAlertImage();
     }
     protected override void Apply(string slotName)
     {
@@ -35,6 +25,26 @@ public class SelectHeroWheel : PointerMover
 
         WheelManager.instance.pointerMover[1].IsMoving(true);
         WheelManager.instance.pointerMover[2].IsMoving(false);
+
+
+    }
+
+    public void BonusAlertImage()
+    {
+        for (int i = 0; i < heroSlots.Length; i++)
+        {
+            bonusAlert[i].SetActive(false);
+
+            switch (wheelSO.slotsName[i])
+            {
+                case "RangeAngel + Ice":
+                    bonusAlert[i].SetActive(true);
+                    break;
+                case "Range + Man":
+                    bonusAlert[i].SetActive(true);
+                    break;
+            }
+        }
     }
 
 }

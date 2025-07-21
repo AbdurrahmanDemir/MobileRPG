@@ -11,6 +11,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject tutorialPanel2;
     [SerializeField] private GameObject tutorialPanel3;
     [SerializeField] private GameObject tutorialPanel4;
+    [SerializeField] private GameObject tutorialPanel5;
+    [SerializeField] private GameObject tutorialPanel6;
+    [SerializeField] private GameObject tutorialPanel7;
+    [SerializeField] private GameObject tutorialPanel8;
+    [SerializeField] private GameObject tutorialPanel9;
 
     public bool finishTutorial;
 
@@ -22,7 +27,6 @@ public class TutorialManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         if (!PlayerPrefs.HasKey("Tutorial"))
@@ -35,8 +39,16 @@ public class TutorialManager : MonoBehaviour
             tutorialPanel2.SetActive(false);
             tutorialPanel3.SetActive(false);
             tutorialPanel4.SetActive(false);
+            tutorialPanel5.SetActive(false);
+            tutorialPanel6.SetActive(false);
             finishTutorial = true;
         }
+
+        if (PlayerPrefs.HasKey("Tutorial") && !PlayerPrefs.HasKey("UpgradeTutorial"))
+        {
+            OpenPanel(tutorialPanel7);
+        }
+
     }
 
     public void TutorailPanel2()
@@ -54,10 +66,20 @@ public class TutorialManager : MonoBehaviour
     public void TutorailPanel4()
     {
         ClosePanel(tutorialPanel3);
-        //OpenPanel(tutorialPanel4);
+        OpenPanel(tutorialPanel4);
+        
+    }
+    public void TutorailPanel5()
+    {
+        ClosePanel(tutorialPanel4);
+        OpenPanel(tutorialPanel5);
+    }
+    public void TutorailPanel6()
+    {
+        ClosePanel(tutorialPanel5);
         PlayerPrefs.SetInt("Tutorial", 1);
         finishTutorial = true;
-        StartCoroutine(TutorialPanel4());
+        StartCoroutine(TutorialPanel6());
     }
 
     //public void TutorailPanelOff()
@@ -65,13 +87,29 @@ public class TutorialManager : MonoBehaviour
     //    //ClosePanel(tutorialPanel4);
     //    PlayerPrefs.SetInt("Tutorial", 1);
     //}
-    IEnumerator TutorialPanel4()
+    IEnumerator TutorialPanel6()
     {
-        OpenPanel(tutorialPanel4);
-        yield return new WaitForSeconds(5f);
-        ClosePanel(tutorialPanel4);
+        OpenPanel(tutorialPanel6);
+        yield return new WaitForSeconds(2f);
+        ClosePanel(tutorialPanel6);
     }
 
+    public void TutorailPanel7()
+    {
+        ClosePanel(tutorialPanel7);
+        OpenPanel(tutorialPanel8);
+    }
+    public void TutorailPanel8()
+    {
+        ClosePanel(tutorialPanel8);
+        OpenPanel(tutorialPanel9);
+    }
+    public void TutorailPanel9()
+    {
+        ClosePanel(tutorialPanel9);
+        PlayerPrefs.SetInt("UpgradeTutorial", 1);
+
+    }
     public bool GetTutorialState()
     {
         return finishTutorial;

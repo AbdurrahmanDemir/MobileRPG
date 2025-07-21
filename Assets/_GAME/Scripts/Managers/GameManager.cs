@@ -26,23 +26,23 @@ public class GameManager : MonoBehaviour
     [Header("Arena Tileset")]
     [SerializeField] private GameObject[] arenaTileset;
 
-    private void Awake()
-    {
-        //Hook.onThrowEnding += CreatHeroes;
-        Enemy.onDead += PowerUpSliderUpdate;
-    }
-    private void OnDestroy()
-    {
-        //Hook.onThrowEnding -= CreatHeroes;
-        Enemy.onDead -= PowerUpSliderUpdate;
+    //private void Awake()
+    //{
+    //    //Hook.onThrowEnding += CreatHeroes;
+    //    //Enemy.onDead += PowerUpSliderUpdate;
+    //}
+    //private void OnDestroy()
+    //{
+    //    //Hook.onThrowEnding -= CreatHeroes;
+    //    //Enemy.onDead -= PowerUpSliderUpdate;
 
-    }
-    private void Start()
-    {
-        enemyCount = 0;
-        powerUpSlider.value = 0;
-        powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
-    }
+    //}
+    //private void Start()
+    //{
+    //    enemyCount = 0;
+    //    powerUpSlider.value = 0;
+    //    powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
+    //}
     public void CreatHeroes()
     {
 
@@ -85,7 +85,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    public void CreatManHero()
+    {
+        if( DataManager.instance.TryPurchaseGold(400))
+        {
+            int RandomPos = Random.Range(0, creatHeroPosition.Length);
+            Instantiate(allHeroes[4], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+        }
+    }
+    public void CreatAngelHero()
+    {
+        if (DataManager.instance.TryPurchaseGold(200))
+        {
+            int RandomPos = Random.Range(0, creatHeroPosition.Length);
+            Instantiate(allHeroes[5], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+        }
+    }
+    public void CreatRangeAngelHero()
+    {
+        if (DataManager.instance.TryPurchaseGold(500))
+        {
+            int RandomPos = Random.Range(0, creatHeroPosition.Length);
+            Instantiate(allHeroes[6], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
+        }
+    }
+
     public void GameSpeedController()
     {
         if (Time.timeScale == 1)

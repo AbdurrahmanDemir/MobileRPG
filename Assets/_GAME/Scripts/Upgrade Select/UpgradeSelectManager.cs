@@ -110,18 +110,18 @@ public class UpgradeSelectManager : MonoBehaviour
 
     public void PowerUpPanelOpen()
     {
-        if (powerUpPanel.activeSelf)
-        {
-            powerUpPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => powerUpPanel.SetActive(false));
-            onPowerUpPanelClosed?.Invoke();
-        }
-        else
-        {
-            powerUpPanel.SetActive(true);
-            powerUpPanel.transform.localScale = Vector3.zero;
-            powerUpPanel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
-            GetUpgrade();
-            onPowerUpPanelOpened?.Invoke();
-        }
+        //if (powerUpPanel.activeSelf)
+        //{
+        //    powerUpPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => powerUpPanel.SetActive(false));
+        //    onPowerUpPanelClosed?.Invoke();
+        //}
+        //else
+        //{
+        //    powerUpPanel.SetActive(true);
+        //    powerUpPanel.transform.localScale = Vector3.zero;
+        //    powerUpPanel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+        //    GetUpgrade();
+        //    onPowerUpPanelOpened?.Invoke();
+        //}
     }
 }

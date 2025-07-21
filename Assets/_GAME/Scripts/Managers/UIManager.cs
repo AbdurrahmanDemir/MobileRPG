@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 
 public class UIManager : MonoBehaviour
@@ -30,7 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI loseBonusGoldText;
     [SerializeField] private TextMeshProUGUI loseEnemyCountText;
 
-    private void Awake()
+    private void OnEnable()
     {
         //Hook.onThrowStarting += StartingThrow;
         //Hook.onThrowEnding += EndingThrow;
@@ -39,9 +40,11 @@ public class UIManager : MonoBehaviour
         //EnemyTowerController.onGameWin += GameWinPanel;
 
         WaveManager.onGameWin += GameWinPanel;
-        WheelManager.onGameLose+= GameLosePanel;    
+        if (WheelManager.instance != null)
+            WheelManager.instance.onGameLose += GameLosePanel;
+
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         //Hook.onThrowStarting -= StartingThrow;
         //Hook.onThrowEnding -= EndingThrow;
@@ -50,7 +53,9 @@ public class UIManager : MonoBehaviour
         //EnemyTowerController.onGameWin -= GameWinPanel;
 
         WaveManager.onGameWin -= GameWinPanel;
-        WheelManager.onGameLose -= GameLosePanel;
+        if (WheelManager.instance != null)
+            WheelManager.instance.onGameLose -= GameLosePanel;
+
 
 
     }
@@ -122,23 +127,39 @@ public class UIManager : MonoBehaviour
             arena.SetActive(true);
 
         WaveManager.instance.StartWaves(waveIndex);
+        TinySauce.OnGameStarted(waveIndex);
 
     }
 
     public void GameLosePanel()
     {
+        Time.timeScale = 1;
         GameUIStageChanged(UIGameStage.GameLose);
 
-        loseArenaText.text= (PlayerPrefs.GetInt("WaveIndex", 0)-1).ToString();
-        int enemyCount = GameManager.enemyCount;
-        loseEnemyCountText.text = "Number of enemies killed: " + enemyCount.ToString();
-        int rewardedGold = enemyCount * 5;
-        loseBonusGoldText.text = rewardedGold.ToString();
-        loseGoldText.text = 0.ToString();
+        gameLosePanel.transform.localScale = Vector3.zero;
+        gameLosePanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
 
+        int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
+        loseArenaText.text = (waveIndex - 1).ToString();
+
+        int enemyCount = GameManager.enemyCount;
+        int rewardedGold = enemyCount * 5;
+
+        loseEnemyCountText.text = "";
+        loseBonusGoldText.text = "";
+        loseGoldText.text = "";
+
+        DOTween.To(() => 0, x => loseEnemyCountText.text = "Number of enemies killed: " + x.ToString(), enemyCount, 1f);
+        DOTween.To(() => 0, x => loseBonusGoldText.text = x.ToString(), rewardedGold, 1f).SetDelay(0.5f);
+        DOTween.To(() => 0, x => loseGoldText.text = x.ToString(), 0, 0.5f).SetDelay(1f);
 
         DataManager.instance.AddGold(rewardedGold);
+        TinySauce.OnGameFinished(false, 0);
+
     }
+
+
+
     public void GameLoseButton()
     {
         GameUIStageChanged(UIGameStage.Menu);
@@ -151,18 +172,33 @@ public class UIManager : MonoBehaviour
 
     public void GameWinPanel()
     {
+        Time.timeScale = 1;
         GameUIStageChanged(UIGameStage.GameWin);
+        gameWinPanel.transform.localScale = Vector3.zero;
+        gameWinPanel.transform.DOScale(1, 0.5f).SetEase(Ease.OutBack);
 
-        winArenaText.text = (PlayerPrefs.GetInt("WaveIndex", 0)).ToString();
+        int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
+        winArenaText.text = waveIndex.ToString();
+
         int enemyCount = GameManager.enemyCount;
-        winEnemyCountText.text = "Number of enemies killed: " + enemyCount.ToString();
         int rewardedGold = enemyCount * 5;
-        winBonusGoldText.text = rewardedGold.ToString();
-        winGoldText.text = gameManager.arenaWinReward[(PlayerPrefs.GetInt("WaveIndex", 0))].ToString();
+        int baseGold = gameManager.arenaWinReward[waveIndex];
+        int totalGold = rewardedGold + baseGold;
 
-        DataManager.instance.AddGold(rewardedGold+ gameManager.arenaWinReward[(PlayerPrefs.GetInt("WaveIndex", 0))]);
+        winEnemyCountText.text = "";
+        winBonusGoldText.text = "";
+        winGoldText.text = "";
 
+        DOTween.To(() => 0, x => winEnemyCountText.text = "Number of enemies killed: " + x.ToString(), enemyCount, 1f);
+        DOTween.To(() => 0, x => winBonusGoldText.text = x.ToString(), rewardedGold, 1f).SetDelay(0.5f);
+        DOTween.To(() => 0, x => winGoldText.text = x.ToString(), baseGold, 1f).SetDelay(1f);
+
+
+        DataManager.instance.AddGold(totalGold);
+
+        TinySauce.OnGameFinished(true, 100, waveIndex);
     }
+
     public void GameWinButton()
     {
         //towerController.ResetTower();

@@ -12,9 +12,12 @@ public class WheelManager : MonoBehaviour
     public static WheelManager instance;
     [SerializeField] private GameManager gameManager;
     public PointerMover[] pointerMover;
+    [SerializeField] private SelectBonusWheel selectBonusWheel;
+    [SerializeField] private SelectHeroWheel selectHeroWheel;
     [HideInInspector] public List<string> heroes;
     [HideInInspector] public int wheelClickNumber=0;
     public Button[] wheelStopButtons;
+    public Button attackButton;
 
     [Header("Hero & Enemys")]
     [SerializeField] private Transform heroParent;
@@ -44,14 +47,14 @@ public class WheelManager : MonoBehaviour
     int totalEnemyHealth;
 
     [Header("Action")]
-    public static Action onGameLose;
+    public Action onGameLose;
 
 
     [Header("Camera")]
     [SerializeField] private CameraTransition cameraTransition;
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
             instance = this;
         else
             Destroy(gameObject);
@@ -59,11 +62,19 @@ public class WheelManager : MonoBehaviour
         Hero.OnAnyHeroHealthChanged += HeroTotalHealthCalculate;
         Enemy.OnAnyEnemyHealthChanged += EnemyTotalHealthCalculate;
 
+        isOver = false;  
+        isStart = false; 
     }
+
     private void OnDisable()
     {
         Hero.OnAnyHeroHealthChanged -= HeroTotalHealthCalculate;
         Enemy.OnAnyEnemyHealthChanged -= EnemyTotalHealthCalculate;
+    }
+    private void OnDestroy()
+    {
+        onGameLose = null;
+
     }
 
     private void Start()
@@ -77,22 +88,24 @@ public class WheelManager : MonoBehaviour
         pointerMover[1].IsMoving(false);
         pointerMover[2].IsMoving(false);
 
+        attackButton.interactable = false;
+
+
         cameraTransition.MoveToTarget();
+
+
 
     }
     private void Update()
     {
-        if (heroParent.childCount <=0&&isStart)
+        if (heroParent.childCount <= 0 && isStart && !isOver)
         {
             isOver = true;
-
-            if (isOver)
-            {
-                onGameLose?.Invoke();
-            }
+            onGameLose?.Invoke();
         }
 
-       
+
+
     }
     public void NewRound()
     {
@@ -105,6 +118,7 @@ public class WheelManager : MonoBehaviour
         pointerMover[1].IsMoving(false);
         pointerMover[2].IsMoving(false);
 
+        attackButton.interactable = false;
 
         roundNumber++;
         roundState = true;
@@ -112,6 +126,10 @@ public class WheelManager : MonoBehaviour
         {
             pointerMover[i].WheelSOConfig();
         }
+
+        selectBonusWheel.BonusAlertImage();
+        selectHeroWheel.BonusAlertImage();
+
         StartCoroutine(RoundPanel());
         TogglePanel(wheelPanel);
         TogglePanel(statsPanel);

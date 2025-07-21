@@ -49,6 +49,8 @@ public class MenuHeroCardSO : ScriptableObject
             PlayerPrefs.SetInt($"{cardName}_Health", newHealth);
             PlayerPrefs.SetInt($"{cardName}_UpgradeCost", newUpgradeCost);
             PlayerPrefs.Save();
+            TinySauce.OnUpgradeEvent(cardName, baseUpgradeCost);
+
         }
     }
 }
