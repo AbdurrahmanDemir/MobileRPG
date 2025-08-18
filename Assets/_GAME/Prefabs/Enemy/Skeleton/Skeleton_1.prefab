@@ -269,6 +269,7 @@ MonoBehaviour:
   moveSpeed: 0
   health: 0
   cooldown: 0
+  detectionRange: 5
   animator: {fileID: 0}
   scaleReduction: {x: 0.9, y: 0.9}
 --- !u!50 &568911995928581846
@@ -560,7 +561,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1254377755
   m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &6257198305536443922

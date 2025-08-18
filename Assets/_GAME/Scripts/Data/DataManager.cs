@@ -91,6 +91,7 @@ public class DataManager : MonoBehaviour
         if (PlayerPrefs.HasKey("Gold"))
         {
             gold = PlayerPrefs.GetInt("Gold");
+            AddGold(200);
         }
         else
         {

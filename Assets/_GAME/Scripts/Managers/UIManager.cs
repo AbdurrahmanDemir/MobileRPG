@@ -40,8 +40,6 @@ public class UIManager : MonoBehaviour
         //EnemyTowerController.onGameWin += GameWinPanel;
 
         WaveManager.onGameWin += GameWinPanel;
-        if (WheelManager.instance != null)
-            WheelManager.instance.onGameLose += GameLosePanel;
 
     }
     private void OnDisable()
@@ -53,8 +51,6 @@ public class UIManager : MonoBehaviour
         //EnemyTowerController.onGameWin -= GameWinPanel;
 
         WaveManager.onGameWin -= GameWinPanel;
-        if (WheelManager.instance != null)
-            WheelManager.instance.onGameLose -= GameLosePanel;
 
 
 
@@ -127,7 +123,7 @@ public class UIManager : MonoBehaviour
             arena.SetActive(true);
 
         WaveManager.instance.StartWaves(waveIndex);
-        TinySauce.OnGameStarted(waveIndex);
+        TinySauce.OnGameStarted("Wave" + waveIndex);
 
     }
 
@@ -154,7 +150,7 @@ public class UIManager : MonoBehaviour
         DOTween.To(() => 0, x => loseGoldText.text = x.ToString(), 0, 0.5f).SetDelay(1f);
 
         DataManager.instance.AddGold(rewardedGold);
-        TinySauce.OnGameFinished(false, 0);
+        TinySauce.OnGameFinished(false, 0, "Wave" + waveIndex);
 
     }
 
@@ -196,7 +192,7 @@ public class UIManager : MonoBehaviour
 
         DataManager.instance.AddGold(totalGold);
 
-        TinySauce.OnGameFinished(true, 100, waveIndex);
+        TinySauce.OnGameFinished(true, 100, "Wave" + waveIndex);
     }
 
     public void GameWinButton()
@@ -247,7 +243,17 @@ public class UIManager : MonoBehaviour
 
     }
 
-    
+    public void OpenPanel(GameObject panel)
+    {
+        panel.SetActive(true);
+        panel.transform.localScale = Vector3.zero;  
+        panel.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);  
+    }
+
+    public void ClosePanel(GameObject panel)
+    {
+        panel.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).OnComplete(() => panel.SetActive(false));
+    }
 
 }
 public enum UIGameStage

@@ -2,9 +2,18 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
+using UnityEngine.AI;
 
-public abstract class Hero : MonoBehaviour
+public abstract class Hero : MonoBehaviour, IDamageable
 {
+    public TeamType GetTeam() => TeamType.Hero;
+
+    [Header("NavMesh")]
+    protected NavMeshAgent agent;
+    protected GameObject currentTarget;
+
+
     [Header("Settings")]
     public HeroSO heroSO;
     protected float lastAttackTime = 0f;
@@ -22,7 +31,7 @@ public abstract class Hero : MonoBehaviour
     public int health;
 
     [Header("Elements")]
-     [SerializeField] private Animator animator;
+    protected Animator animator;
      private Slider healthSlider;
     SpriteRenderer characterSpriteRenderer;
     private Color originalColor;
@@ -30,7 +39,7 @@ public abstract class Hero : MonoBehaviour
     public Vector2 scaleReduction = new Vector3(0.9f, 0.9f, 1f);
 
     [Header("Action")]
-    private bool onThrow = false;
+    protected bool onThrow = false;
     public static Action OnAnyHeroHealthChanged;
 
     private void Awake()
@@ -49,6 +58,12 @@ public abstract class Hero : MonoBehaviour
         range = heroSO.range;
         moveSpeed = heroSO.moveSpeed;
         cooldown = heroSO.cooldown;
+
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.speed = moveSpeed;
 
 
         //TowerController.onGameLose += OnThrowStartingCallBack;
@@ -86,33 +101,32 @@ public abstract class Hero : MonoBehaviour
         healthSlider.value = health;
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        GameObject target = FindClosestTarget();
-        if (target != null)
+        if (onThrow) return;
+
+        if (currentTarget == null)
         {
-            float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
+            currentTarget = FindClosestTarget();
+        }
 
-            if (onThrow)
-                return;
+        if (currentTarget == null) return;
 
+        float dist = Vector2.Distance(transform.position, currentTarget.transform.position);
 
-            if (distanceToTarget <= heroSO.range)
-            {
-                if (target == null)
-                    Debug.Log("Dusman olmustu");
-                else
-                    Attack(target);
-
-            }
-            else
-            {
-                MoveTowardsTarget(target.transform.position);
-                animator.Play("run");
-
-            }
+        if (dist <= range)
+        {
+            agent.SetDestination(transform.position); 
+            Attack(currentTarget);                    
+            animator.Play("attack");
+        }
+        else
+        {
+            agent.SetDestination(currentTarget.transform.position);
+            animator.Play("run");
         }
     }
+
     protected virtual void Attack(GameObject target)
     {
 
@@ -154,12 +168,13 @@ public abstract class Hero : MonoBehaviour
 
         return closestTarget;
     }
-    private void MoveTowardsTarget(Vector2 targetPosition)
+    public void MoveTowardsTarget(Vector2 targetPosition)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, heroSO.moveSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
     }
 
-    public virtual void HeroTakeDamage(int damage)
+
+    public virtual void TakeDamage(int damage)
     {
         health-=damage;
         healthSlider.value = health;
@@ -181,9 +196,15 @@ public abstract class Hero : MonoBehaviour
         if (health <= 0)
         {
             Debug.Log("hero öldü");
-            Destroy(gameObject);
 
+            //if (placementData != null && PlacementManager.instance != null)
+            //{
+            //    PlacementManager.instance.ReduceCapacity(placementData.size);
+            //}
+
+            Destroy(gameObject);
         }
+
     }
     public void PowerUpHeroHealth(int amount)
     {
@@ -207,4 +228,42 @@ public abstract class Hero : MonoBehaviour
         Debug.Log("Avtipn çalýþtý" + onThrow);
 
     }
+    public bool IsFullHealth()
+    {
+        return health >= heroSO.maxHealth;
+    }
+    public int GetMissingHealth()
+    {
+        return heroSO.maxHealth - health;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return health;
+    }
+    public PlacementHeroData placementData;
+
+    public void Initialize(PlacementHeroData data)
+    {
+        placementData = data;
+    }
+
+    bool isFrozen=false;
+    public void Freeze(float duration)
+    {
+        if (!isFrozen)
+        {
+            isFrozen = true;
+            moveSpeed = 0f; 
+            StartCoroutine(UnfreezeAfter(duration));
+        }
+    }
+
+    private IEnumerator UnfreezeAfter(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        moveSpeed = heroSO.moveSpeed;
+        isFrozen = false;
+    }
+
 }

@@ -8,7 +8,8 @@ public class RangeHero : Hero
     [SerializeField] private Transform bulletTransform;
 
     [Header("Action")]
-    public static Action<Vector2, GameObject, HeroSO, Transform> onAngelBulletInstante;
+    public static Action<BulletData> OnBulletRequested;
+
 
 
     protected override void PerformAreaAttack()
@@ -18,12 +19,12 @@ public class RangeHero : Hero
 
     protected override void PerformSingleTargetAttack(GameObject target)
     {
-        onAngelBulletInstante?.Invoke(bulletTransform.position, target, heroSO, bulletTransform);
-
-
-        //GameObject bulletInstance = Instantiate(bullet, bulletTransform);
-        //bulletInstance.transform.position = bulletTransform.position;
-        //bulletInstance.GetComponent<AngelBulletController>().targetPosition=target.transform.position;
-        //bulletInstance.GetComponent<AngelBulletController>().heroSO = heroSO;
+        OnBulletRequested?.Invoke(new BulletData
+        {
+            spawnPosition = bulletTransform.position,
+            target = target,
+            dataSO = heroSO,
+            firePoint = bulletTransform
+        });
     }
 }

@@ -9,7 +9,7 @@ public class RangeEnemy : Enemy
     [SerializeField] private Transform bulletTransform;
 
     [Header("Action")]
-    public static Action<Vector2,GameObject,EnemySO,Transform> onEnemyBulletInstante;
+    public static Action<BulletData> OnBulletRequested;
 
     protected override void PerformAreaAttack()
     {
@@ -20,10 +20,12 @@ public class RangeEnemy : Enemy
     {
 
         animator.Play("attack");
-        onEnemyBulletInstante?.Invoke(bulletTransform.position,target,enemySO,bulletTransform);
-        //GameObject bulletInstance = Instantiate(bullet, bulletTransform);
-        //bulletInstance.transform.position = bulletTransform.position;
-        //bulletInstance.GetComponent<SkeletonBulletController>().targetPosition = target.transform.position;
-        //bulletInstance.GetComponent<SkeletonBulletController>().enemySO = enemySO;
+        OnBulletRequested?.Invoke(new BulletData
+        {
+            spawnPosition = bulletTransform.position,
+            target = target,
+            dataSO = enemySO,
+            firePoint = bulletTransform
+        });
     }
 }

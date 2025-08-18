@@ -8,9 +8,22 @@ public class MeleeEnemy : Enemy
 
         animator.Play("attack");
         if (target.CompareTag("Hero"))
-            target.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
+        {
+            if (target.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Hero)
+                    damageable.TakeDamage(enemySO.damage);
+            }
+
+        }
         else if (target.CompareTag("Tower"))
-            target.GetComponent<TowerController>().TakeDamage(enemySO.damage);
+        {
+            if (target.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Hero)
+                    damageable.TakeDamage(enemySO.damage);
+            }
+        }
     }
 
     protected override void PerformAreaAttack()

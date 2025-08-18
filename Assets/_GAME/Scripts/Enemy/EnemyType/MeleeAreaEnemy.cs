@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MeleeAreaEnemy : Enemy
 {
@@ -13,14 +14,26 @@ public class MeleeAreaEnemy : Enemy
         foreach (var targetx in targetsInRange)
         {
             Debug.Log($"{gameObject.name} is attacking {targetx.gameObject.name} with area of effect attack for {enemySO.damage} damage!");
-
-
             animator.Play("attack");
+
             if (targetx.CompareTag("Hero"))
-                targetx.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
+            {
+                if (targetx.TryGetComponent<IDamageable>(out var damageable))
+                {
+                    if (damageable.GetTeam() == TeamType.Hero)
+                        damageable.TakeDamage(enemySO.damage);
+                }
+
+            }
             else if (targetx.CompareTag("Tower"))
-                targetx.GetComponent<TowerController>().TakeDamage(enemySO.damage);
-            // Alan içindeki her düþmana hasar verin
+            {
+                if (targetx.TryGetComponent<IDamageable>(out var damageable))
+                {
+                    if (damageable.GetTeam() == TeamType.Hero)
+                        damageable.TakeDamage(enemySO.damage);
+                }
+
+            }
         }
 
     }

@@ -38,6 +38,7 @@ public class MenuHeroCardSO : ScriptableObject
         int currentDamage = GetCurrentDamage();
         int upgradeCost = GetUpgradeCost();
         int currentHealth = GetCurrentHealth();
+        int upgradeLevel = PlayerPrefs.GetInt($"{cardName}_UpgradeLevel", 1);
 
         if (DataManager.instance.TryPurchaseGold(upgradeCost))
         {
@@ -45,12 +46,15 @@ public class MenuHeroCardSO : ScriptableObject
             int newUpgradeCost = upgradeCost * 2;
             int newHealth = currentHealth + 50;
 
+            upgradeLevel++;
+
             PlayerPrefs.SetInt($"{cardName}_Damage", newDamage);
             PlayerPrefs.SetInt($"{cardName}_Health", newHealth);
             PlayerPrefs.SetInt($"{cardName}_UpgradeCost", newUpgradeCost);
+            PlayerPrefs.SetInt($"{cardName}_UpgradeLevel", upgradeLevel);
             PlayerPrefs.Save();
-            TinySauce.OnUpgradeEvent(cardName, baseUpgradeCost);
 
+            TinySauce.OnUpgradeEvent("Hero", cardName, upgradeLevel);
         }
     }
 }

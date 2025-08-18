@@ -43,12 +43,12 @@ public class GameManager : MonoBehaviour
     //    powerUpSlider.value = 0;
     //    powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
     //}
-    public void CreatHeroes()
+    public void CreatHeroes(string name)
     {
 
-        for (int i = 0; i < int.Parse(WheelManager.instance.heroes[1]); i++)
-        {            
-            switch (WheelManager.instance.heroes[0].ToString())
+        for (int i = 0; i < 5; i++)
+        {
+            switch (name)
             {
                 case "Angel":
                     int RandomPos = Random.Range(0, creatHeroPosition.Length);
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
                     Instantiate(allHeroes[3], creatHeroPosition[RandomPos3].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
                     break;
                 case "RangeAngel + Ice":
-                    int RandomPos4= Random.Range(0, creatHeroPosition.Length);
+                    int RandomPos4 = Random.Range(0, creatHeroPosition.Length);
                     Instantiate(allHeroes[3], creatHeroPosition[RandomPos4].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
                     Instantiate(allHeroes[1], creatHeroPosition[RandomPos4].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
                     break;
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void CreatManHero()
     {
-        if( DataManager.instance.TryPurchaseGold(400))
+        if( DataManager.instance.TryPurchaseGold(50))
         {
             int RandomPos = Random.Range(0, creatHeroPosition.Length);
             Instantiate(allHeroes[4], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     }
     public void CreatAngelHero()
     {
-        if (DataManager.instance.TryPurchaseGold(200))
+        if (DataManager.instance.TryPurchaseGold(150))
         {
             int RandomPos = Random.Range(0, creatHeroPosition.Length);
             Instantiate(allHeroes[5], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
     }
     public void CreatRangeAngelHero()
     {
-        if (DataManager.instance.TryPurchaseGold(500))
+        if (DataManager.instance.TryPurchaseGold(200))
         {
             int RandomPos = Random.Range(0, creatHeroPosition.Length);
             Instantiate(allHeroes[6], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);

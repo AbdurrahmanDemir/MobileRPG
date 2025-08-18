@@ -2,9 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
+    public TeamType GetTeam() => TeamType.Enemy;
 
 
     [Header("Settings")]
@@ -20,6 +22,11 @@ public abstract class Enemy : MonoBehaviour
     public float moveSpeed;
     public int health;
     public float cooldown;
+
+    [Header("AI Settings")]
+    public float detectionRange = 5f;
+
+    private GameObject currentTarget;
 
     [Header("Elements")]
     public Animator animator;
@@ -64,6 +71,8 @@ public abstract class Enemy : MonoBehaviour
         originalColor = characterSpriteRenderer.color;
         originalScale = transform.localScale;
 
+        Initialize(enemySO);
+
         //enemyName = enemySO.enemyName;
         //enemyImage = enemySO.enemyImage;
         //attackType = enemySO.attackType;
@@ -79,6 +88,10 @@ public abstract class Enemy : MonoBehaviour
         //healthSlider.value = health;
 
         //cooldown = enemySO.cooldown;
+
+        if (SceneManager.GetActiveScene().name=="PixelGane")
+            EnemyBaseManager.instance.RegisterObject();
+
     }
     public void Initialize(EnemySO so)
     {
@@ -101,30 +114,84 @@ public abstract class Enemy : MonoBehaviour
         healthSlider.value = health;
     }
 
+    //void Update()
+    //{
+    //    GameObject target = FindClosestTarget();
+
+    //    if (target != null)
+    //    {
+    //        float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
+
+    //        if (onThrow)
+    //            return;
+
+    //        if (distanceToTarget <= range)
+    //        {
+    //            if (target == null)
+    //                Debug.Log("Hero olmustu");
+    //            else
+    //                Attack(target);
+    //        }
+    //        else
+    //        {
+    //            MoveTowardsTarget(target.transform.position);
+    //            animator.Play("run");
+    //        }
+    //    }
+    //}
     void Update()
     {
-        GameObject target = FindClosestTarget();
+        if (onThrow)
+            return;
 
-        if (target != null)
+        if (currentTarget == null)
         {
-            float distanceToTarget = Vector2.Distance(transform.position, target.transform.position);
+            currentTarget = FindTargetInDetectionRange();
+        }
 
-            if (onThrow)
+        if (currentTarget != null)
+        {
+            float distanceToTarget = Vector2.Distance(transform.position, currentTarget.transform.position);
+
+            if (distanceToTarget > detectionRange * 1.5f)  
+            {
+                currentTarget = null;
+                animator.Play("idle");
                 return;
+            }
 
             if (distanceToTarget <= range)
             {
-                if (target == null)
-                    Debug.Log("Hero olmustu");
-                else
-                    Attack(target);
+                Attack(currentTarget);
             }
             else
             {
-                MoveTowardsTarget(target.transform.position);
+                MoveTowardsTarget(currentTarget.transform.position);
                 animator.Play("run");
             }
         }
+        else
+        {
+            animator.Play("idle");
+        }
+    }
+
+    private GameObject FindTargetInDetectionRange()
+    {
+        Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, detectionRange, targetLayerMask);
+        GameObject closestTarget = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (var target in targets)
+        {
+            float distance = Vector2.Distance(transform.position, target.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestTarget = target.gameObject;
+            }
+        }
+        return closestTarget;
     }
 
     protected virtual void Attack(GameObject target)
@@ -168,7 +235,7 @@ public abstract class Enemy : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
     }
 
-    public virtual void HeroTakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
         healthSlider.value = health;
@@ -185,9 +252,11 @@ public abstract class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            if (SceneManager.GetActiveScene().name == "PixelGane")
+                EnemyBaseManager.instance.UnRegisterObject();
+
             Debug.Log("enemy öldü");
             onDead?.Invoke(transform.position);
-            //HookManager.instance.AddToken(10);
             GameManager.enemyCount++;
             Debug.Log("ENEMY COUNT: " + GameManager.enemyCount);
             Destroy(gameObject);
@@ -202,5 +271,20 @@ public abstract class Enemy : MonoBehaviour
     {
         onThrow = false;
     }
+
+    public int GetCurrentHealth()
+    {
+        return health;
+    }
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
+    }
+#endif
 
 }

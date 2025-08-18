@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class SkeletonBulletController : MonoBehaviour
 {
@@ -8,22 +9,18 @@ public class SkeletonBulletController : MonoBehaviour
     public GameObject target;
 
 
-    BulletParticleManager bulletParticle;
+    [HideInInspector] public ObjectPool<GameObject> pool;
     private bool isReleased = false;
 
-    private void Awake()
-    {
-        bulletParticle = GameObject.FindGameObjectWithTag("ParticleManager").GetComponent<BulletParticleManager>();
-    }
     private void Start()
     {
         DOTween.Sequence()
-            .AppendInterval(1)
-            .AppendCallback(() => bulletParticle.skeletonBulletPool.Release(gameObject));
+            .AppendInterval(1f)
+            .AppendCallback(() => ReleaseBullet());
     }
     private void Update()
     {
-        if (target == null || isReleased) // Eðer serbest býrakýlmýþsa hareket ettirme
+        if (target == null || isReleased) 
         {
             ReleaseBullet();
             return;
@@ -38,7 +35,12 @@ public class SkeletonBulletController : MonoBehaviour
     {
         if (collision.CompareTag("Hero"))
         {
-            collision.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
+            if (collision.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Hero)
+                    damageable.TakeDamage(enemySO.damage);
+            }
+
             ReleaseBullet();
 
         }
@@ -52,7 +54,12 @@ public class SkeletonBulletController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Hero"))
         {
-            collision.gameObject.GetComponent<Hero>().HeroTakeDamage(enemySO.damage);
+            if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Hero)
+                    damageable.TakeDamage(enemySO.damage);
+            }
+
             ReleaseBullet();
 
         }
@@ -69,13 +76,16 @@ public class SkeletonBulletController : MonoBehaviour
         if (isReleased) return;
         isReleased = true;
         Debug.Log("Bullet released: " + gameObject.name);
-        bulletParticle.skeletonBulletPool.Release(gameObject);
+        pool?.Release(gameObject);
+
     }
     public void ResetBullet()
     {
         isReleased = false;
         target = null;
         targetPosition = Vector2.zero;
+        transform.position = Vector3.zero;
+
     }
 
 

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Pool;
 using static UnityEngine.GraphicsBuffer;
 
 public class AngelBulletController : MonoBehaviour
@@ -9,18 +10,14 @@ public class AngelBulletController : MonoBehaviour
     public GameObject target;
 
 
-    BulletParticleManager bulletParticle;
+    [HideInInspector] public ObjectPool<GameObject> pool; 
     private bool isReleased = false;
 
-    private void Awake()
-    {
-        bulletParticle = GameObject.FindGameObjectWithTag("ParticleManager").GetComponent<BulletParticleManager>();
-    }
     private void Start()
     {
         DOTween.Sequence()
-            .AppendInterval(1)
-            .AppendCallback(() => bulletParticle.angelBulletPool.Release(gameObject));
+            .AppendInterval(1f)
+            .AppendCallback(() => ReleaseBullet());
     }
     private void Update()
     {
@@ -39,35 +36,53 @@ public class AngelBulletController : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<Enemy>().HeroTakeDamage(heroSO.GetCurrentDamage());
+            if (collision.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Enemy)
+                    damageable.TakeDamage(heroSO.GetCurrentDamage());
+            }
             ReleaseBullet();
         }
         else if (collision.CompareTag("EnemyTower"))
         {
-            collision.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
+            var tower = collision.GetComponent<EnemyTowerController>();
+            if (tower != null)
+            {
+                tower.TakeDamage(heroSO.GetCurrentDamage());
+            }
             ReleaseBullet();
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().HeroTakeDamage(heroSO.GetCurrentDamage());
+            if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Enemy)
+                    damageable.TakeDamage(heroSO.GetCurrentDamage());
+            }
             ReleaseBullet();
         }
         else if (collision.gameObject.CompareTag("EnemyTower"))
         {
-            collision.gameObject.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
+            var tower = collision.gameObject.GetComponent<EnemyTowerController>();
+            if (tower != null)
+            {
+                tower.TakeDamage(heroSO.GetCurrentDamage());
+            }
             ReleaseBullet();
         }
     }
+
 
     private void ReleaseBullet()
     {
         if (isReleased) return;
         isReleased = true;
         Debug.Log("Bullet released: " + gameObject.name);
-        bulletParticle.angelBulletPool.Release(gameObject);
+        pool?.Release(gameObject);
     }
     public void ResetBullet()
     {

@@ -10,37 +10,48 @@ public class IceGolemHero : Hero
     [SerializeField] private Transform bulletTransform;
 
     [Header("Action")]
-    public static Action<Vector2, GameObject, HeroSO, Transform> onIceGolemBulletInstante;
+    public static Action<BulletData> OnBulletRequested;
     public static Action<Vector2> onIceParticle;
 
 
     bool onDamage;
     protected override void PerformSingleTargetAttack(GameObject target)
-    {        
-        onIceGolemBulletInstante?.Invoke(bulletTransform.position, target, heroSO, bulletTransform);
+    {
+        OnBulletRequested?.Invoke(new BulletData
+        {
+            spawnPosition = bulletTransform.position,
+            target = target,
+            dataSO = heroSO,
+            firePoint = bulletTransform
+        });
         onIceParticle?.Invoke(target.transform.position);
 
         StartCoroutine(DamageOn(target));
     }
     IEnumerator DamageOn(GameObject enemy)
     {
+        if (enemy == null) yield break; 
+
+        var enemyScript = enemy.GetComponent<Enemy>();
+        if (enemyScript == null) yield break;
+
         IceMageSO iceMageSO = heroSO as IceMageSO;
 
-        float cooldown = enemy.GetComponent<Enemy>().enemySO.cooldown;
-        float moveSpeed = enemy.GetComponent<Enemy>().enemySO.moveSpeed;
+        float cooldown = enemyScript.enemySO.cooldown;
+        float moveSpeed = enemyScript.enemySO.moveSpeed;
+
         yield return new WaitForSeconds(iceMageSO.freezeDuration);
+
         onDamage = false;
-        if (enemy != null)
+
+        if (enemy != null && enemyScript != null)
         {
-            enemy.GetComponent<Enemy>().cooldown = cooldown;
-            enemy.GetComponent<Enemy>().moveSpeed = moveSpeed;
-            Debug.Log("Enemy cooldown:" + enemy.GetComponent<Enemy>().cooldown + "move speed: " + enemy.GetComponent<Enemy>().moveSpeed);
+            enemyScript.cooldown = cooldown;
+            enemyScript.moveSpeed = moveSpeed;
+            Debug.Log($"Enemy cooldown: {enemyScript.cooldown} move speed: {enemyScript.moveSpeed}");
         }
-
-
-
-
     }
+
     protected override void PerformAreaAttack()
     {
         // Alan hasarý uygulanmaz

@@ -262,7 +262,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1254377755
   m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &5261935739298030879
@@ -381,8 +381,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1254377755
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: 7416908020110492567, guid: ed3cfac1a2b183b418edcfc9e5f14927, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -512,6 +512,7 @@ MonoBehaviour:
   moveSpeed: 0
   health: 0
   cooldown: 0
+  detectionRange: 5
   animator: {fileID: 0}
   scaleReduction: {x: 0.9, y: 0.9}
   bullet: {fileID: 2078705761352428573, guid: b3f1cef490dffa640b793493121e1162, type: 3}

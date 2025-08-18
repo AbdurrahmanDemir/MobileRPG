@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 857c57952660309449fe3b118ba9871b, type: 3}
+  m_Name: Level_1_ 2
+  m_EditorClassIdentifier: 
+  baseName: 1
+  cardDescription: "Serpent\u2019s Neck Pass yakinindaki koyler terk edilmis. Askerlerinizden
+    biri, gecidin tasina gomulmus bir yuz gordugunu iddia ediyor. Her gece ayni noktadan
+    yankilanan fisiltilar duyuluyor.Savasmadan gecit acilmayacak gibi. Ama bu sadece
+    fiziksel bir mucadele degil \u2014 bir lanet de uyaniyor.\nDuyumlar:\nAksungur
+    Hanesi, \u201CKaybolan Ordu\u201Dyu yeniden buldugunu iddia ediyor.\nCrow Claw\u2019un
+    eski komutani Commander Varric Blacktalon\u2019in ruhunun gecitte sikistigi soyleniyor.\nKarakus\u2019ta
+    bir buyucu \u201CGecit acilirsa kehanet de acilir\u201D demis."
+  episodeDate: 1023
+  levelType: 0
+  gridSize: 3
+  entitiesInGrid:
+  - x: 0
+    y: 0
+    entityType: 2
+    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
+  - x: 0
+    y: 1
+    entityType: 2
+    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
+  - x: 0
+    y: -1
+    entityType: 2
+    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
+  - x: 1
+    y: 0
+    entityType: 2
+    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}

@@ -7,9 +7,22 @@ public class MeleeHero : Hero
     {
         Debug.Log($"{gameObject.name} is attacking {target.name} with single target attack for {heroSO.GetCurrentDamage()} damage!");
         if (target.CompareTag("Enemy"))
-            target.GetComponent<Enemy>().HeroTakeDamage(heroSO.GetCurrentDamage());
+        {
+            if (target.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Enemy)
+                    damageable.TakeDamage(heroSO.GetCurrentDamage());
+            }
+        }
         else if (target.CompareTag("EnemyTower"))
-            target.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
+        {
+            if (target.TryGetComponent<IDamageable>(out var damageable))
+            {
+                if (damageable.GetTeam() == TeamType.Enemy)
+                    damageable.TakeDamage(heroSO.GetCurrentDamage());
+            }
+        }
+            //target.GetComponent<EnemyTowerController>().TakeDamage(heroSO.GetCurrentDamage());
     }
 
     protected override void PerformAreaAttack()

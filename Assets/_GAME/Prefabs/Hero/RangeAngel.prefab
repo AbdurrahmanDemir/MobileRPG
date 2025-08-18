@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 697482530817071591}
   - component: {fileID: 1626854152736189540}
   - component: {fileID: 7339477664975345201}
+  - component: {fileID: -7069306718654447400}
   m_Layer: 7
   m_Name: RangeAngel
   m_TagString: Hero
@@ -107,10 +108,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1254377755
+  m_SortingLayer: 4
   m_SortingOrder: 2
-  m_Sprite: {fileID: -6226917302104920502, guid: e8998919950dbe64b9e8eb0a2791a4e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f4c5c697a970a14cb34e5ab2d891c41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,7 +179,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.39, y: 5.77}
+    oldSize: {x: 9, y: 9}
     newSize: {x: 3.98, y: 5.61}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -231,10 +232,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   health: 0
-  animator: {fileID: 0}
   scaleReduction: {x: 0.9, y: 0.9}
+  placementData: {fileID: 0}
   bullet: {fileID: 2078705761352428573, guid: b0dffd4bd53f5944097abf2038098069, type: 3}
   bulletTransform: {fileID: 5608293299082256145}
+--- !u!195 &-7069306718654447400
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545318191257941984}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 9
+  m_BaseOffset: 4.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3636062583746548824
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +482,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1254377755
   m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &5055010546379828586

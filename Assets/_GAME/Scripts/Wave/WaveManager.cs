@@ -7,8 +7,6 @@ public class WaveManager : MonoBehaviour
 {
     public static WaveManager instance;
     //[SerializeField] private EnemyTowerController enemyTowerController;
-    [SerializeField] private PointerMover[] pointerMover;
-    [SerializeField] private WheelManager wheelManager; 
 
     [Header("Elements")]
     [SerializeField] private Wave[] waves;
@@ -20,8 +18,6 @@ public class WaveManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float timer;
     private bool isTimerOn;
-    private bool nextWave=false;
-    private bool isOver=false;
     private int currentWaveIndex;
     private int currentSegmentIndex;
     private int currentEnemySubIndex;
@@ -65,28 +61,6 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (!isTimerOn && nextWave)
-        {
-            if (enemyParent.childCount == 0)
-            {
-                nextWave = false;
-
-                WheelOpen();
-
-
-            }
-        }
-        if (!isTimerOn && isOver)
-        {
-            if (enemyParent.childCount == 0)
-            {
-                onGameWin?.Invoke();
-                int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
-                waveIndex++;
-                PlayerPrefs.SetInt("WaveIndex", waveIndex);
-                isOver = false;
-            }
-        }
 
         if (!isTimerOn)
             return;
@@ -140,8 +114,11 @@ public class WaveManager : MonoBehaviour
                 if (currentSegmentIndex >= currentWave.segments.Count)
                 {
                     Debug.Log("All segments in the wave completed.");
+
+
+
                     Debug.Log("All waves completed.");
-                    isOver = true;
+
                     isTimerOn = false;
                     return;
                 }
@@ -149,36 +126,22 @@ public class WaveManager : MonoBehaviour
                 waveUI.waveSegmentText.text = "Wave " + (currentSegmentIndex + 1) + " / " + currentWave.segments.Count;
 
                 isTimerOn = false;
-                nextWave = true;
-                Debug.Log("segment tamamlandý");
-                //Invoke("StartNextSegment", segmentDelay);
-                
+                Invoke("StartNextSegment", segmentDelay);
             }
         }
     }
 
-    private void WheelOpen()
-    {
-        wheelManager.NewRound();
-    }
-    public void StartNextSegment()
+    private void StartNextSegment()
     {
         isTimerOn = true;
         timer = 0;
         Debug.Log("Starting next segment. Current Index: " + currentSegmentIndex);
         SetupNextSegment();
-        for (int i = 0; i < pointerMover.Length; i++)
-        {
-            pointerMover[i].IsMoving(true);
-        }
     }
-
-
-
     private void SetupNextSegment()
     {
         currentEnemyIndex = 0;
-        currentEnemySubIndex = 0; 
+        currentEnemySubIndex = 0;
         if (currentSegmentIndex < currentWave.segments.Count)
         {
             if (currentWave.segments[currentSegmentIndex].segmentEnemys.Length > 0)
@@ -192,7 +155,6 @@ public class WaveManager : MonoBehaviour
             }
         }
     }
-
 
     private bool SpawnEnemy(WaveSegmet segment)
     {

@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 3
+  serializedVersion: 2
   tags:
   - HookedHero
   - Hero
@@ -14,14 +14,19 @@ TagManager:
   - GemText
   - ParticleManager
   - EnemyTower
+  - Angel
+  - RangeAngel
+  - AngelMan
+  - IcoGolem
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Placement
   - Water
   - UI
-  - Target
+  - Enemy
   - Hero
   - 
   - 
@@ -51,5 +56,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  m_RenderingLayers:
-  - Default
+  - name: Ground
+    uniqueID: 3705238467
+    locked: 0
+  - name: Object
+    uniqueID: 1730904965
+    locked: 0
+  - name: Tower
+    uniqueID: 3150281881
+    locked: 0
+  - name: Characters
+    uniqueID: 1254377755
+    locked: 0
