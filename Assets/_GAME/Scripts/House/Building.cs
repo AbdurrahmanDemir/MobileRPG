@@ -26,7 +26,7 @@ public abstract class Building : MonoBehaviour
 
     protected bool isProducing = false;
 
-    public void Start()
+    public virtual void Start()
     {
         animator = GetComponent<Animator>();
 
@@ -43,6 +43,7 @@ public abstract class Building : MonoBehaviour
     {
         if (!isProducing)
         {
+            Debug.Log("ÇALIÞTI1");
             StartCoroutine(Produce());
         }
     }
@@ -61,7 +62,9 @@ public abstract class Building : MonoBehaviour
         }
 
         isProducing = false;       
-        OnProductionComplete();   
+        OnProductionComplete();
+        Debug.Log("ÇALIÞTI2");
+
     }
 
 

@@ -27,26 +27,53 @@ public class LevelMapManager : MonoBehaviour
     {
         levelEpisodeIndex = PlayerPrefs.GetInt("LevelEpisodeIndex",0);
         LevelMapButtonUpdate();
+        int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+        Debug.Log("LEVEL"+ currentLevel);
     }
 
     public void LevelMapButtonUpdate()
     {
         levelEpisodes[levelEpisodeIndex].episodeLevelMap.SetActive(true);
+
+        int currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1); 
+
         for (int i = 0; i < levelEpisodes[levelEpisodeIndex].episodeDetails.Length; i++)
         {
-            levelEpisodes[levelEpisodeIndex].levelButton[i].SetActive(true);
-            if(levelEpisodeIndex == 0)
+            bool isActive = (i < currentLevel);
+            levelEpisodes[levelEpisodeIndex].levelButton[i].SetActive(true); 
+
+            // Text güncelle
+            levelEpisodes[levelEpisodeIndex].levelButtonText[i].text = (i + 1).ToString();
+
+            // Butonun Image component'ini al
+            Image buttonImage = levelEpisodes[levelEpisodeIndex].levelButton[i].GetComponent<Image>();
+            if (buttonImage != null)
             {
-                levelEpisodes[levelEpisodeIndex].levelButtonText[i].text= (i+1).ToString();
+                if (isActive)
+                {
+                }
+                else
+                {
+
+                }
+            }
+
+            Button button = levelEpisodes[levelEpisodeIndex].levelButton[i].GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+
+            if (isActive)
+            {
                 int capturedIndex = i;
-
-                Button button = levelEpisodes[levelEpisodeIndex].levelButton[i].GetComponent<Button>();
-                button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => LevelDetailsPanel(capturedIndex));
-
+                button.interactable = true; 
+            }
+            else
+            {
+                button.interactable = false; 
             }
         }
     }
+
 
     public void LevelDetailsPanel(int index)
     {
@@ -58,10 +85,11 @@ public class LevelMapManager : MonoBehaviour
         levelPlayButton.onClick.RemoveAllListeners();
         levelPlayButton.onClick.AddListener(() =>
         {
-            enemyBaseManager.SpawnBase(levelEpisodes[levelEpisodeIndex].episodeDetails[index].episodeData);
+            enemyBaseManager.LoadLevel(index);
+            //enemyBaseManager.SpawnBase(levelEpisodes[levelEpisodeIndex].episodeDetails[index].episodeData);
             uiManager.GameUIStageChanged(UIGameStage.Game);
             levelEpisodes[levelEpisodeIndex].episodeLevelMap.SetActive(false);
-            levelEpisodes[levelEpisodeIndex].episodeArena.SetActive(true);
+            //levelEpisodes[levelEpisodeIndex].episodeArena.SetActive(true);
         });
 
     }

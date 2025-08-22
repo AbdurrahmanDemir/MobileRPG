@@ -85,31 +85,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CreatManHero()
-    {
-        if( DataManager.instance.TryPurchaseGold(50))
-        {
-            int RandomPos = Random.Range(0, creatHeroPosition.Length);
-            Instantiate(allHeroes[4], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
-        }
-    }
-    public void CreatAngelHero()
-    {
-        if (DataManager.instance.TryPurchaseGold(150))
-        {
-            int RandomPos = Random.Range(0, creatHeroPosition.Length);
-            Instantiate(allHeroes[5], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
-        }
-    }
-    public void CreatRangeAngelHero()
-    {
-        if (DataManager.instance.TryPurchaseGold(200))
-        {
-            int RandomPos = Random.Range(0, creatHeroPosition.Length);
-            Instantiate(allHeroes[6], creatHeroPosition[RandomPos].position, Quaternion.Euler(0f, 0f, 0f), heroParent);
-        }
-    }
-
+  
     public void GameSpeedController()
     {
         if (Time.timeScale == 1)

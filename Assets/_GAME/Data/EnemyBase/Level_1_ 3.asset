@@ -12,32 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857c57952660309449fe3b118ba9871b, type: 3}
   m_Name: Level_1_ 3
   m_EditorClassIdentifier: 
-  baseName: 1
-  cardDescription: "Gecitten gecerken orman yanginindan arta kalan kara topra\u011Fa
-    variyorsunuz. Burada bir zamanlar Hararet Meclisi\u2019nin yakildigi soylense
-    de, yerde hala kule karismis siluetler var.Geceleri bu kuller hareket ediyor.
-    Gunduzse hicbir sey yok. Burasi, bir zamanlar bilgi arayanlarin cehennemine donusmus.\nDuyumlar:\nYildiran
-    Hanesi\u2019nin icinden bir bilgin, \u201CHararet Meclisi\u2019ni canlandirmaya
-    calisan bir tarikat var demis.\nBaskentte, 3. dunya savasina dair bir parsomene
-    bulundugu iddia ediliyor.\nCrow Claw icinden bazi komutanlar, Kaelen\u2019a itaatsizlik
-    etmeye basladi."
-  episodeDate: 1023
-  levelType: 0
+  baseName: 4
+  cardDescription: The first resource mine has been reached, but the Green Faces
+    have joined forces with the Emberhand Bandits.
+  episodeDate: Year 1023, 10th Moon
+  levelType: 2
   gridSize: 3
-  entitiesInGrid:
-  - x: 0
-    y: 0
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 0
-    y: 1
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 0
-    y: -1
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 1
-    y: 0
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
+  entitiesInGrid: []

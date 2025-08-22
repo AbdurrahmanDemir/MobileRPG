@@ -13,10 +13,13 @@ public class BombParticle : MonoBehaviour
     private void Awake()
     {
         BombTowerBullet.onBombParticle += BloodParticleCallBack;
+        Dynamite.onBombParticle += BloodParticleCallBack;
     }
     private void OnDestroy()
     {
         BombTowerBullet.onBombParticle -= BloodParticleCallBack;
+        Dynamite.onBombParticle -= BloodParticleCallBack;
+
     }
 
 

@@ -16,8 +16,29 @@ public class WorkerController : MonoBehaviour
     }
     public void AddWorker(int value)
     {
-        workerCount += value;
+        if (Worker.instance.TryPurchaseIdleWorker(1))
+        {
+            workerCount += value;
+            UpdateWorkerText();
+
+            if (workerCount >= 0)
+            {
+                Debug.Log("Çalýþtýr");
+            }
+        }
+        
+
+    }
+    public void RemoveWorker(int value)
+    {
+        if(workerCount == 0)
+            return;
+
+
+        workerCount -= value;
         UpdateWorkerText();
+
+        Worker.instance.AddIdleWorker(value);
 
     }
     public bool TryPurchaseWorker(int price)

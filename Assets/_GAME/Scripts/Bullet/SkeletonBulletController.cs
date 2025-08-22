@@ -4,81 +4,93 @@ using UnityEngine.Pool;
 
 public class SkeletonBulletController : MonoBehaviour
 {
+    [Header("Bullet Settings")]
     public EnemySO enemySO;
-    public Vector2 targetPosition;
     public GameObject target;
-
+    public Vector2 targetPosition;
+    public float moveSpeed = 4f;
 
     [HideInInspector] public ObjectPool<GameObject> pool;
-    private bool isReleased = false;
 
-    private void Start()
+    private bool isReleased = false;
+    private Tween autoReleaseTween;
+
+    private void OnEnable()
     {
-        DOTween.Sequence()
-            .AppendInterval(1f)
-            .AppendCallback(() => ReleaseBullet());
+        StartAutoReleaseTween();
     }
+
+    private void OnDisable()
+    {
+        autoReleaseTween?.Kill();
+    }
+
     private void Update()
     {
-        if (target == null || isReleased) 
+        if (isReleased || target == null || !target.activeInHierarchy)
         {
-            ReleaseBullet();
+            SafeRelease();
             return;
         }
 
-        if (targetPosition != null)
-            MoveTowardsTarget(targetPosition);
+        MoveTowardsTarget(targetPosition);
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Hero"))
-        {
-            if (collision.TryGetComponent<IDamageable>(out var damageable))
-            {
-                if (damageable.GetTeam() == TeamType.Hero)
-                    damageable.TakeDamage(enemySO.damage);
-            }
-
-            ReleaseBullet();
-
-        }
-        else if (collision.CompareTag("Tower"))
-        {
-            collision.GetComponent<TowerController>().TakeDamage(enemySO.damage);
-            ReleaseBullet();
-        }
+        HandleCollision(collision.gameObject);
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Hero"))
+        HandleCollision(collision.gameObject);
+    }
+
+    private void HandleCollision(GameObject hitObj)
+    {
+        if (isReleased || hitObj == null) return;
+
+        if (hitObj.CompareTag("Hero"))
         {
-            if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
+            if (hitObj.TryGetComponent<IDamageable>(out var damageable) && damageable.GetTeam() == TeamType.Hero)
             {
-                if (damageable.GetTeam() == TeamType.Hero)
-                    damageable.TakeDamage(enemySO.damage);
+                damageable.TakeDamage(enemySO.damage);
             }
-
-            ReleaseBullet();
-
+            SafeRelease();
         }
-        else if (collision.gameObject.CompareTag("Tower"))
+        else if (hitObj.CompareTag("Tower"))
         {
-            collision.gameObject.GetComponent<TowerController>().TakeDamage(enemySO.damage);
-            ReleaseBullet();
-
+            if (hitObj.TryGetComponent<TowerController>(out var tower))
+            {
+                tower.TakeDamage(enemySO.damage);
+            }
+            SafeRelease();
         }
     }
 
-    private void ReleaseBullet()
+    private void MoveTowardsTarget(Vector2 targetPos)
+    {
+        transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+    }
+
+    private void SafeRelease()
     {
         if (isReleased) return;
-        isReleased = true;
-        Debug.Log("Bullet released: " + gameObject.name);
-        pool?.Release(gameObject);
 
+        isReleased = true;
+
+        autoReleaseTween?.Kill();
+        pool?.Release(gameObject);
     }
+
+    private void StartAutoReleaseTween()
+    {
+        autoReleaseTween?.Kill();
+        autoReleaseTween = DOTween.Sequence()
+            .AppendInterval(1f)
+            .AppendCallback(() => SafeRelease());
+    }
+
     public void ResetBullet()
     {
         isReleased = false;
@@ -86,11 +98,6 @@ public class SkeletonBulletController : MonoBehaviour
         targetPosition = Vector2.zero;
         transform.position = Vector3.zero;
 
-    }
-
-
-    private void MoveTowardsTarget(Vector2 targetPosition)
-    {
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, 4 * Time.deltaTime);
+        StartAutoReleaseTween();
     }
 }

@@ -8,10 +8,14 @@ public class ArmoredKnightHouse : Building
     public GameObject heroPrefab; 
     public Transform spawnPoint;
 
+    public WorkerController workerController;
+
     private void Start()
     {
         base.Start();
-        StartProduction();
+
+        if (workerController.TryPurchaseWorker(0))
+            StartProduction();
     }
 
     protected override void OnProductionComplete()
@@ -22,7 +26,9 @@ public class ArmoredKnightHouse : Building
         }
         if (productionSlider != null)
             productionSlider.value = 0;
-        StartProduction();
+
+        if (workerController.TryPurchaseWorker(1))
+            StartProduction();
     }
  
 

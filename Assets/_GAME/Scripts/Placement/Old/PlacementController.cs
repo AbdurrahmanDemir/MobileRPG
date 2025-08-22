@@ -9,8 +9,7 @@ using UnityEngine.EventSystems;
 
 public class PlacementController : MonoBehaviour
 {
-    public static PlacementController instance;
-
+    [SerializeField] private UIManager uiManager;
     [Header("Settings")]
     public int maxCapacity = 30;
     public int currentUsedCapacity = 0;
@@ -26,21 +25,17 @@ public class PlacementController : MonoBehaviour
     [SerializeField] Transform createTransform;
     private PlacementHeroData selectedUnitData;
     private bool isPlacing = false;
+    [SerializeField] private Transform heroTransform;
+    private List<Hero> placedUnits = new List<Hero>();
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI capacityText;
 
-    // Aktif gösterilen kart indeksleri
     private int[] activeCardIndexes = new int[3];
     private PlacementCardUI currentlySelectedCard;
 
-    private void Awake()
-    {
-        if (instance != null && instance != this)
-            Destroy(gameObject);
-        else
-            instance = this;
-    }
+    bool GameOver = false;
+
 
     private void Start()
     {
@@ -74,6 +69,7 @@ public class PlacementController : MonoBehaviour
 
     private void Update()
     {
+
         if (isPlacing && Input.GetMouseButtonDown(0))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -91,6 +87,13 @@ public class PlacementController : MonoBehaviour
                     ReplaceCard(selectedUnitData);
                 }
             }
+        }
+
+        if (CheckLoseCondition()&&!GameOver)
+        {
+            GameOver = true;
+            uiManager.GameLosePanel();
+            Debug.Log("bitti oyun");
         }
     }
 
@@ -120,13 +123,15 @@ public class PlacementController : MonoBehaviour
     public bool CanPlaceUnit(PlacementHeroData unit)
     {
         return (currentUsedCapacity + unit.size <= maxCapacity)
-            && (DataManager.instance.TryPurchaseGold(unit.cost));
+            && (DataManager.instance.GetGoldCount() >= unit.cost);
     }
 
     public void PlaceUnit(PlacementHeroData unit)
     {
         currentUsedCapacity += unit.size;
+
         DataManager.instance.TryPurchaseGold(unit.cost);
+
         capacityText.text = $"{currentUsedCapacity} / {maxCapacity}";
 
         if (currentlySelectedCard != null)
@@ -135,7 +140,33 @@ public class PlacementController : MonoBehaviour
             currentlySelectedCard = null;
             isPlacing = false;
         }
+
+        if (CheckLoseCondition())
+        {
+            GameOver = true;
+            uiManager.GameLosePanel();
+        }
     }
+
+
+    private bool CheckLoseCondition()
+    {
+        bool noUnitsOnScene = createTransform.childCount == 0;
+
+        bool noPlayableCards = true;
+        foreach (int index in activeCardIndexes)
+        {
+            if (CanPlaceUnit(cards[index]))
+            {
+                noPlayableCards = false;
+                break;
+            }
+        }
+
+        return noUnitsOnScene && noPlayableCards;
+    }
+
+
 
     private void ReplaceCard(PlacementHeroData placedUnit)
     {

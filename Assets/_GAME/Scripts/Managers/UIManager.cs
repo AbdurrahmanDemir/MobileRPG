@@ -199,7 +199,7 @@ public class UIManager : MonoBehaviour
     {
         //towerController.ResetTower();
         gameManager.PowerUpReset();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
 
     }

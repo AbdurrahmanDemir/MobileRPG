@@ -12,32 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857c57952660309449fe3b118ba9871b, type: 3}
   m_Name: Level_1_ 4
   m_EditorClassIdentifier: 
-  baseName: 1
-  cardDescription: "Ilk kaynak bolgesine ulastiniz: Amberdeep Madenleri. Fakat maden
-    coktan Emberhand Haydutlari tarafindan isgal edilmis. Bu haydutlar, ates buyusuyla
-    calisan baltalar kullaniyor. Madenin sahibi olmak demek, silah ve kaynak ustunlugu
-    kazanmak demek.\nAma madenin altinda baska bir sey daha var\u2026 isiya tepki
-    veren taslar arasinda, kayip muhurler bulundu.\nDuyumlar:\nTarakci Hanesi bu
-    haydutlara sessizce destek veriyor olabilir.\nCrow Claw icinden biri madenin
-    haritasini sizdirmis.\n\u201CAlev Parsomeni\u201D denilen eski bir belge madenin
-    icinde olabilir."
-  episodeDate: 1023
+  baseName: 5
+  cardDescription: Crow Claw discovers an enemy camp. The green-faced have set up
+    a defense filled with traps.
+  episodeDate: Year 1023, 10th Moon
   levelType: 0
   gridSize: 3
-  entitiesInGrid:
-  - x: 0
-    y: 0
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 0
-    y: 1
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 0
-    y: -1
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 1
-    y: 0
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
+  entitiesInGrid: []

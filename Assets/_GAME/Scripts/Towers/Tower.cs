@@ -39,8 +39,8 @@ public abstract class Tower : MonoBehaviour, IDamageable
         health = towerData.health;
         healthSlider.maxValue = towerData.health;
         healthSlider.value = health;
-        if (SceneManager.GetActiveScene().name == "PixelGane")
-            EnemyBaseManager.instance.RegisterObject();
+        if (SceneManager.GetActiveScene().name == "PixelGame")
+            EnemyBaseManager.instance.RegisterObject(gameObject.name);
 
     }
     protected virtual void Update()
@@ -136,7 +136,7 @@ public abstract class Tower : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            if (SceneManager.GetActiveScene().name == "PixelGane")
+            if (SceneManager.GetActiveScene().name == "PixelGame")
                 EnemyBaseManager.instance.UnRegisterObject();
 
             Debug.Log("tower öldü");

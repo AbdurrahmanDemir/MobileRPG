@@ -91,7 +91,7 @@ public class DataManager : MonoBehaviour
         if (PlayerPrefs.HasKey("Gold"))
         {
             gold = PlayerPrefs.GetInt("Gold");
-            AddGold(200);
+            AddGold(20000);
         }
         else
         {
@@ -140,5 +140,10 @@ public class DataManager : MonoBehaviour
         energy += value;
         UpdateEnergyText();
         SaveData();
+    }
+
+    public int GetGoldCount()
+    {
+        return gold;
     }
 }

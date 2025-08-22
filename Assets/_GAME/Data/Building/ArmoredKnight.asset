@@ -15,4 +15,4 @@ MonoBehaviour:
   houseName: Armored Knight House
   houseImage: {fileID: 21300000, guid: c23bb5c1541e4415bb82f430a308f7e3, type: 3}
   type: 1
-  productionTime: 5
+  productionTime: 3

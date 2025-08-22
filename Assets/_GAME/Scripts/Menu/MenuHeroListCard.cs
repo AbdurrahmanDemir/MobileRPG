@@ -7,9 +7,14 @@ public class MenuHeroListCard : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cardNameText;
     [SerializeField] private Image cardIconImage;
     [SerializeField] private GameObject[] cardTypes;
+    [SerializeField] private Slider cardSlider;
+    [SerializeField] private TextMeshProUGUI cardSliderText;
+    [SerializeField] private TextMeshProUGUI heroCardLevel;
+
     public Button detailsButton;
     public int cardIndex;
 
+    private HeroCard heroCard;
 
     public void Config(string name, Sprite icon, string type)
     {
@@ -42,5 +47,43 @@ public class MenuHeroListCard : MonoBehaviour
                 cardTypes[3].SetActive(true);
                 break;
         }
+    }
+
+    public void SetHeroCard(HeroCard card)
+    {
+        heroCard = card;
+
+        cardNameText.text = heroCard.heroCardSO.cardName;
+        cardIconImage.sprite = heroCard.heroCardSO.heroIcon; 
+        heroCardLevel.text = $"Level {heroCard.level}";
+
+        UpdateSliderUI();
+
+        heroCard.OnLevelUp += (c) => RefreshUI();
+    }
+
+    private void UpdateSliderUI()
+    {
+        if (heroCard.level <= heroCard.heroCardSO.maxLevel)
+        {
+            int requiredCards = heroCard.heroCardSO.upgradeRequirements[heroCard.level - 1];
+
+            cardSlider.maxValue = requiredCards;
+            cardSlider.value = heroCard.collectedCards;
+            cardSliderText.text = $"{heroCard.collectedCards}/{requiredCards}";
+            heroCardLevel.text = $"Level {heroCard.level}";
+        }
+        else
+        {
+            cardSlider.maxValue = 1;
+            cardSlider.value = 1;
+            cardSliderText.text = "Max Level";
+            heroCardLevel.text = $"Level {heroCard.level}";
+        }
+    }
+
+    public void RefreshUI()
+    {
+        UpdateSliderUI();
     }
 }

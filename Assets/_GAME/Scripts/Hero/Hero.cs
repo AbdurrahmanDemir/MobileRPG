@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class Hero : MonoBehaviour, IDamageable
 {
@@ -42,6 +43,7 @@ public abstract class Hero : MonoBehaviour, IDamageable
     protected bool onThrow = false;
     public static Action OnAnyHeroHealthChanged;
 
+  
     private void Awake()
     {
         UpgradeSelectManager.heroDamageItem += PowerUpHeroDamage;
@@ -80,6 +82,8 @@ public abstract class Hero : MonoBehaviour, IDamageable
         UpgradeSelectManager.onPowerUpPanelOpened -= OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
 
+
+
         //TowerController.onGameLose -= OnThrowStartingCallBack;
         //EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
 
@@ -111,6 +115,18 @@ public abstract class Hero : MonoBehaviour, IDamageable
         }
 
         if (currentTarget == null) return;
+
+        if (currentTarget != null)
+        {
+            if (currentTarget.gameObject.transform.position.x < transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, -180, 0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
 
         float dist = Vector2.Distance(transform.position, currentTarget.transform.position);
 

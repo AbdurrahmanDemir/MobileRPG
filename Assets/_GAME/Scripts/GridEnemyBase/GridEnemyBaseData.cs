@@ -12,18 +12,18 @@ public class GridEnemyBaseData : ScriptableObject
     public string episodeDate;
     public LevelType levelType;
 
-    [Header("Base Settings")]
-    public int gridSize;       
-    [System.Serializable]
-    public class GridSlot
-    {
-        public int x;
-        public int y;
-        public BaseEntityType entityType;
-        public BaseEntitySO entityData;
-    }
+    //[Header("Base Settings")]
+    //public int gridSize;       
+    //[System.Serializable]
+    //public class GridSlot
+    //{
+    //    public int x;
+    //    public int y;
+    //    public BaseEntityType entityType;
+    //    public BaseEntitySO entityData;
+    //}
 
-    public GridSlot[] entitiesInGrid;
+    //public GridSlot[] entitiesInGrid;
 }
 public enum BaseEntityType
 {

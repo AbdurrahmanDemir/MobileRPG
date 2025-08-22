@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6714701302030296955}
   - component: {fileID: 245970834332872087}
   - component: {fileID: 848757127819931552}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 910292675216114370}
   - component: {fileID: 8655706278862737747}
   - component: {fileID: 2242660094826909658}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Ice Tower
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 8380282015686675630}
   - component: {fileID: 7021901183920047602}
   - component: {fileID: 4818488269574405444}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: FillArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 1420297517780463720}
   - component: {fileID: 3895716089051641893}
   - component: {fileID: 4464180363312360581}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: LevelMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 4457405293086964647}
   - component: {fileID: 2079375687333331139}
   - component: {fileID: 5529443308239643799}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Canvas (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8259065677637494497}
   - component: {fileID: 1817734290247818684}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Slider_Diagonal48_Demo_Orange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 828453181111960681}
   - component: {fileID: 8464999777634640505}
   - component: {fileID: 3507304593809126210}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 3847962544402553406}
   - component: {fileID: 1698592948712577606}
   - component: {fileID: 951715960085633453}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -807,7 +807,7 @@ GameObject:
   - component: {fileID: 7232773829160195248}
   - component: {fileID: 4361801119159039470}
   - component: {fileID: 824029750429925176}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -939,7 +939,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8646725410298258184}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}

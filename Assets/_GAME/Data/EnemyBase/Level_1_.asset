@@ -13,43 +13,21 @@ MonoBehaviour:
   m_Name: Level_1_
   m_EditorClassIdentifier: 
   baseName: 1
-  cardDescription: "Crow Claw Hanesi'nin kuzeydogusundaki eski orman gecidinde karanlik
-    sesler yukseliyor. Ticaret kervanlari kayboluyor, agaclardan inilti geliyor.
-    Bolgedeki yaslilar, \"Golge Pakti\"nin yeniden canlandigini fisildiyor.\nSen,
-    yeni atandigin birlikle birlikte ormana giriyorsun. Amac sadece haydutlari temizlemek
-    degil \u2014 gecmisle yuzlesmek.\nDuyumlar:\nKarakus Hanesi'nin bati sinirinda
-    buyuculer yeniden acikca ayin yapmaya baslamis.\nYildiran Sarayi'nda tahtin varisi
-    gorunmemis; halk huzursuz.\nSinirda kaybolan kervanlardan biri, Aksungur'un gizli
-    muhurlerini tasiyormus."
+  cardDescription: 'A grand meeting was held in the mountain strongholds of House
+    Crow Claw. Crown Prince Kaelen Ravenshadow, commanders, and advisors gathered.
+    The agenda included news from the sacred gates, the rise of bandits in the borderlands,
+    and the rise of mysterious magic.
+
+    
+
+    House Crow Claw''s goal now became
+    the capital.
+
+    
+
+    But this path would require fighting not only the armies
+    of the enemy house, but also bandits, lost armies, and ancient curses.'
   episodeDate: Year 1023, 9th Moon
   levelType: 0
   gridSize: 3
-  entitiesInGrid:
-  - x: 0
-    y: 0
-    entityType: 1
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 1
-    y: 0
-    entityType: 1
-    entityData: {fileID: 11400000, guid: a09a4047e121a5a4db7f5b79edbd4de4, type: 2}
-  - x: 2
-    y: 0
-    entityType: 1
-    entityData: {fileID: 11400000, guid: c2899919c29e9c84c94f88ec1426e9a1, type: 2}
-  - x: 0
-    y: 1
-    entityType: 1
-    entityData: {fileID: 11400000, guid: 1a6709765ef58994e9283e9b3701b4ff, type: 2}
-  - x: 0
-    y: 2
-    entityType: 1
-    entityData: {fileID: 11400000, guid: 59a348950ff3cbb439da56ac51d4e7bc, type: 2}
-  - x: 0
-    y: -1
-    entityType: 1
-    entityData: {fileID: 11400000, guid: e35f7d9abb9ff7841a20b276bb246723, type: 2}
-  - x: 0
-    y: -2
-    entityType: 2
-    entityData: {fileID: 11400000, guid: c2899919c29e9c84c94f88ec1426e9a1, type: 2}
+  entitiesInGrid: []

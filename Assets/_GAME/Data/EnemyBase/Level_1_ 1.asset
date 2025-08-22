@@ -12,32 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857c57952660309449fe3b118ba9871b, type: 3}
   m_Name: Level_1_ 1
   m_EditorClassIdentifier: 
-  baseName: 1
-  cardDescription: "Ormanin icindeki unutulmus bir kuleye ulastiniz. Iceride tek
-    bir ses bile duyulmuyor ama zamanin icinde sikismis gibi. Bu kulenin bir zamanlar
-    Seer Aldric Thornbane\u2019a ait oldugu soyleniyor.Birbirini tanimayan askerler
-    ayni ruyayi gormeye basliyor: kulede donen taslar ve konusan yilanlar.\nDuyumlar:\nKarakus
-    Hanesi, kuzeydeki \u201CDilsizler Tepesi\u201D\u2019ni yeniden muhurlemek icin
-    gizlice buyuculer gonderdi.\nTarakci Hanesi'nden gelen tuccarlar \u201Ckule laneti\u201Dni
-    duymus ve ticareti kesmis.\nBir multeci, baskentten geldigini ve oradaki kulede
-    atesin sonmedigini soyluyor."
-  episodeDate: 1023
-  levelType: 1
+  baseName: 2
+  cardDescription: After the meeting, Kaelen Ravenshadow and his troops departed
+    towards Serpent's Neck Pass. The northern pass is a key strategic point under
+    Crow Claw's control. However, Emberhand Bandits and some mysterious beings have
+    appeared in the forests.
+  episodeDate: Year 1023, 10th Moon
+  levelType: 0
   gridSize: 3
-  entitiesInGrid:
-  - x: 0
-    y: 0
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 0
-    y: 1
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 0
-    y: -1
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
-  - x: 1
-    y: 0
-    entityType: 2
-    entityData: {fileID: 11400000, guid: 43c9032a3ac0c9244990fbd320abcc02, type: 2}
+  entitiesInGrid: []
