@@ -6,7 +6,7 @@ buildscript {
 		google()    
 	}    
 	dependencies {        
-		classpath 'com.android.tools.build:gradle:3.4.3'
+		classpath 'com.android.tools.build:gradle:7.1.2'
 	}
 }
 
@@ -19,7 +19,7 @@ android {
     ndkPath "**NDKPATH**"
 
 
-    compileSdkVersion **APIVERSION**
+    compileSdkVersion 35
     buildToolsVersion '**BUILDTOOLS**'
 
     compileOptions {
@@ -30,7 +30,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         minSdkVersion **MINSDKVERSION**
-        targetSdkVersion **TARGETSDKVERSION**
+        targetSdkVersion 35
         applicationId '**APPLICATIONID**'
         ndk {
             abiFilters **ABIFILTERS**
@@ -41,7 +41,7 @@ android {
     }
 
     aaptOptions {
-        noCompress = ['.unity3d', '.ress', '.resource', '.obb']+ unityStreamingAssets.tokenize(', ')
+        noCompress = **BUILTIN_NOCOMPRESS** + unityStreamingAssets.tokenize(', ')
         ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~"
     }**SIGN**
 

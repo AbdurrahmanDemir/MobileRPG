@@ -46,12 +46,17 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     {
         UpgradeSelectManager.onPowerUpPanelOpened += OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed += OnThrowEndingCallBack;
+
+        TowerController.onGameLose += OnThrowStartingCallBack;
     }
 
     private void OnDestroy()
     {
         UpgradeSelectManager.onPowerUpPanelOpened -= OnThrowStartingCallBack;
         UpgradeSelectManager.onPowerUpPanelClosed -= OnThrowEndingCallBack;
+
+        TowerController.onGameLose += OnThrowStartingCallBack;
+
     }
 
     private void Start()
@@ -193,8 +198,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            if (SceneManager.GetActiveScene().name == "PixelGame")
-                EnemyBaseManager.instance.UnRegisterObject();
 
             onDead?.Invoke(transform.position);
             Destroy(gameObject);

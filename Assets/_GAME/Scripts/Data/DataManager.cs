@@ -26,8 +26,14 @@ public class DataManager : MonoBehaviour
 
         LoadData();
 
-    }
+        UpgradeSelectManager.tokenAddItem += Add50Gold;
 
+    }
+    private void OnDisable()
+    {
+        UpgradeSelectManager.tokenAddItem -= Add50Gold;
+
+    }
 
     public bool TryPurchaseGold(int price)
     {
@@ -145,5 +151,10 @@ public class DataManager : MonoBehaviour
     public int GetGoldCount()
     {
         return gold;
+    }
+
+    public void Add50Gold(int value)
+    {
+        AddGold(value);
     }
 }

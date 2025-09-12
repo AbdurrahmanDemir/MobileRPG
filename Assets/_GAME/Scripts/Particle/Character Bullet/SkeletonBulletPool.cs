@@ -6,7 +6,11 @@ using UnityEngine.Pool;
 public class SkeletonBulletPool : MonoBehaviour
 {
     [SerializeField] private GameObject skeletonBulletPrefab;
+    [SerializeField] private int defaultCapacity = 20;
+    [SerializeField] private int maxSize = 50;
+
     public ObjectPool<GameObject> skeletonBulletPool;
+    private HashSet<GameObject> activeBullets = new HashSet<GameObject>();
 
     private void Awake()
     {
@@ -16,6 +20,15 @@ public class SkeletonBulletPool : MonoBehaviour
     private void OnDestroy()
     {
         RangeEnemy.OnBulletRequested -= SpawnBullet;
+
+        foreach (var bullet in activeBullets)
+        {
+            if (bullet != null)
+            {
+                Destroy(bullet);
+            }
+        }
+        activeBullets.Clear();
     }
 
     private void Start()
@@ -24,64 +37,135 @@ public class SkeletonBulletPool : MonoBehaviour
             CreateBullet,
             OnGet,
             OnRelease,
-            OnDestroy
+            OnDestroy,
+            true, 
+            defaultCapacity,
+            maxSize
         );
     }
 
     private GameObject CreateBullet()
     {
-        return Instantiate(skeletonBulletPrefab);
+        GameObject newBullet = Instantiate(skeletonBulletPrefab);
+
+        var controller = newBullet.GetComponent<SkeletonBulletController>();
+        if (controller != null)
+        {
+            controller.pool = skeletonBulletPool;
+        }
+
+        return newBullet;
     }
 
     private void OnGet(GameObject obj)
     {
+        if (obj == null) return;
+
+        activeBullets.Add(obj);
+
         obj.SetActive(true);
+
+        var controller = obj.GetComponent<SkeletonBulletController>();
+        if (controller != null)
+        {
+            controller.ResetBullet();
+        }
     }
 
     private void OnRelease(GameObject obj)
     {
-        obj.GetComponent<SkeletonBulletController>().ResetBullet();
+        if (obj == null) return;
+
+        activeBullets.Remove(obj);
+
+        var controller = obj.GetComponent<SkeletonBulletController>();
+        if (controller != null)
+        {
+            controller.ResetBullet();
+        }
+
         obj.transform.SetParent(null);
         obj.transform.position = Vector3.zero;
+        obj.transform.rotation = Quaternion.identity;
+
         obj.SetActive(false);
     }
 
     private void OnDestroy(GameObject obj)
     {
-        Destroy(obj);
+        if (obj != null)
+        {
+            activeBullets.Remove(obj);
+            Destroy(obj);
+        }
     }
 
     private void SpawnBullet(BulletData data)
     {
-        GameObject bulletInstance = skeletonBulletPool.Get();
-
-        if (bulletInstance == null)
+        if (data.target == null)
         {
-            Debug.LogError("Skeleton bullet instance is null.");
+            Debug.LogWarning("Bullet spawn target is null!");
             return;
         }
 
-        if (bulletInstance.activeInHierarchy)
+        if (skeletonBulletPool == null)
         {
-            Debug.LogWarning("Skeleton bullet already active! Releasing and retrying.");
-            skeletonBulletPool.Release(bulletInstance);
-            bulletInstance = skeletonBulletPool.Get();
+            Debug.LogError("Skeleton bullet pool is not initialized!");
+            return;
         }
 
-        bulletInstance.transform.SetParent(data.firePoint);
+        GameObject bulletInstance = null;
+
+        try
+        {
+            bulletInstance = skeletonBulletPool.Get();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Error getting bullet from pool: {e.Message}");
+            return;
+        }
+
+        if (bulletInstance == null)
+        {
+            Debug.LogError("Failed to get bullet instance from pool!");
+            return;
+        }
+
+        bulletInstance.transform.SetParent(null); 
         bulletInstance.transform.position = data.spawnPosition;
+        bulletInstance.transform.rotation = Quaternion.identity;
 
         var controller = bulletInstance.GetComponent<SkeletonBulletController>();
         if (controller == null)
         {
             Debug.LogError("SkeletonBulletController missing from prefab!");
+            skeletonBulletPool.Release(bulletInstance);
             return;
         }
 
         controller.target = data.target;
         controller.targetPosition = data.target.transform.position;
-        controller.enemySO = data.dataSO as EnemySO; 
+        controller.enemySO = data.dataSO as EnemySO;
         controller.pool = skeletonBulletPool;
     }
 
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    private void Update()
+    {
+        if (Application.isEditor)
+        {
+            int nullCount = 0;
+            foreach (var bullet in activeBullets)
+            {
+                if (bullet == null)
+                    nullCount++;
+            }
+
+            if (nullCount > 0)
+            {
+                Debug.LogWarning($"Active bullets list contains {nullCount} null references!");
+            }
+        }
+    }
 }

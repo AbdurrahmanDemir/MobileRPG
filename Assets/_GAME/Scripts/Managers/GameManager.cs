@@ -26,23 +26,25 @@ public class GameManager : MonoBehaviour
     [Header("Arena Tileset")]
     [SerializeField] private GameObject[] arenaTileset;
 
-    //private void Awake()
-    //{
-    //    //Hook.onThrowEnding += CreatHeroes;
-    //    //Enemy.onDead += PowerUpSliderUpdate;
-    //}
-    //private void OnDestroy()
-    //{
-    //    //Hook.onThrowEnding -= CreatHeroes;
-    //    //Enemy.onDead -= PowerUpSliderUpdate;
+    private void Awake()
+    {
+        //Hook.onThrowEnding += CreatHeroes;
+        Enemy.onDead += PowerUpSliderUpdate;
+        Tower.onDead += PowerUpSliderUpdate;
+    }
+    private void OnDestroy()
+    {
+        //Hook.onThrowEnding -= CreatHeroes;
+        Enemy.onDead -= PowerUpSliderUpdate;
+        Tower.onDead -= PowerUpSliderUpdate;
 
-    //}
-    //private void Start()
-    //{
-    //    enemyCount = 0;
-    //    powerUpSlider.value = 0;
-    //    powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
-    //}
+    }
+    private void Start()
+    {
+        enemyCount = 0;
+        powerUpSlider.value = 0;
+        powerUpSlider.maxValue = powerUpLevel[powerUpIndex];
+    }
     public void CreatHeroes(string name)
     {
 

@@ -513,7 +513,7 @@ MonoBehaviour:
   moveSpeed: 0
   health: 0
   cooldown: 0
-  detectionRange: 5
+  detectionRange: 10
   animator: {fileID: 0}
   scaleReduction: {x: 0.9, y: 0.9}
   bullet: {fileID: 2078705761352428573, guid: b3f1cef490dffa640b793493121e1162, type: 3}

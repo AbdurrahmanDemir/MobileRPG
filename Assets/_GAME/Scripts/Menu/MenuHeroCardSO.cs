@@ -54,7 +54,7 @@ public class MenuHeroCardSO : ScriptableObject
             PlayerPrefs.SetInt($"{cardName}_UpgradeLevel", upgradeLevel);
             PlayerPrefs.Save();
 
-            TinySauce.OnUpgradeEvent("Hero", cardName, upgradeLevel);
+            //TinySauce.OnUpgradeEvent("Hero", cardName, upgradeLevel);
         }
     }
 }

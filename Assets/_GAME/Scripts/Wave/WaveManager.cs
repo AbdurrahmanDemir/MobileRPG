@@ -25,11 +25,16 @@ public class WaveManager : MonoBehaviour
     public int currentEnemyCount;
     private float segmentDelay = 0.1f;
 
+    [Header("Enemy Tracking")]
+    private int totalEnemiesSpawned = 0;
+    private int totalEnemiesKilled = 0;
+    private int aliveEnemiesCount = 0; // Sahne içinde yaþayan düþman sayýsý
+    private int totalEnemiesInWave = 0; // Wave'deki toplam düþman sayýsý
+    private bool allEnemiesSpawned = false; // Tüm düþmanlar spawn edildi mi?
+
     [Header("Action")]
     private bool onThrow = false;
     public static Action onGameWin;
-
-
 
     private void Awake()
     {
@@ -38,37 +43,28 @@ public class WaveManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        //Hook.onThrowStarting += OnThrowStartingCallBack;
-        //Hook.onThrowEnding += OnThrowEndingCallBack;
+        // Düþman ölüm olayýna abone ol
+        Enemy.onDead += OnEnemyDeath;
 
         TowerController.onGameLose += OnThrowStartingCallBack;
         EnemyTowerController.onGameWin += OnThrowStartingCallBack;
     }
+
     private void OnDestroy()
     {
-        //Hook.onThrowStarting -= OnThrowStartingCallBack;
-        //Hook.onThrowEnding -= OnThrowEndingCallBack;
+        // Düþman ölüm olayýndan aboneliði iptal et
+        Enemy.onDead -= OnEnemyDeath;
 
         TowerController.onGameLose -= OnThrowStartingCallBack;
         EnemyTowerController.onGameWin -= OnThrowStartingCallBack;
     }
 
-    //private void Start()
-    //{
-    //    //StartWaves(0);
-    //    //isTimerOn = true;
-    //}
-
     private void Update()
     {
-
         if (!isTimerOn)
             return;
 
         ManageCurrentWave();
-
-
-
     }
 
     public void StartWaves(int index)
@@ -76,13 +72,34 @@ public class WaveManager : MonoBehaviour
         currentWaveIndex = index;
         currentSegmentIndex = 0;
         currentEnemyIndex = 0;
-        //enemyTowerController.towerSO = waves[currentWaveIndex].waveTower;
-        //enemyTowerController.TowerInfoUpdate();
+        totalEnemiesSpawned = 0;
+        totalEnemiesKilled = 0;
+        aliveEnemiesCount = 0;
+        allEnemiesSpawned = false;
+
         currentWave = waves[currentWaveIndex];
-        //waveUI.waveIndexText.text= currentWaveIndex.ToString();
+
+        // Wave'deki toplam düþman sayýsýný hesapla
+        CalculateTotalEnemiesInWave();
+
+        Debug.Log("Wave baþlatýldý. Toplam düþman sayýsý: " + totalEnemiesInWave);
+
         isTimerOn = true;
         SetupNextSegment();
         waveUI.waveSegmentText.text = "Wave " + (currentSegmentIndex + 1) + " / " + currentWave.segments.Count;
+    }
+
+    // Wave'deki toplam düþman sayýsýný hesapla
+    private void CalculateTotalEnemiesInWave()
+    {
+        totalEnemiesInWave = 0;
+        foreach (var segment in currentWave.segments)
+        {
+            foreach (var enemyManage in segment.segmentEnemys)
+            {
+                totalEnemiesInWave += enemyManage.enemyCount * enemyManage.enemy.Length;
+            }
+        }
     }
 
     private void ManageCurrentWave()
@@ -90,6 +107,9 @@ public class WaveManager : MonoBehaviour
         if (currentSegmentIndex >= currentWave.segments.Count)
         {
             isTimerOn = false;
+            allEnemiesSpawned = true;
+            Debug.Log("Tüm segmentler tamamlandý. Tüm düþmanlar spawn edildi. Yaþayan düþman sayýsý: " + aliveEnemiesCount);
+            CheckForGameWin();
             return;
         }
 
@@ -114,12 +134,9 @@ public class WaveManager : MonoBehaviour
                 if (currentSegmentIndex >= currentWave.segments.Count)
                 {
                     Debug.Log("All segments in the wave completed.");
-
-
-
-                    Debug.Log("All waves completed.");
-
                     isTimerOn = false;
+                    allEnemiesSpawned = true;
+                    CheckForGameWin();
                     return;
                 }
 
@@ -138,6 +155,7 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Starting next segment. Current Index: " + currentSegmentIndex);
         SetupNextSegment();
     }
+
     private void SetupNextSegment()
     {
         currentEnemyIndex = 0;
@@ -175,7 +193,7 @@ public class WaveManager : MonoBehaviour
                 }
                 else
                 {
-                    return false; 
+                    return false;
                 }
             }
         }
@@ -189,7 +207,7 @@ public class WaveManager : MonoBehaviour
         }
 
         int randomCreatPos = Random.Range(0, creatEnemyPosition.Length);
-        GameObject enemyInstance=  Instantiate(
+        GameObject enemyInstance = Instantiate(
             segment.segmentEnemys[currentEnemyIndex].enemy[currentEnemySubIndex],
             creatEnemyPosition[randomCreatPos].position,
             Quaternion.Euler(0f, 180f, 0f), enemyParent);
@@ -197,16 +215,46 @@ public class WaveManager : MonoBehaviour
         Enemy enemy = enemyInstance.GetComponent<Enemy>();
         enemy.Initialize(segment.segmentEnemys[currentEnemyIndex].enemyLevel);
 
-
+        // Spawn edilen düþman sayýsýný artýr
+        totalEnemiesSpawned++;
+        aliveEnemiesCount++; // Yaþayan düþman sayýsýný artýr
+        Debug.Log("Enemy spawned. Total spawned: " + totalEnemiesSpawned + " / " + totalEnemiesInWave + " | Alive: " + aliveEnemiesCount);
 
         currentEnemyCount--;
         return true;
     }
 
+    // Düþman öldüðünde çaðrýlacak method
+    private void OnEnemyDeath(Vector2 transform)
+    {
+        totalEnemiesKilled++;
+        aliveEnemiesCount--; // Yaþayan düþman sayýsýný azalt
 
+        Debug.Log("Enemy killed. Total killed: " + totalEnemiesKilled + " / " + totalEnemiesInWave +
+                  " | Alive: " + aliveEnemiesCount + " | All spawned: " + allEnemiesSpawned);
 
+        // Kazanma kontrolü yap (her düþman öldüðünde)
+        CheckForGameWin();
+    }
 
+    // Oyun kazanma kontrolü
+    private void CheckForGameWin()
+    {
+        Debug.Log($"Win Check - All Spawned: {allEnemiesSpawned}, Alive Enemies: {aliveEnemiesCount}, Total Spawned: {totalEnemiesSpawned}, Total in Wave: {totalEnemiesInWave}");
 
+        // Kazanma þartlarý:
+        // 1. Tüm düþmanlar spawn edilmiþ olmalý (wave bitmiþ olmalý)
+        // 2. Sahne içinde yaþayan düþman kalmamalý
+        // 3. En az bir düþman spawn edilmiþ olmalý (boþ wave kontrolü)
+        if (allEnemiesSpawned && aliveEnemiesCount <= 0 && totalEnemiesSpawned > 0)
+        {
+            Debug.Log("All enemies defeated! Game Win!");
+            int waveIndex = PlayerPrefs.GetInt("WaveIndex", 0);
+            waveIndex++;
+            PlayerPrefs.SetInt("WaveIndex", waveIndex);
+            onGameWin?.Invoke();
+        }
+    }
 
     public void OnThrowStartingCallBack()
     {
@@ -214,10 +262,22 @@ public class WaveManager : MonoBehaviour
         Time.timeScale = 1;
         Debug.Log("Avtipn çalýþtý" + onThrow);
     }
+
     public void OnThrowEndingCallBack()
     {
         onThrow = false;
         Debug.Log("Avtipn çalýþtý" + onThrow);
+    }
+
+    // Debug için yaþayan düþman sayýsýný kontrol etmek isteyebilirsiniz
+    public int GetAliveEnemiesCount()
+    {
+        return aliveEnemiesCount;
+    }
+
+    public bool IsWaveCompletelyFinished()
+    {
+        return allEnemiesSpawned && aliveEnemiesCount <= 0;
     }
 }
 

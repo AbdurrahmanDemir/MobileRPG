@@ -22,6 +22,6 @@ MonoBehaviour:
   cooldown: 0.5
   moveSpeed: 0.5
   undergroundRange: -30
-  specialStatName: She has no special powers.
+  specialStatName: He has no special powers.
   specialStat: 0
-  cardDescription: Angel deals damage to enemies with her sword.
+  cardDescription: Armored Knight deals damage to enemies with her sword.

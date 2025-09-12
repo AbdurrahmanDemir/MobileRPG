@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: TokenAdd
   m_EditorClassIdentifier: 
   upgradeType: 7
-  upgradeIcon: {fileID: 21300000, guid: 2cc5e317ec48f435aac4bb12606baa4f, type: 3}
+  upgradeIcon: {fileID: 21300000, guid: 9d911362ef12d4c8a935c7b8e05d7037, type: 3}
   upgradeBg: {fileID: 21300000, guid: 90ac5542ecf2a4dcbbaa80d7b206f6a9, type: 3}
-  upgradeName: TOKEN ADD
-  upgradeDescription: Add 50 Tokens
+  upgradeName: Gold ADD
+  upgradeDescription: Add 50 Gold
   amount: 50

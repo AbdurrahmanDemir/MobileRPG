@@ -9,28 +9,52 @@ public class SkeletonBulletController : MonoBehaviour
     public GameObject target;
     public Vector2 targetPosition;
     public float moveSpeed = 4f;
-
     [HideInInspector] public ObjectPool<GameObject> pool;
 
     private bool isReleased = false;
+    private bool isInitialized = false;
     private Tween autoReleaseTween;
+    private Collider2D bulletCollider;
+
+    private void Awake()
+    {
+        bulletCollider = GetComponent<Collider2D>();
+    }
 
     private void OnEnable()
     {
+        isReleased = false;
+        isInitialized = false;
+
+        if (bulletCollider != null)
+            bulletCollider.enabled = true;
+
         StartAutoReleaseTween();
     }
 
     private void OnDisable()
     {
         autoReleaseTween?.Kill();
+        autoReleaseTween = null;
+
+        if (bulletCollider != null)
+            bulletCollider.enabled = false;
     }
 
     private void Update()
     {
-        if (isReleased || target == null || !target.activeInHierarchy)
+        if (isReleased) return;
+
+        if (target == null || !target.activeInHierarchy)
         {
             SafeRelease();
             return;
+        }
+
+        if (!isInitialized)
+        {
+            targetPosition = target.transform.position;
+            isInitialized = true;
         }
 
         MoveTowardsTarget(targetPosition);
@@ -38,11 +62,13 @@ public class SkeletonBulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isReleased) return;
         HandleCollision(collision.gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isReleased) return;
         HandleCollision(collision.gameObject);
     }
 
@@ -50,27 +76,34 @@ public class SkeletonBulletController : MonoBehaviour
     {
         if (isReleased || hitObj == null) return;
 
+        bool shouldRelease = false;
+
         if (hitObj.CompareTag("Hero"))
         {
             if (hitObj.TryGetComponent<IDamageable>(out var damageable) && damageable.GetTeam() == TeamType.Hero)
             {
                 damageable.TakeDamage(enemySO.damage);
             }
-            SafeRelease();
+            shouldRelease = true;
         }
-        else if (hitObj.CompareTag("Tower"))
+        if (shouldRelease)
         {
-            if (hitObj.TryGetComponent<TowerController>(out var tower))
-            {
-                tower.TakeDamage(enemySO.damage);
-            }
             SafeRelease();
         }
     }
 
     private void MoveTowardsTarget(Vector2 targetPos)
     {
-        transform.position = Vector2.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+        if (isReleased) return;
+
+        Vector2 currentPos = transform.position;
+        Vector2 newPos = Vector2.MoveTowards(currentPos, targetPos, moveSpeed * Time.deltaTime);
+        transform.position = newPos;
+
+        if (Vector2.Distance(newPos, targetPos) < 0.1f)
+        {
+            SafeRelease();
+        }
     }
 
     private void SafeRelease()
@@ -79,25 +112,58 @@ public class SkeletonBulletController : MonoBehaviour
 
         isReleased = true;
 
-        autoReleaseTween?.Kill();
-        pool?.Release(gameObject);
+        if (bulletCollider != null)
+            bulletCollider.enabled = false;
+
+        if (autoReleaseTween != null)
+        {
+            autoReleaseTween.Kill();
+            autoReleaseTween = null;
+        }
+
+        if (pool != null)
+        {
+            try
+            {
+                pool.Release(gameObject);
+            }
+            catch (System.InvalidOperationException e)
+            {
+                Debug.LogError($"Pool release error for {gameObject.name}: {e.Message}");
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void StartAutoReleaseTween()
     {
-        autoReleaseTween?.Kill();
+        if (autoReleaseTween != null)
+        {
+            autoReleaseTween.Kill();
+            autoReleaseTween = null;
+        }
+
         autoReleaseTween = DOTween.Sequence()
-            .AppendInterval(1f)
-            .AppendCallback(() => SafeRelease());
+            .AppendInterval(3f)
+            .AppendCallback(() => {
+                if (!isReleased)
+                {
+                    SafeRelease();
+                }
+            });
     }
 
     public void ResetBullet()
     {
         isReleased = false;
+        isInitialized = false;
         target = null;
         targetPosition = Vector2.zero;
         transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
 
-        StartAutoReleaseTween();
+        // Collider'ý tekrar aktif et
+        if (bulletCollider != null)
+            bulletCollider.enabled = true;
     }
 }

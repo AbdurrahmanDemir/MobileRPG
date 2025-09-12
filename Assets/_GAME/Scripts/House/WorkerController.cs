@@ -9,6 +9,7 @@ public class WorkerController : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private int workerCount;
     [SerializeField] private TextMeshProUGUI workerCountText;
+    [SerializeField] private Building building;
 
     private void Start()
     {
@@ -23,7 +24,7 @@ public class WorkerController : MonoBehaviour
 
             if (workerCount >= 0)
             {
-                Debug.Log("Çalýþtýr");
+                building.StartProduction();
             }
         }
         

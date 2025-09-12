@@ -20,6 +20,7 @@ public class UpgradeSelectManager : MonoBehaviour
     public static Action hookLenghtItem;
     public static Action hookStranghtItem;
     public static Action<int> tokenAddItem;
+    public static Action<int> workerAddItem;
     public static Action<int> heroDamageItem;
     public static Action<int> heroHealthItem;
 
@@ -40,21 +41,8 @@ public class UpgradeSelectManager : MonoBehaviour
                     buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
                 .AddListener(() => TowerUpgradeHealthItem(upgradeData[randomTypes].amount));
 
-                    break;
-                case UpgradeType.HookLenght:
-                    buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
-                .AddListener(() => HookLenghtUpgrade());
-
-                    break;
-                case UpgradeType.HookStrenght:
-                    buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
-                .AddListener(() => HookStrangthItem());
-
-                    break;
-                case UpgradeType.EpicHeroCount:
-                    break;
-                case UpgradeType.LegendaryHeroCount:
-                    break;
+                    break;               
+           
                 case UpgradeType.DamageUpgrade:
                     buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
                 .AddListener(() => HeroDamageItem(upgradeData[randomTypes].amount));
@@ -63,7 +51,13 @@ public class UpgradeSelectManager : MonoBehaviour
                     buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
                 .AddListener(() => HeroHealthItem(upgradeData[randomTypes].amount));
                     break;
-                case UpgradeType.TokenAdd:
+                case UpgradeType.GoldAdd:
+                    buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
+                .AddListener(() => TokenAddItem(upgradeData[randomTypes].amount));
+
+                    break;
+
+                case UpgradeType.WorkerAdd:
                     buttonInstance.GetComponent<UpgradeSelectButton>().GetButton().onClick
                 .AddListener(() => TokenAddItem(upgradeData[randomTypes].amount));
 
@@ -97,6 +91,11 @@ public class UpgradeSelectManager : MonoBehaviour
         tokenAddItem?.Invoke(amount);
         PowerUpPanelOpen();
     }
+    public void WorkerAddItem(int amount)
+    {
+        workerAddItem?.Invoke(amount);
+        PowerUpPanelOpen();
+    }
     public void HeroDamageItem(int amount)
     {
         heroDamageItem?.Invoke(amount);
@@ -110,18 +109,18 @@ public class UpgradeSelectManager : MonoBehaviour
 
     public void PowerUpPanelOpen()
     {
-        //if (powerUpPanel.activeSelf)
-        //{
-        //    powerUpPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => powerUpPanel.SetActive(false));
-        //    onPowerUpPanelClosed?.Invoke();
-        //}
-        //else
-        //{
-        //    powerUpPanel.SetActive(true);
-        //    powerUpPanel.transform.localScale = Vector3.zero;
-        //    powerUpPanel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
-        //    GetUpgrade();
-        //    onPowerUpPanelOpened?.Invoke();
-        //}
+        if (powerUpPanel.activeSelf)
+        {
+            powerUpPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() => powerUpPanel.SetActive(false));
+            onPowerUpPanelClosed?.Invoke();
+        }
+        else
+        {
+            powerUpPanel.SetActive(true);
+            powerUpPanel.transform.localScale = Vector3.zero;
+            powerUpPanel.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
+            GetUpgrade();
+            onPowerUpPanelOpened?.Invoke();
+        }
     }
 }

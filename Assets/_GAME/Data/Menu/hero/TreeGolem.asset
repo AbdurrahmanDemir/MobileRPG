@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1801e1af303c154bad66f9745b433d8, type: 3}
   m_Name: TreeGolem
   m_EditorClassIdentifier: 
-  cardName: TreeGolem
+  cardName: Tree Golem
   heroIcon: {fileID: 21300000, guid: 3f7cd869bd2213a43b9e67856bb7893b, type: 3}
   cardType: 1
   baseUpgradeCost: 100
@@ -24,5 +24,4 @@ MonoBehaviour:
   undergroundRange: -50
   specialStatName: Health
   specialStat: 3
-  cardDescription: Ice Golem throws snowballs that deal low damage to enemies, but
-    slow them down.
+  cardDescription: Tree Golem throws tree pieces that heal allied heroes.

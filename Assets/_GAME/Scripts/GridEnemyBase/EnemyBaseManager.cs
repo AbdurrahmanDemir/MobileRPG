@@ -9,6 +9,7 @@ public class EnemyBaseManager : MonoBehaviour
 {
     public static EnemyBaseManager instance;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private LevelMapManager levelMapManager; // LevelMapManager referansý eklendi
 
     [Header("Addressable Level References")]
     public AssetReference[] levelAssetReferences;
@@ -21,7 +22,7 @@ public class EnemyBaseManager : MonoBehaviour
     public Transform levelSpawnRoot;
 
     private GameObject currentLevelObj;
-    private AsyncOperationHandle<GameObject> currentLevelHandle; 
+    private AsyncOperationHandle<GameObject> currentLevelHandle;
     public int aliveCount = 0;
 
     private void Awake()
@@ -31,10 +32,14 @@ public class EnemyBaseManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
+
     private void Start()
     {
-        // AssetReference durumlarýný kontrol et
         CheckAssetReferences();
+
+        // LevelMapManager referansýný bul
+        if (levelMapManager == null)
+            levelMapManager = FindObjectOfType<LevelMapManager>();
     }
 
     private void CheckAssetReferences()
@@ -57,6 +62,7 @@ public class EnemyBaseManager : MonoBehaviour
             }
         }
     }
+
     public async void LoadLevel(int index)
     {
         if (index < 0 || index >= levelAssetReferences.Length)
@@ -133,7 +139,6 @@ public class EnemyBaseManager : MonoBehaviour
         }
     }
 
-
     private IEnumerator SpawnEnemiesSafely()
     {
         yield return null;
@@ -153,7 +158,6 @@ public class EnemyBaseManager : MonoBehaviour
             {
                 Debug.LogWarning("NavMeshAgent spawn pozisyonu NavMesh üzerinde deðil: " + agent.name);
             }
-
         }
 
         Debug.Log($"Toplam alive count: {aliveCount}");
@@ -173,14 +177,13 @@ public class EnemyBaseManager : MonoBehaviour
             Addressables.Release(currentLevelHandle);
         }
 
-        // Bir frame bekle
         await System.Threading.Tasks.Task.Yield();
     }
 
     public void RegisterObject(string name)
     {
         aliveCount++;
-        Debug.Log($"Object registered. Alive count: {aliveCount}" + name);
+        Debug.Log($"Object registered. Alive count: {aliveCount} - {name}");
     }
 
     public void UnRegisterObject()
@@ -191,11 +194,53 @@ public class EnemyBaseManager : MonoBehaviour
         if (aliveCount <= 0)
         {
             Debug.Log("Tüm düþmanlar öldü, oyun kazanýldý!");
-            int currentLevel = PlayerPrefs.GetInt("CurrentLevel");
-            currentLevel++;
-            PlayerPrefs.SetInt("CurrentLevel", currentLevel);
+
+            // Hangi episode ve level'da olduðumuzu al
+            int playingEpisode = PlayerPrefs.GetInt("PlayingEpisode", 0);
+            int playingLevel = PlayerPrefs.GetInt("PlayingLevel", 0);
+
+            Debug.Log($"Tamamlanan Episode: {playingEpisode}, Level: {playingLevel}");
+
+            // Bu episode için current level'i güncelle
+            int newLevel = playingLevel + 2; // Bir sonraki level'i aç (index 0'dan baþladýðý için +2)
+            levelMapManager.SetCurrentLevelForEpisode(playingEpisode, newLevel);
+
+            // Episode'daki total level sayýsýný al
+            int totalLevelsInEpisode = GetTotalLevelsInEpisode(playingEpisode);
+
+            // Eðer episode'un son level'iyse 
+            if (playingLevel >= totalLevelsInEpisode - 1) // Son level index = totalLevel - 1
+            {
+                Debug.Log($"Episode {playingEpisode} tamamlandý! Yeni episode açýlýyor...");
+
+                // Yeni episode'u aç
+                int newEpisodeIndex = playingEpisode + 1;
+                PlayerPrefs.SetInt("LevelEpisodeIndex", newEpisodeIndex);
+
+                // Yeni episode'un ilk levelini aç (level 1 = index 0, bu yüzden 1 kaydedeceðiz)
+                levelMapManager.SetCurrentLevelForEpisode(newEpisodeIndex, 1);
+
+                PlayerPrefs.Save();
+
+                Debug.Log($"Yeni episode açýldý: {newEpisodeIndex}");
+            }
+
             uiManager.GameWinPanel();
         }
+    }
+
+    // Episode'daki toplam level sayýsýný döndürür
+    private int GetTotalLevelsInEpisode(int episodeIndex)
+    {
+        // LevelMapManager'dan episode bilgilerini al
+        // Bu bilgiyi public bir fonksiyon ile alabilirsiniz
+        if (levelMapManager != null)
+        {
+            return levelMapManager.GetEpisodeLevelCount(episodeIndex);
+        }
+
+        // Fallback: sabit sayý (her episode 6 level varsa)
+        return 6;
     }
 
     private void OnDestroy()

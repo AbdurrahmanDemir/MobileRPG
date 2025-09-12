@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
+using Random = UnityEngine.Random;
 
 public abstract class Tower : MonoBehaviour, IDamageable
 {
@@ -24,6 +26,8 @@ public abstract class Tower : MonoBehaviour, IDamageable
     private Color originalColor;
     private Vector2 originalScale;
     public Vector2 scaleReduction = new Vector3(0.9f, 0.9f, 1f);
+
+    public static Action<Vector2> onDead;
 
     private void Start()
     {
@@ -139,8 +143,10 @@ public abstract class Tower : MonoBehaviour, IDamageable
             if (SceneManager.GetActiveScene().name == "PixelGame")
                 EnemyBaseManager.instance.UnRegisterObject();
 
+            onDead?.Invoke(transform.position);
             Debug.Log("tower öldü");
             Destroy(gameObject);
+
 
         }
     }

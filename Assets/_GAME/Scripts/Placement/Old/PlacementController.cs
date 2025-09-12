@@ -166,7 +166,15 @@ public class PlacementController : MonoBehaviour
         return noUnitsOnScene && noPlayableCards;
     }
 
+    public void AddCapacity()
+    {
+        if (DataManager.instance.TryPurchaseGold(100))
+        {
 
+        maxCapacity += 1;
+            capacityText.text = $"{currentUsedCapacity} / {maxCapacity}";
+        }
+    }
 
     private void ReplaceCard(PlacementHeroData placedUnit)
     {

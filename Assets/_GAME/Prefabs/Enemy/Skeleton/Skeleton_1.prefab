@@ -270,7 +270,7 @@ MonoBehaviour:
   moveSpeed: 0
   health: 0
   cooldown: 0
-  detectionRange: 5
+  detectionRange: 10
   animator: {fileID: 0}
   scaleReduction: {x: 0.9, y: 0.9}
 --- !u!50 &568911995928581846

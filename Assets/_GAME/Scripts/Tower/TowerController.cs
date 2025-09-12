@@ -5,8 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class TowerController : MonoBehaviour
+public class TowerController : MonoBehaviour, IDamageable
 {
+    public TeamType GetTeam() => TeamType.Hero;
+
 
     [Header("Settings")]
     public TowerSO towerSO;
@@ -16,8 +18,6 @@ public class TowerController : MonoBehaviour
     [Header("Elements")]
     private Slider healthSlider;
     [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private TextMeshProUGUI menuHealthText;
-    [SerializeField] private TextMeshProUGUI upgradePriceText;
     SpriteRenderer towerSpriteRenderer;
     private Color originalColor;
     private Vector2 originalScale;
@@ -45,8 +45,8 @@ public class TowerController : MonoBehaviour
         health = towerSO.GetCurrentHealth();
         healthSlider.value = health;
         healthText.text=health.ToString();
-        menuHealthText.text=health.ToString() + "<color=green> +100 </color>";
-        upgradePriceText.text = towerSO.GetUpgradeCost().ToString();
+        //menuHealthText.text=health.ToString() + "<color=green> +100 </color>";
+        //upgradePriceText.text = towerSO.GetUpgradeCost().ToString();
     }
     public void ResetTower()
     {
@@ -59,8 +59,8 @@ public class TowerController : MonoBehaviour
         health = towerSO.GetCurrentHealth();
         healthSlider.value = health;
         healthText.text = health.ToString();
-        menuHealthText.text = health.ToString() + "<color=green> +100 </color>";
-        upgradePriceText.text = towerSO.GetUpgradeCost().ToString();
+        //menuHealthText.text = health.ToString() + "<color=green> +100 </color>";
+        //upgradePriceText.text = towerSO.GetUpgradeCost().ToString();
 
 
     }
@@ -137,5 +137,10 @@ public class TowerController : MonoBehaviour
         {
             transform.DOScale(originalScale, 0.1f);
         });
+    }
+
+    public int GetCurrentHealth()
+    {
+        throw new NotImplementedException();
     }
 }

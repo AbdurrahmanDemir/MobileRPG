@@ -7,8 +7,8 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;   
-
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private TowerController towerController;
     [Header("Elements")]
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject gamePanel;
@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         //Hook.onThrowStarting += StartingThrow;
         //Hook.onThrowEnding += EndingThrow;
 
-        //TowerController.onGameLose += GameLosePanel;
+        TowerController.onGameLose += GameLosePanel;
         //EnemyTowerController.onGameWin += GameWinPanel;
 
         WaveManager.onGameWin += GameWinPanel;
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
         //Hook.onThrowStarting -= StartingThrow;
         //Hook.onThrowEnding -= EndingThrow;
 
-        //TowerController.onGameLose -= GameLosePanel;
+        TowerController.onGameLose -= GameLosePanel;
         //EnemyTowerController.onGameWin -= GameWinPanel;
 
         WaveManager.onGameWin -= GameWinPanel;
@@ -123,7 +123,7 @@ public class UIManager : MonoBehaviour
             arena.SetActive(true);
 
         WaveManager.instance.StartWaves(waveIndex);
-        TinySauce.OnGameStarted("Wave" + waveIndex);
+        //TinySauce.OnGameStarted("Wave" + waveIndex);
 
     }
 
@@ -150,7 +150,7 @@ public class UIManager : MonoBehaviour
         DOTween.To(() => 0, x => loseGoldText.text = x.ToString(), 0, 0.5f).SetDelay(1f);
 
         DataManager.instance.AddGold(rewardedGold);
-        TinySauce.OnGameFinished(false, 0, "Wave" + waveIndex);
+        //TinySauce.OnGameFinished(false, 0, "Wave" + waveIndex);
 
     }
 
@@ -160,7 +160,7 @@ public class UIManager : MonoBehaviour
     {
         GameUIStageChanged(UIGameStage.Menu);
 
-        //towerController.ResetTower();
+        towerController.ResetTower();
         gameManager.PowerUpReset();
 
         SceneManager.LoadScene(0);
@@ -192,14 +192,14 @@ public class UIManager : MonoBehaviour
 
         DataManager.instance.AddGold(totalGold);
 
-        TinySauce.OnGameFinished(true, 100, "Wave" + waveIndex);
+        //TinySauce.OnGameFinished(true, 100, "Wave" + waveIndex);
     }
 
     public void GameWinButton()
     {
-        //towerController.ResetTower();
+        towerController.ResetTower();
         gameManager.PowerUpReset();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(0);
 
 
     }

@@ -942,17 +942,15 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
-  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
-  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -2083,15 +2081,15 @@ RectTransform:
   m_GameObject: {fileID: 6525860838494600315}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.91513, y: 0.91513, z: 0.91513}
+  m_LocalScale: {x: 0.71776366, y: 0.71776366, z: 0.71776366}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5210299912326836952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.5, y: -49.259995}
-  m_SizeDelta: {x: 426, y: 563}
+  m_AnchoredPosition: {x: -10, y: -49.259995}
+  m_SizeDelta: {x: 900, y: 900}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3156596762979349678
 CanvasRenderer:
@@ -2121,7 +2119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2284491997837558828, guid: 9ebe62214ec4d8d41a08560e25476ed9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2607e7a73c9e01547bbf4fc8bec36915, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2711,7 +2709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.040603, y: -9.6468}
+  m_AnchoredPosition: {x: 0.04058838, y: -9.646851}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3479933795882452565
@@ -2733,6 +2731,9 @@ MonoBehaviour:
   - {fileID: 8713167371897269736}
   - {fileID: 6049801601642284100}
   - {fileID: 9162062355344054145}
+  cardSlider: {fileID: 0}
+  cardSliderText: {fileID: 0}
+  heroCardLevel: {fileID: 0}
   detailsButton: {fileID: 6647181735102217615}
   cardIndex: 0
 --- !u!114 &6647181735102217615

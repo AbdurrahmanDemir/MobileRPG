@@ -22,5 +22,6 @@ public enum UpgradeType
     LegendaryHeroCount=4,
     DamageUpgrade=5,
     HealthUpgrade=6,
-    TokenAdd=7
+    GoldAdd=7,
+    WorkerAdd=8
 }

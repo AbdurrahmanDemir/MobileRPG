@@ -16,6 +16,14 @@ public class Worker : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+
+        UpgradeSelectManager.workerAddItem += AddIdleWorkerUp;
+    }
+    private void OnDisable()
+    {
+        UpgradeSelectManager.workerAddItem -= AddIdleWorkerUp;
+
     }
     private void Start()
     {
@@ -45,5 +53,10 @@ public class Worker : MonoBehaviour
     private void UpdateWorkerText()
     {
         idleWorkerCountText.text = idleWorkerCount.ToString();
+    }
+
+    public void AddIdleWorkerUp(int value)
+    {
+        AddIdleWorker(value);
     }
 }
